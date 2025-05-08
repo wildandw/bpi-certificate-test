@@ -26,7 +26,7 @@
       width: 1200px;
       height: 800px;
       position: relative;
-      background-image: url('https://i.ibb.co.com/k6hZr6Jx/toefljunior.png');
+      background-image: url('https://bpi-english-lab.com/wp-content/uploads/2025/05/toefljunior.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: top center;   
@@ -50,7 +50,7 @@
     .logo {
       position: absolute;
       top: 60px;    
-      left: 130px;  
+      left: 140px;  
       width: 63px;   height: auto;
     }
     .header-title {
@@ -69,7 +69,7 @@
     }
 
     .main-title {
-      margin: 14px 0 21px; 
+      margin: 10px 0 21px; 
       font-size: 35px;     
       font-weight: 600;
     }
@@ -88,7 +88,7 @@
     }
     .test-name {
       margin: 7px 0 7px;  
-      font-size: 33px;    
+      font-size: 32px;    
       font-style: italic;
       text-align: center;
     }
@@ -104,8 +104,7 @@
     .score-item2,
     .score-item3,
     .score-item4 {
-      font-size: 18px; 
-      margin: 2px 0;   
+      font-size: 18px;    
     }
     .score-item   { margin-left: -42px;   }
     .score-item2  { margin-left: -196px;  margin-top: 7px; }
@@ -116,16 +115,16 @@
 
     .footer {
       position: absolute;
-      bottom: 98px;    
+      bottom: 105px;    
       width: 100%;
       display: flex;
       justify-content: space-between;
-      padding: 0 105px; 
+      padding: 0 90px; 
     }
     .left-footer {
       font-size: 17px;   
       text-align: left;
-      margin-left: 30px;
+      margin-left: 50px;
       margin-top: 17px;
     }
     .qrcode {
@@ -140,7 +139,8 @@
     .school {
       font-size: 20px;   
       font-weight: bold;
-      margin-bottom: 15px;
+      margin-top: -20px;
+      margin-bottom: 13px;
       margin-left: 84px; 
     }
 
@@ -158,7 +158,7 @@
       font-size: 17px;  
       text-align: right;
       margin-top: 120px;
-      margin-right: 40px;
+      margin-right: 50px;
       
     }
     .signature-line {

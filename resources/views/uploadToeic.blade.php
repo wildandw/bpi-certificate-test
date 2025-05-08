@@ -31,6 +31,15 @@
     <div class="upload-container">
       <h1 class="text-center">TOEIC Raw Score Conversion</h1>
 
+      @if(session('success'))
+        <div class="alert alert-success" role="alert">
+          {{ session('success') }}
+        </div>
+      @endif
+
+      <form action="{{ route('scores.importToeic') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+
       {{-- tampilkan jika belum ada conversion rate --}}
         @unless ($hasConversion)
           <div class="mb-3">

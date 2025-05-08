@@ -37,10 +37,18 @@
       text-align: left;
     }
     #pdfViewer {
-      width: 100%;
-      height: 500px;
-      border: none;
-    }
+        width: 100%;
+        height: 700px;
+        border: none;
+      }
+      /* Modal custom styling */
+      .modal-dialog {
+        max-width: 80%; /* Sesuaikan lebar modal */
+        margin: 30px auto; /* Posisi modal di tengah */
+      }
+      .modal-body {
+        padding: 0;
+      }
   </style>
 </head>
 <body>

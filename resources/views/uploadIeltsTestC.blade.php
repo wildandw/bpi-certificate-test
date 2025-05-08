@@ -37,7 +37,7 @@
         </div>
       @endif
 
-      <form action="{{ route('scores.import') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('scores.importIeltsTestC') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         {{-- tampilkan jika belum ada conversion rate --}}

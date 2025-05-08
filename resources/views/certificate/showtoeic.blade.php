@@ -26,7 +26,7 @@
     .certificate {
       width: 1100px;
       height: 850px;
-      background-image: url('https://i.ibb.co.com/Tx6C4XHZ/toeic.png');
+      background-image: url('https://bpi-english-lab.com/wp-content/uploads/2025/05/toeic.png');
       background-size: cover;
       background-position: center;
       padding: 40px;

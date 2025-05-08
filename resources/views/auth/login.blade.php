@@ -109,7 +109,7 @@
                 </div>
 
                 <!-- Forgot Password & Register Links -->  
-                <div class="text-center">
+                <!-- <div class="text-center">
                     <a href="{{ route('password.request') }}" class="text-sm text-blue-500 hover:text-blue-600 hover:underline">
                         Forgot Password?
                     </a>
@@ -119,7 +119,7 @@
                             Register
                         </a>
                     </p>
-                </div>
+                </div> -->
             </form>
         </div>
     </div>
