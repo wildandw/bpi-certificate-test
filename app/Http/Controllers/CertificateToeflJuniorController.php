@@ -39,7 +39,7 @@ class CertificateToeflJuniorController extends Controller
         $html = view('certificate.showtoefljunior', compact('certificatetoefljunior', 'qrCode'))->render();
 
         // Lokasi penyimpanan PDF sementara
-        $filename = 'Sertifikat_TOEFLiBT_' . Str::slug($certificatetoefljunior->name) . '.pdf';
+        $filename = 'Sertifikat_TOEFLJunior_' . Str::slug($certificatetoefljunior->name) . '.pdf';
         $pdfPath = storage_path('app/public/' . $filename);
 
         // Generate PDF pakai Browsershot dengan menunggu sampai jaringan idle

@@ -21,7 +21,7 @@ class ToeflScoreImport implements ToCollection, WithHeadingRow
         $firstRow = $rows->first();
         $rowData = $firstRow->toArray();
 
-        $requiredHeaders = ['student_name', 'exam_date', 'reading_score', 'listening_score', 'speaking_score', 'writing_score'];
+        $requiredHeaders = ['name', 'exam_date', 'reading_score', 'listening_score', 'speaking_score', 'writing_score'];
         foreach ($requiredHeaders as $header) {
             if (! array_key_exists($header, $rowData)) {
                 throw new \Exception("Kolom '$header' tidak ditemukan dalam file skor.");
@@ -44,7 +44,7 @@ class ToeflScoreImport implements ToCollection, WithHeadingRow
             $total = $convertedReading + $convertedListening + $row['speaking_score'] + $row['writing_score'];
 
             ToeflScores::create([
-                'name'             => $row['student_name'],
+                'name'             => $row['name'],
                 'class'            => $row['class'] ?? '-', // Optional jika tidak wajib
                 'exam_date'        => Date::excelToDateTimeObject($row['exam_date']),
                 'reading_score'    => $convertedReading,

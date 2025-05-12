@@ -26,8 +26,8 @@ class ToeicScoreImport implements ToModel, WithHeadingRow
             'exam_date' => Date::excelToDateTimeObject($row['exam_date']),
             'raw_listening' => $rawListening,
             'raw_reading' => $rawReading,
-            'converted_listening' => $this->formatDecimal($convertedListening),
-            'converted_reading' => $this->formatDecimal($convertedReading),
+            'listening_score' => $this->formatDecimal($convertedListening),
+            'reading_score' => $this->formatDecimal($convertedReading),
             'total_score' => $this->formatDecimal($total),
         ]);
     }

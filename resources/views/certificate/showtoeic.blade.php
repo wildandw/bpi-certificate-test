@@ -25,8 +25,8 @@
     }
 
     .certificate {
-      width: 1200px;
-      height: 930px;
+      width: 1000px;
+      height: 700px;
       background-image: url('https://bpi-english-lab.com/wp-content/uploads/2025/05/toeic.png');
       background-size: cover;
       background-position: center;
@@ -37,9 +37,9 @@
 
     .logo {
       position: absolute;
-      top: 30px;
-      left: 40px;
-      width: 60px;
+      top: 40px;
+      left: 50px;
+      width: 70px;
     }
 
     .title {
@@ -47,21 +47,21 @@
       font-family: 'Helvetica', Arial, sans-serif;
       font-style: italic;
       font-weight: bold;
-      font-size: 37px;
-      margin-top: 70px;
+      font-size: 35px;
+      margin-top: 35px;
     }
 
     .subtitle {
       text-align: center;
       font-family: 'Source Serif Pro', serif;
       font-weight: bold;
-      font-size: 28px;
-      margin-top: 30px;
+      font-size: 26px;
+      margin-top: 20px;
     }
 
     .certify-section {
       margin-left: -220px;
-      margin-top: 30px;
+      margin-top: 20px;
       margin-bottom: 30px;
       text-align: center;
       padding: 0 60px;
@@ -70,14 +70,14 @@
     .certify-text {
       font-family: 'Lato', sans-serif;
       font-style: italic;
-      font-size: 16px;
+      font-size: 15px;
       margin-bottom: 5px;
     }
 
     .participant-name {
       font-family: 'DM Serif Display', serif;
       font-weight: bold;
-      font-size: 28px;
+      font-size: 26px;
       margin: 10px 0;
       text-transform: uppercase;
     }
@@ -85,14 +85,14 @@
     .score-text {
       font-family: 'PT Serif', serif;
       font-style: italic;
-      font-size: 16px;
+      font-size: 15px;
       margin-bottom: 5px;
     }
 
     .test-title {
       font-family: 'PT Serif', serif;
       font-weight: bold;
-      font-size: 24px;
+      font-size: 22px;
       text-align: center;
       font-style: italic;
       margin-bottom: 10px;
@@ -121,8 +121,8 @@
 
     .info-table {
       width: 60%;
-      margin: 20px auto;
-      font-size: 14px;
+      margin: 10px auto;
+      font-size: 13px;
     }
     
     .info-row {
@@ -173,25 +173,26 @@
     }
     .qrcode-section {
       text-align: center;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .qrcode-topright {
       position: absolute;
-      top: 30px;
-      right: 40px;
+      top: 40px;
+      right: 45px;
       text-align: center;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .qrcode-topright .qrcode {
       margin: 5px auto;
     }
+    
 
     .signatures {
       display: flex;
       justify-content: space-between;
-      margin-top: 60px;
+      margin-top: 20px;
       padding: 0 60px;
     }
 
@@ -212,7 +213,7 @@
     .profile-image {
       width: 100px;
       position: absolute;
-      top: 250px;
+      top: 210px;
       right: 300px;
     }
   </style>
@@ -228,7 +229,7 @@
     <div class="qrcode-topright">
       Scan here for validation
       <div class="qrcode">{!! $qrCode !!}</div>
-      Valid until: 15/12/24
+      Valid until: May 2027
     </div>
 
     <div class="certify-section">
@@ -265,22 +266,6 @@
       <div class="info-row">
         <div class="info-label">test date:</div>
         <div class="info-value">{{ $certificatetoeic->exam_date }}</div>
-      </div>
-      <div class="info-row">
-        <div class="info-label"></div>
-        <div class="toeic-scale-1">TOEIC SCALE</div>
-      </div>
-      <div class="info-row">
-        <div class="info-label"></div>
-        <div class="toeic-scale">Listening: 5-495</div>
-      </div>
-      <div class="info-row">
-        <div class="info-label"></div>
-        <div class="toeic-scale">Reading: 5-495</div>
-      </div>
-      <div class="info-row">
-        <div class="info-label"></div>
-        <div class="toeic-scale">Total: 0-990</div>
       </div>
     </div>
 

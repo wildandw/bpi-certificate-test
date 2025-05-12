@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=1150">
   <title>Sertifikat TOEFL Primary Step 2</title>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Lato:ital,wght@0,400;0,700;1,400&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:ital,wght@1,300&display=swap" rel="stylesheet"/>
 
@@ -17,7 +19,7 @@
 
     body {
       font-family: 'Lato', sans-serif;
-      background-color: #fff;
+      background-color:  #f5f5f5;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -27,13 +29,19 @@
 
     .certificate {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1000px;
+      height: 700px;
       background-color: white;
       border: 25px solid #0d87c0;
       position: relative;
       padding: 40px;
       margin: 0 auto;
       color: #000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .certificate-number {
+      font-size: 14px;
     }
 
     .certificate-inner {
@@ -57,58 +65,59 @@
 
     .logo {
       position: absolute;
-      top: 20px;
-      left: 20px;
+      top: -10px;
+      left: -10px;
       width: 80px;
     }
 
     .qr-code {
       position: absolute;
-      top: 25px;
-      right: 20px;
+      top: -5px;
+      right: -5px;
       width: 100px;
       height: 100px;
     }
 
     .qr-validation {
       position: absolute;
-      top: 0px;
-      right: 10px;
+      top: -25px;
+      right: -15px;
       font-size: 12px;
     }
 
     .toefl-header {
-      margin-top: 30px;
-      font-size: 26px;
+      margin-top: 25px;
+      font-size: 28px;
       font-family: 'Montserrat', sans-serif;
       font-style: italic;
+      font-weight: 600;
     }
 
     .step {
-      font-size: 22px;
+      font-size: 18px;
       margin-top: 10px;
       font-weight: bold;
     }
 
     .title {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: bold;
       margin-top: 20px;
     }
 
     .subtitle {
-      font-size: 18px;
-      margin-top: 30px;
+      font-size: 14px;
+      margin-top: 20px;
     }
 
     .participant {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: bold;
-      margin: 25px 0;
+      margin: 10px 0;
     }
 
     .test-description {
-      font-size: 18px;
+      font-size: 14px;
       font-style: italic;
       margin-bottom: 30px;
     }
@@ -118,7 +127,8 @@
         flex-wrap: wrap;
         justify-content: center;
         gap: 20px 20px;
-        margin-left: 25%;
+        margin-left: 160px;
+        margin-top: -20px;
         width: 70%;
     }
 
@@ -128,7 +138,7 @@
     }
 
     .score-label {
-        font-size: 18px;
+        font-size: 14px;
         font-weight: bold;
     }
 
@@ -163,22 +173,23 @@
     }
 
     .date {
-      font-size: 14px;
+      font-size: 13px;
       text-align: left;
-      margin-top: 15px;
+      margin-top: -40px;
+      margin-bottom: -50px;
     }
 
     .valid-until {
-      font-size: 14px;
+      font-size: 13px;
       position: absolute;
-      top: 135px;
-      right: 10px;
+      top: 100px;
+      right: -15px;
     }
 
     .signatures {
       display: flex;
       justify-content: space-between;
-      margin-top: 60px;
+      margin-top: 5px;
     }
 
     .signature {
@@ -187,8 +198,8 @@
     }
 
     .signatory-title {
-      font-size: 12px;
-      margin-bottom: 40px;
+      font-size: 13px;
+      margin-bottom: 60px;
       line-height: 1.3;
     }
 
@@ -204,7 +215,7 @@
     }
 
     .signatory-name {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
     }
   </style>
@@ -221,7 +232,7 @@
 
         $output = '<div class="stars">';
         for ($i = 0; $i < $level; $i++) {
-            $output .= '<img src="' . asset('img/star.png') . '" alt="star">';
+            $output .= '<img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/badge.png" alt="star">';
         }
         $output .= '</div>';
         return $output;
@@ -240,7 +251,7 @@
 
         $output = '<div class="stars">';
         for ($i = 0; $i < $level; $i++) {
-            $output .= '<img src="' . asset('img/badge.png') . '" alt="badge">';
+            $output .= '<img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/badge.png" alt="badge">';
         }
         $output .= '</div>';
         return $output;
@@ -258,7 +269,7 @@
 
         $output = '<div class="stars">';
         for ($i = 0; $i < $level; $i++) {
-            $output .= '<img src="' . asset('img/badge.png') . '" alt="badge">';
+            $output .= '<img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/badge.png" alt="badge">';
         }
         $output .= '</div>';
         return $output;
@@ -274,7 +285,7 @@
 
       <div class="certificate-number">No: TOEFL-P2-2025/0568</div>
       <div class="qr-validation">Scan here for validation</div>
-      <img class="qr-code" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://bpi-english-lab.com/validate/12345" alt="QR Code"/>
+      <div class="qr-code">{!! $qrCode !!}</div>
       <div class="valid-until">Valid until: 12/05/26</div>
 
       <div class="toefl-header">TOEFL PRIMARY</div>

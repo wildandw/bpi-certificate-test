@@ -11,13 +11,15 @@
             margin: 0;
             padding: 20px;
             position: relative;
-            background-color: grey;
+            background-color:  #f5f5f5;
         }
         .container {
             position: relative;
             padding: 20px;
-            max-width: 1150px;
+            width: 1000px;
+            height: 700px;
             margin: 0 auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
         .background-img {
             position: absolute;
@@ -28,8 +30,8 @@
             opacity: 1;
             z-index: -1;
             background-image: url('https://bpi-english-lab.com/wp-content/uploads/2025/05/ielts_bg.png');
-            background-size: contain;
-            background-position: center;
+            background-size: cover;
+            background-position: center center;
             background-repeat: no-repeat;
         }
 
@@ -38,28 +40,28 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 5px;
-            margin-left: 30px;
+            margin-left: 25px;
         }
         .ielts-logo {
-            width: 150px;
+            width: 120px;
             height: auto;
-            margin-top: 40px;
-            margin-bottom: -30px;
+            margin-top: 35px;
+            margin-bottom: -40px;
         }
 
         .bpi-logo {
-            width: 90px;
+            width: 70px;
             height: auto;
             margin-right: 40px;
             margin-bottom: 10px;
-            margin-top: 40px;
+            margin-top: 35px;
         }
 
         .report-title {
             font-weight: bold;
-            font-size: 18px;
-            margin-left: -600px;
-            margin-top: 110px;
+            font-size: 16px;
+            margin-left: -500px;
+            margin-top: 98px;
         }
         .date-section {
             display: flex;
@@ -87,7 +89,7 @@
         .divider2 {
             border-top: 1px solid #000;
             width: 95%;
-            margin: 0 0 0 20px;
+            margin: 0 0 -10px 20px;
         }
         .candidate-section {
             display: flex;
@@ -97,28 +99,79 @@
         }
         .candidate-left {
             width: 70%;
+            margin-top: -10px;
         }
         .candidate-right {
+            margin-top: 10px;
             width: 30%;
             text-align: center;
         }
-        .form-row {
+        .form-row-nama {
             display: flex;
             margin-bottom: 10px;
             align-items: center;
+            width: 450px;
         }
+
+        .form-row-birth {
+            display: flex;
+            margin-bottom: 10px;
+            align-items: center;
+            width: 450px;
+        }
+
+        .form-row {
+            display: flex;
+            margin-bottom: 3px;
+            align-items: center;
+        }
+
+        .form-label-nama {
+            width: 50px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .form-label-birth {
+            width: 150px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
         .form-label {
             width: 200px;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
         }
-        .form-input {
+
+        .form-input-nama {
             flex: 1;
-            height: 25px;
+            height: 40px;
+            width: 10%;
+            border: 2px solid #000;
+            text-align: center;
+            padding: 5px;
+            font-size: 18px;
+        }
+
+        .form-input-birth {
+            flex: 1;
+            height: 18px;
+            width: 20%;
             border: 1px solid #000;
             text-align: center;
             padding: 5px;
+            font-size: 13px;
         }
+
+        .form-input {
+            flex: 1;
+            height: 18px;
+            border: 1px solid #000;
+            text-align: left;
+            padding: 5px;
+            font-size: 13px;
+        }
+
         .sex-input {
             width: 40px;
             height: 33px;
@@ -126,35 +179,38 @@
             text-align: center;
             margin-left: 10px;
         }
+
         .test-results {
-            margin: 20px 40px 0 40px;
+            margin: 0 40px 0 40px;
         }
         .results-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: -40px 0;
+            margin: -50px 0 -30px 0;
         }
         .result-box {
             display: flex;
             align-items: center;
             margin-top: 10px;
+            
         }
         .result-label {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
             margin-right: 10px;
             color: #333;
         }
         .result-value {
             width: 50px;
             height: 35px;
-            border: 1px solid #000;
+            border: 2px solid #000;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 18px;
+            background-color: #c4cacc;
         }
         
         .cefr-container {
@@ -165,14 +221,15 @@
         }
 
         .cefr-box {
-            border: 1px solid #000;
+            border: 2px solid #000;
             width: 80px;
             height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 30px;
+            font-size: 28px;
+            background-color: #c4cacc;
         }
 
         .validation-section {
@@ -183,7 +240,7 @@
             font-weight: bold;
             margin-bottom: 5px;
         }
-        .qr-code {
+        .qrcode {
             width: 100px;
             height: 100px;
             margin: 0 auto;
@@ -194,7 +251,7 @@
         }
         .cefr-label {
             font-weight: bold;
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 10px;
             text-align: center;
         }
@@ -212,7 +269,7 @@
             width: 70%;
             border-top: 1px solid #000;
             margin: 10px 0;
-            margin-top: 130px;
+            margin-top: 100px;
             margin-left: 45px;
         }
         .signature-title {
@@ -247,14 +304,14 @@
             <div class="candidate-left">
                 <h3>Candidate Details</h3>
                 
-                <div class="form-row">
-                    <div class="form-label">Nama</div>
-                    <input type="text" class="form-input" value="{{ $certificateieltstestc->name}}" readonly>
+                <div class="form-row-nama">
+                    <div class="form-label-nama">Nama</div>
+                    <input type="text" class="form-input-nama" value="{{ $certificateieltstestc->name}}" readonly>
                 </div>
                 
-                <div class="form-row">
-                    <div class="form-label">Date of Birth Sex (M/F)</div>
-                    <input type="text" class="form-input" style="width: 200px;" value="01/01/2001" readonly>
+                <div class="form-row-birth">
+                    <div class="form-label-birth">Date of Birth Sex (M/F)</div>
+                    <input type="text" class="form-input-birth" style="width: 200px;" value="01/01/2001" readonly>
                     <input type="text" class="sex-input" value="M" readonly>
                 </div>
                 
@@ -277,8 +334,8 @@
             <div class="candidate-right">
                 <div class="validation-section">
                     <div class="validation-text">Scan here for validation</div>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://bpi-english-lab.com/validate/12345" alt="QR Code" class="qr-code">
-                    <div class="valid-until">Valid until: DD/MM/YY</div>
+                       <div class="qrcode">{!! $qrCode !!}</div> 
+                    <div class="valid-until">Valid until: May 2027</div>
                 </div>
             </div>
         </div>

@@ -37,16 +37,17 @@
         </div>
       @endif
 
-      @if($errors->any())
+      {{-- Pesan error --}}
+    @if($errors->any())
         <div class="alert alert-danger">
-            <strong>Terjadi kesalahan:</strong>
-            <ul>
+            <strong>Terjadi error:</strong>
+            <ul class="mb-0">
                 @foreach($errors->all() as $error)
-                     <li>{!! $error !!}</li>
+                    <li>{!! $error !!}</li>
                 @endforeach
             </ul>
         </div>
-      @endif
+    @endif
 
       <form action="{{ route('scores.importJunior') }}" method="POST" enctype="multipart/form-data">
         @csrf

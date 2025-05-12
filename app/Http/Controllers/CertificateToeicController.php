@@ -30,6 +30,7 @@ class certificateToeicController extends Controller
         return view('certificate.showtoeic', compact('certificatetoeic', 'qrCode'));
     }
 
+    
     public function downloadPdf($id)
     {
         $certificatetoeic = ToeicScores::findOrFail($id);
@@ -39,7 +40,7 @@ class certificateToeicController extends Controller
         $html = view('certificate.showtoeic', compact('certificatetoeic', 'qrCode'))->render();
 
         // Lokasi penyimpanan PDF sementara
-        $filename = 'Sertifikat_TOEFLiBT_' . Str::slug($certificatetoeic->name) . '.pdf';
+        $filename = 'Sertifikat_TOEIC_' . Str::slug($certificatetoeic->name) . '.pdf';
         $pdfPath = storage_path('app/public/' . $filename);
 
         // Generate PDF pakai Browsershot dengan menunggu sampai jaringan idle

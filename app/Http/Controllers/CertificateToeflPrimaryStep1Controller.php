@@ -40,7 +40,7 @@ class CertificateToeflPrimaryStep1Controller extends Controller
         $html = view('certificate.showtoeflprimarystep1', compact('certificatetoeflprimarystep1', 'qrCode'))->render();
 
         // Lokasi penyimpanan PDF sementara
-        $filename = 'Sertifikat_TOEFL_Primary_step1' . Str::slug($certificatetoeflprimarystep1->name) . '.pdf';
+        $filename = 'Sertifikat_TOEFLPrimarystep1_' . Str::slug($certificatetoeflprimarystep1->name) . '.pdf';
         $pdfPath = storage_path('app/public/' . $filename);
 
         // Generate PDF pakai Browsershot dengan menunggu sampai jaringan idle
