@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1200">
   <title>TOEIC Prediction Certificate</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,8 +25,8 @@
     }
 
     .certificate {
-      width: 1100px;
-      height: 850px;
+      width: 1200px;
+      height: 930px;
       background-image: url('https://bpi-english-lab.com/wp-content/uploads/2025/05/toeic.png');
       background-size: cover;
       background-position: center;
@@ -55,12 +56,12 @@
       font-family: 'Source Serif Pro', serif;
       font-weight: bold;
       font-size: 28px;
-      margin-top: 50px;
+      margin-top: 30px;
     }
 
     .certify-section {
       margin-left: -220px;
-      margin-top: 60px;
+      margin-top: 30px;
       margin-bottom: 30px;
       text-align: center;
       padding: 0 60px;
@@ -174,30 +175,44 @@
       text-align: center;
       font-size: 12px;
     }
-    .qrcode {
-      width: 100px;
-      height: 100px;
-      background: url('https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://bpi-english-lab.com/validate/12345') no-repeat center center;
-      background-size: cover;
-      margin: 10px auto;
+
+    .qrcode-topright {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      text-align: center;
+      font-size: 12px;
     }
+
+    .qrcode-topright .qrcode {
+      margin: 5px auto;
+    }
+
+    .signatures {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 60px;
+      padding: 0 60px;
+    }
+
     .signature {
       text-align: center;
       font-size: 14px;
     }
+
     .signature-line {
       width: 200px;
       border-top: 1px solid #000;
       margin-bottom: 5px;
       margin-left: auto;
       margin-right: auto;
+      margin-top: 100px;
     }
     
     .profile-image {
-      width: 90px;
-      height: 100px;
+      width: 100px;
       position: absolute;
-      top: 290px;
+      top: 250px;
       right: 300px;
     }
   </style>
@@ -209,6 +224,13 @@
     <div class="title">TOEIC Prediction Test</div>
     <div class="subtitle">Certificate of Achievement</div>
 
+    
+    <div class="qrcode-topright">
+      Scan here for validation
+      <div class="qrcode">{!! $qrCode !!}</div>
+      Valid until: 15/12/24
+    </div>
+
     <div class="certify-section">
       <p class="certify-text">This is to certify that</p>
       <div class="participant-name">{{ $certificatetoeic->name }}</div>
@@ -216,7 +238,7 @@
     </div>
     <div class="test-title">Test of English for International Communication</div>
     
-    <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/image_placeholder.png" alt="Profile" class="profile-image" />
+    <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/Screenshot-2025-05-12-182913.png" alt="Profile" class="profile-image" />
 
     <div class="scores-section">
       <div class="scores-labels">
@@ -262,17 +284,24 @@
       </div>
     </div>
 
-        <!-- FOOTER -->
-        <div class="footer">
-          <div class="qrcode-section">
-            Scan here for validation
-            <div class="qrcode"></div>
-            Valid until: 15/12/24
-          </div>
-          <div class="signature">
-            <div class="signature-line"></div>
-            <div>Name</div>
-          </div>
+      <div class="signatures">
+        <div class="signature">
+          <div class="signatory-title">Development Director<br>of BPI Foundation</div>
+          <div class="signature-space"></div>
+          <div class="signature-line"></div>
+          <div class="signatory-name">Lukman Arif Rahman, M.Pd.</div>
+        </div>
+        <div class="signature">
+          <div class="signatory-title">Head of UPK Prodiksus<br>‎</div>
+          <div class="signature-space"></div>
+          <div class="signature-line"></div>
+          <div class="signatory-name">Lina Roufah, S.Pd.</div>
+        </div>
+        <div class="signature">
+          <div class="signatory-title">Principal of BPI<br>Elementary School</div>
+          <div class="signature-space"></div>
+          <div class="signature-line"></div>
+          <div class="signatory-name">Doni Agus Maulana, S.Pd.</div>
         </div>
       </div>
 

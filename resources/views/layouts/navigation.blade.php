@@ -116,16 +116,16 @@
               <div x-show="dataSdOpen" x-transition
                    class="absolute left-full top-0 ml-1 w-56 bg-white border rounded shadow-lg z-50"
                    style="display: none;">
-                <a href="{{ route('data.toefl') }}"
-                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">Primary Step 1</a>
-                <a href="{{ route('data.toefl') }}"
-                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">Primary Step 2</a>
+                <a href="{{ route('data.toeflprimarystep1') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">Toefl Primary Step 1</a>
+                <a href="{{ route('data.toeflprimarystep2') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">Toefl Primary Step 2</a>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Score COnversion Dropdown -->
+        <!-- Score Conversion Dropdown -->
         <div @click.away="uploadOpen = false; toeflOpen = false; smkOpen = false; smpOpen = false; sdOpen = false"
              class="relative hidden sm:flex sm:items-center sm:ms-10">
              <button @click="uploadOpen = !uploadOpen"
@@ -233,10 +233,20 @@
                    x-transition
                    class="absolute left-full top-0 ml-1 w-64 bg-white border rounded shadow-lg z-50"
                    style="display: none;">
-                <div class="px-4 py-2 text-sm text-gray-600">TOEFL Step 1</div>
-                <div class="px-4 py-2 text-sm text-gray-600">TOEFL Step 2</div>
+                  <a href="{{ route('uploadToeflPrimaryStep1') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">Toefl Primary Step 1</a>
+                  <a href="{{ route('uploadToeflPrimaryStep2') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">Toefl Primary Step 2</a>
+               
               </div>
             </div>
+          </div>
+
+           <!-- Dashboard Link -->
+          <div class="hidden space-x-8 sm:-my-px px-2  sm:ms-10 sm:flex items-center">
+            <x-nav-link :href="route('panduan')" :active="request()->routeIs('panduan')">
+              {{ __('Panduan') }}
+            </x-nav-link>
           </div>
         </div>
       </div>

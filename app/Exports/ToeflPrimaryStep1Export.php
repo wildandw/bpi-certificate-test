@@ -2,24 +2,26 @@
 
 namespace App\Exports;
 
-use App\Models\ToeflJuniorScores;
+use App\Models\ToeflPrimaryStep1Scores;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ToeflJuniorExport implements FromCollection, WithHeadings
+class ToeflPrimaryStep1Export implements FromCollection, WithHeadings
 {
     public function collection()
     {
         // Ambil semua kolom yang ingin diexport
-        return ToeflJuniorScores::select([
+        return ToeflPrimaryStep1Scores::select([
             'id',
             'name',
             'class',
             'exam_date',
             'reading_score',
             'listening_score',
-            'language_form_score',
+            'speaking_score',
+            'writing_score',
             'total_score',
+            'certificate_path'
         ])->get();
     }
 
@@ -32,8 +34,10 @@ class ToeflJuniorExport implements FromCollection, WithHeadings
             'Tanggal Ujian',
             'Skor Reading',
             'Skor Listening',
-            'Skor Language Form',
+            'Skor Speaking',
+            'Skor Writing',
             'Total Skor',
+            'Link Sertifikat',
         ];
     }
 }

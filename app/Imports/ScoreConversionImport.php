@@ -10,6 +10,14 @@ class ScoreConversionImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+        $requiredHeaders = ['raw', 'listening', 'reading'];
+
+        foreach ($requiredHeaders as $header) {
+            if (! array_key_exists($header, $row)) {
+                throw new \Exception("Kolom '$header' tidak ditemukan dalam file conversion.");
+            }
+        }
+
         return new ScoreConversion([
             'test_type'        => 'toefl',
             'raw_score'        => $row['raw'],

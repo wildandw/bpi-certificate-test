@@ -6,9 +6,9 @@
         <div class="p-8">
             <!-- Header -->
             <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-blue-600 mb-2">Welcome</h2>
+                <h2 class="text-3xl font-bold text-blue-600 mb-2">Selamat Datang</h2>
                 <p class="text-gray-500 text-sm">
-                    Login to continue to your account
+                    Silakan masuk untuk mengakses akun Anda
                 </p>
             </div>
 
@@ -86,17 +86,6 @@
                     </div>
                 </div>
 
-                <!-- Remember Me -->  
-                <div class="flex items-center">
-                    <input 
-                        type="checkbox" 
-                        name="remember" 
-                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                    >
-                    <label for="remember" class="ml-2 block text-sm text-gray-900">
-                        Remember me
-                    </label>
-                </div>
 
                 <!-- Login Button -->  
                 <div>

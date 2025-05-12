@@ -5,12 +5,18 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CertificateToeflJuniorController;
 use App\Http\Controllers\CertificateIeltsTestCController;
 use App\Http\Controllers\CertificateToeicController;
+use App\Http\Controllers\CertificateToeflPrimaryStep1Controller;
+use App\Http\Controllers\CertificateToeflPrimaryStep2Controller;
+
+use App\Http\Controllers\PanduanController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Exports\ToeflExport;
 use App\Exports\ToeflJuniorExport;
 use App\Exports\IeltsTestCExport;
 use App\Exports\ToeicExport;
+use App\Exports\ToeflPrimaryStep1Export;
+use App\Exports\ToeflPrimaryStep2Export;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -26,6 +32,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/panduan', [PanduanController::class, 'index'])->name('panduan');
+
 // upload data toefl
 Route::get('/upload', [ScoreController::class, 'uploadForm'])->name('upload');
 Route::post('/import', [ScoreController::class, 'importScores'])->name('scores.import');
@@ -35,13 +43,22 @@ Route::post('/importtoefljunior', [ScoreController::class, 'importScoresJunior']
 // upload data ielts test Prediction C
 Route::get('/ieltstestc', [ScoreController::class, 'uploadFormIeltsTestC'])->name('uploadIeltsTestC');
 Route::post('/importieltstestc', [ScoreController::class, 'importScoresIeltsTestC'])->name('scores.importIeltsTestC');
-// upload data ielts test Prediction C
+// upload data toeic
 Route::get('/toeic', [ScoreController::class, 'uploadFormToeic'])->name('uploadToeic');
 Route::post('/importToeic', [ScoreController::class, 'importScoresToeic'])->name('scores.importToeic');
+// upload data toefl primary step 1
+Route::get('/toeflprimarystep1', [ScoreController::class, 'uploadFormToeflPrimaryStep1'])->name('uploadToeflPrimaryStep1');
+Route::post('/importToeflPrimaryStep1', [ScoreController::class, 'importScoresToeflPrimaryStep1'])->name('scores.importToeflPrimaryStep1');
+// upload data toefl primary step 2
+Route::get('/toeflprimarystep2', [ScoreController::class, 'uploadFormToeflPrimaryStep2'])->name('uploadToeflPrimaryStep2');
+Route::post('/importToeflPrimaryStep2', [ScoreController::class, 'importScoresToeflPrimaryStep2'])->name('scores.importToeflPrimaryStep2');
 
 // manual
 Route::get('/create', [ScoreController::class, 'create'])->name('create');
 Route::post('/store', [ScoreController::class, 'store'])->name('scores.store');
+
+
+
 
 // sertifikat Toefl iBT
 Route::get('/toefl-scores', [CertificateController::class, 'index'])->name('data.toefl');
@@ -59,6 +76,14 @@ Route::get('/certificate-ieltstestc/{id}/pdf', [CertificateIeltsTestCController:
 Route::get('/toeic-scores', [CertificateToeicController::class, 'index'])->name('data.toeic');
 Route::get('/toeic-scores/{id}', [CertificateToeicController::class, 'show'])->name('certificate.showtoeic');
 Route::get('/certificate-toeic/{id}/pdf', [CertificateToeicController::class, 'downloadPdf'])->name('certificatetoeic.pdf');
+// sertifikat TOEFL Primary Step 1
+Route::get('/toeflprimarystep1-scores', [CertificateToeflPrimaryStep1Controller::class, 'index'])->name('data.toeflprimarystep1');
+Route::get('/toeflprimarystep1-scores/{id}', [CertificateToeflPrimaryStep1Controller::class, 'show'])->name('certificate.showtoeflprimarystep1');
+Route::get('/certificate-toeflprimarystep1/{id}/pdf', [CertificateToeflPrimaryStep1Controller::class, 'downloadPdf'])->name('certificatetoeflprimarystep1.pdf');
+// sertifikat TOEFL Primary Step 2
+Route::get('/toeflprimarystep2-scores', [CertificateToeflPrimaryStep2Controller::class, 'index'])->name('data.toeflprimarystep2');
+Route::get('/toeflprimarystep2-scores/{id}', [CertificateToeflPrimaryStep2Controller::class, 'show'])->name('certificate.showtoeflprimarystep2');
+Route::get('/certificate-toeflprimarystep2/{id}/pdf', [CertificateToeflPrimaryStep2Controller::class, 'downloadPdf'])->name('certificatetoeflprimarystep2.pdf');
 
 
 
@@ -79,6 +104,14 @@ Route::get('/export-IeltsTestC', function () {
 Route::get('/export-Toeic', function () {
     return Excel::download(new ToeicExport, 'daftar_siswa_toeic.xlsx');
 })->name('toeic.export');
+// Toefl Primary Step 1
+Route::get('/export-ToeflPrimaryStep1', function () {
+    return Excel::download(new ToeflPrimaryStep1Export, 'daftar_siswa_toeflprimarystep1.xlsx');
+})->name('toeflprimarystep1.export');
+// Toefl Primary Step 2
+Route::get('/export-ToeflPrimaryStep1', function () {
+    return Excel::download(new ToeflPrimaryStep2Export, 'daftar_siswa_toeflprimarystep1.xlsx');
+})->name('toeflprimarystep1.export');
 
 
 

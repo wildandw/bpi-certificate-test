@@ -14,13 +14,20 @@ use App\Imports\ToeicScoreImport;
 
 use App\Imports\ScoreConversionImport;
 use App\Imports\ScoreConversionToeflJuniorImport;
+use App\Imports\ScoreConversionPrimaryStep1Import;
+use App\Imports\ScoreConversionPrimaryStep2Import;
 use App\Imports\ScoreConversionIeltsTestCImport;
 use App\Imports\ScoreConversionToeicImport;
+use App\Imports\ToeflPrimaryStep1ScoreImport;
+use App\Imports\ToeflPrimaryStep2ScoreImport;
 use App\Models\ScoreConversionIeltsTestC;
 use App\Models\ScoreConversionToeflJunior;
+use App\Models\ScoreConversionToeflPrimaryStep1;
+use App\Models\ScoreConversionToeflPrimaryStep2;
 use App\Models\ScoreConversionToeic;
 use Maatwebsite\Excel\Facades\Excel;
 
+// 1. Toefl ibt
 class ScoreController extends Controller
 {
     // Tampilkan halaman upload Excel
@@ -34,37 +41,53 @@ class ScoreController extends Controller
      */
     public function importScores(Request $request)
     {
-        // Kita cek ulang di sini juga
         $hasConversion = ScoreConversion::exists();
 
-        // Validasi dinamis
+        // Validasi aturan
         $rules = ['score_file' => 'required|mimes:xlsx,xls,csv'];
         if (! $hasConversion) {
             $rules['conversion_file'] = 'required|mimes:xlsx,xls,csv';
         }
-        $request->validate($rules);
 
-        // Import conversion rate jika belum ada
-        if (! $hasConversion && $request->hasFile('conversion_file')) {
-            Excel::import(new ScoreConversionImport, $request->file('conversion_file'));
-        }
+        // Custom pesan error
+        $messages = [
+            'score_file.required' => 'File skor wajib diunggah.',
+            'score_file.mimes' => 'Format file atau excel salah, silahkan merujuk pada panduan. <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+            'conversion_file.required' => 'File conversion rate wajib diunggah karena belum ada data.',
+            'conversion_file.mimes' => 'Format file atau excel salah, silahkan merujuk pada panduan. <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+        ];
 
-        // Import skor selalu
-        Excel::import(new ToeflScoreImport, $request->file('score_file'));
+        $request->validate($rules, $messages);
 
-        // Redirect ke GET form agar $hasConversion di‐set ulang
-        return redirect()
-               ->back()
-               ->with('success', $hasConversion
+        try {
+            // Import conversion jika belum ada
+            if (! $hasConversion && $request->hasFile('conversion_file')) {
+                Excel::import(new ScoreConversionImport, $request->file('conversion_file'));
+            }
+
+            // Import skor
+            Excel::import(new ToeflScoreImport, $request->file('score_file'));
+
+            return redirect()
+                ->back()
+                ->with('success', $hasConversion
                     ? 'Data skor berhasil diupload!'
                     : 'Conversion rate dan data skor berhasil diupload!');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errorMessages = collect($failures)->pluck('errors')->flatten()->toArray();
+            return redirect()->back()->withErrors($errorMessages);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['Terjadi kesalahan: ' . $e->getMessage()]);
+        }
     }
 
 
 
 
 
-    // Toefl Junior
+
+    // 2. Toefl Junior
     public function uploadFormJunior()
     {
         $hasConversion = ScoreConversionToeflJunior::exists();
@@ -74,34 +97,44 @@ class ScoreController extends Controller
     // Proses import file Excel
     public function importScoresJunior(Request $request)
     {
-        // Kita cek ulang di sini juga
         $hasConversion = ScoreConversionToeflJunior::exists();
 
-        // Validasi dinamis
         $rules = ['score_file' => 'required|mimes:xlsx,xls,csv'];
         if (! $hasConversion) {
             $rules['conversion_file'] = 'required|mimes:xlsx,xls,csv';
         }
-        $request->validate($rules);
 
-        // Import conversion rate jika belum ada
-        if (! $hasConversion && $request->hasFile('conversion_file')) {
-            Excel::import(new ScoreConversionToeflJuniorImport, $request->file('conversion_file'));
+        $messages = [
+            'score_file.required' => 'File skor wajib diunggah.',
+            'score_file.mimes' => 'Format file salah, silakan lihat <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+            'conversion_file.required' => 'File conversion rate wajib diunggah karena belum ada data.',
+            'conversion_file.mimes' => 'Format file salah, silakan lihat <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+        ];
+
+        $request->validate($rules, $messages);
+
+        try {
+            if (! $hasConversion && $request->hasFile('conversion_file')) {
+                Excel::import(new ScoreConversionToeflJuniorImport, $request->file('conversion_file'));
+            }
+
+            Excel::import(new ToeflJuniorScoreImport, $request->file('score_file'));
+
+            return redirect()->back()->with('success', $hasConversion
+                ? 'Data skor berhasil diupload!'
+                : 'Conversion rate dan data skor berhasil diupload!');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errorMessages = collect($failures)->pluck('errors')->flatten()->toArray();
+            return redirect()->back()->withErrors($errorMessages);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['Terjadi kesalahan: ' . $e->getMessage()]);
         }
-
-        // Import skor selalu
-        Excel::import(new ToeflJuniorScoreImport, $request->file('score_file'));
-
-        // Redirect ke GET form agar $hasConversion di‐set ulang
-        return redirect()
-               ->back()
-               ->with('success', $hasConversion
-                    ? 'Data skor berhasil diupload!'
-                    : 'Conversion rate dan data skor berhasil diupload!');
     }
 
 
-    // IELTS test prediction C
+
+    // 3. IELTS test prediction C
     public function uploadFormIeltsTestC()
     {
         $hasConversion = ScoreConversionIeltsTestC::exists();
@@ -113,31 +146,42 @@ class ScoreController extends Controller
     {
         $hasConversion = ScoreConversionIeltsTestC::exists();
 
-        // Validasi dinamis
         $rules = ['score_file' => 'required|mimes:xlsx,xls,csv'];
         if (! $hasConversion) {
             $rules['conversion_file'] = 'required|mimes:xlsx,xls,csv';
         }
-        $request->validate($rules);
 
-        // Import conversion rate jika belum ada
-        if (! $hasConversion && $request->hasFile('conversion_file')) {
-            Excel::import(new ScoreConversionIeltsTestCImport, $request->file('conversion_file'));
+        $messages = [
+            'score_file.required' => 'File skor wajib diunggah.',
+            'score_file.mimes' => 'Format file salah, silakan lihat <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+            'conversion_file.required' => 'File conversion rate wajib diunggah karena belum ada data.',
+            'conversion_file.mimes' => 'Format file salah, silakan lihat <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+        ];
+
+        $request->validate($rules, $messages);
+
+        try {
+            if (! $hasConversion && $request->hasFile('conversion_file')) {
+                Excel::import(new ScoreConversionIeltsTestCImport, $request->file('conversion_file'));
+            }
+
+            Excel::import(new IeltsScoreImport, $request->file('score_file'));
+
+            return redirect()->back()->with('success', $hasConversion
+                ? 'Data skor berhasil diupload!'
+                : 'Conversion rate dan data skor berhasil diupload!');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errorMessages = collect($failures)->pluck('errors')->flatten()->toArray();
+            return redirect()->back()->withErrors($errorMessages);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['Terjadi kesalahan: ' . $e->getMessage()]);
         }
-
-        // Import skor selalu
-        Excel::import(new IeltsScoreImport, $request->file('score_file'));
-
-        // Redirect ke GET form agar $hasConversion di‐set ulang
-        return redirect()
-               ->back()
-               ->with('success', $hasConversion
-                    ? 'Data skor berhasil diupload!'
-                    : 'Conversion rate dan data skor berhasil diupload!');
     }
 
 
-    // Toeic
+
+    // 4. Toeic
     public function uploadFormToeic()
     {
         $hasConversion = ScoreConversionToeic::exists();
@@ -149,29 +193,135 @@ class ScoreController extends Controller
     {
         $hasConversion = ScoreConversionToeic::exists();
 
-        // Validasi dinamis
         $rules = ['score_file' => 'required|mimes:xlsx,xls,csv'];
         if (! $hasConversion) {
             $rules['conversion_file'] = 'required|mimes:xlsx,xls,csv';
         }
-        $request->validate($rules);
 
-        // Import conversion rate jika belum ada
-        if (! $hasConversion && $request->hasFile('conversion_file')) {
-            Excel::import(new ScoreConversionToeicImport, $request->file('conversion_file'));
+        $messages = [
+            'score_file.required' => 'File skor wajib diunggah.',
+            'score_file.mimes' => 'Format file salah, lihat <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+            'conversion_file.required' => 'File conversion rate wajib diunggah karena belum ada data.',
+            'conversion_file.mimes' => 'Format file salah, lihat <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+        ];
+
+        $request->validate($rules, $messages);
+
+        try {
+            if (! $hasConversion && $request->hasFile('conversion_file')) {
+                Excel::import(new ScoreConversionToeicImport, $request->file('conversion_file'));
+            }
+
+            Excel::import(new ToeicScoreImport, $request->file('score_file'));
+
+            return redirect()->back()->with('success', $hasConversion
+                ? 'Data skor berhasil diupload!'
+                : 'Conversion rate dan data skor berhasil diupload!');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errorMessages = collect($failures)->pluck('errors')->flatten()->toArray();
+            return redirect()->back()->withErrors($errorMessages);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['Terjadi kesalahan: ' . $e->getMessage()]);
+        }
+    }
+
+
+
+    // 5. Toefl Primary step 1
+    public function uploadFormToeflPrimaryStep1()
+    {
+        $hasConversion = ScoreConversionToeflPrimaryStep1::exists();
+        return view('uploadToeflPrimaryStep1', compact('hasConversion'));
+    }
+
+    // Proses import file Excel
+    public function importScoresToeflPrimaryStep1(Request $request)
+    {
+        $hasConversion = ScoreConversionToeflPrimaryStep1::exists();
+
+        $rules = ['score_file' => 'required|mimes:xlsx,xls,csv'];
+        if (! $hasConversion) {
+            $rules['conversion_file'] = 'required|mimes:xlsx,xls,csv';
         }
 
-        // Import skor selalu
-        Excel::import(new ToeicScoreImport, $request->file('score_file'));
+        $messages = [
+            'score_file.required' => 'File skor wajib diunggah.',
+            'score_file.mimes' => 'Format file salah, silakan lihat <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+            'conversion_file.required' => 'File conversion rate wajib diunggah karena belum ada data.',
+            'conversion_file.mimes' => 'Format file salah, silakan lihat <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+        ];
 
-        // Redirect ke GET form agar $hasConversion di‐set ulang
-        return redirect()
-               ->back()
-               ->with('success', $hasConversion
-                    ? 'Data skor berhasil diupload!'
-                    : 'Conversion rate dan data skor berhasil diupload!');
+        $request->validate($rules, $messages);
 
+        try {
+            if (! $hasConversion && $request->hasFile('conversion_file')) {
+                Excel::import(new ScoreConversionPrimaryStep1Import, $request->file('conversion_file'));
+            }
+
+            Excel::import(new ToeflPrimaryStep1ScoreImport, $request->file('score_file'));
+
+            return redirect()->back()->with('success', $hasConversion
+                ? 'Data skor berhasil diupload!'
+                : 'Conversion rate dan data skor berhasil diupload!');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errorMessages = collect($failures)->pluck('errors')->flatten()->toArray();
+            return redirect()->back()->withErrors($errorMessages);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['Terjadi kesalahan: ' . $e->getMessage()]);
+        }
     }
+
+
+
+// 6. Toefl Primary step 2
+    public function uploadFormToeflPrimaryStep2()
+    {
+        $hasConversion = ScoreConversionToeflPrimaryStep2::exists();
+        return view('uploadToeflPrimaryStep2', compact('hasConversion'));
+    }
+
+    // Proses import file Excel
+   public function importScoresToeflPrimaryStep2(Request $request)
+    {
+        $hasConversion = ScoreConversionToeflPrimaryStep2::exists();
+
+        $rules = ['score_file' => 'required|mimes:xlsx,xls,csv'];
+        if (! $hasConversion) {
+            $rules['conversion_file'] = 'required|mimes:xlsx,xls,csv';
+        }
+
+        $messages = [
+            'score_file.required' => 'File skor wajib diunggah.',
+            'score_file.mimes' => 'Format file salah, silakan lihat <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+            'conversion_file.required' => 'File conversion rate wajib diunggah karena belum ada data.',
+            'conversion_file.mimes' => 'Format file salah, silakan lihat <a href="' . route('panduan') . '" class="text-blue-600 underline">Panduan</a>.',
+        ];
+
+        $request->validate($rules, $messages);
+
+        try {
+            if (! $hasConversion && $request->hasFile('conversion_file')) {
+                Excel::import(new ScoreConversionPrimaryStep2Import, $request->file('conversion_file'));
+            }
+
+            Excel::import(new ToeflPrimaryStep2ScoreImport, $request->file('score_file'));
+
+            return redirect()->back()->with('success', $hasConversion
+                ? 'Data skor berhasil diupload!'
+                : 'Conversion rate dan data skor berhasil diupload!');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errorMessages = collect($failures)->pluck('errors')->flatten()->toArray();
+            return redirect()->back()->withErrors($errorMessages);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['Terjadi kesalahan: ' . $e->getMessage()]);
+        }
+    }
+
+
+
 
 
 

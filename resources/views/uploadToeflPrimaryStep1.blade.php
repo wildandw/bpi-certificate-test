@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Upload Data Skor TOEFL</title>
+  <title>Upload Data - TOEFL Primary Step 1</title>
   <!-- Bootstrap 5 CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -29,7 +29,7 @@
 <body>
   <div class="container">
     <div class="upload-container">
-      <h1 class="text-center">TOEFL Junior Raw Score Conversion</h1>
+      <h1 class="text-center">TOEFL Primary Step 1 Raw Score Conversion</h1>
 
       @if(session('success'))
         <div class="alert alert-success" role="alert">
@@ -48,7 +48,7 @@
         </div>
       @endif
 
-      <form action="{{ route('scores.importJunior') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('scores.importToeflPrimaryStep1') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         {{-- tampilkan jika belum ada conversion rate --}}
@@ -62,8 +62,9 @@
             Conversion rate sudah di‐upload. Cukup upload file skor saja.
           </div>
         @endunless
+
         <div class="mb-3">
-            <label for="score_file" class="form-label fw-semibold">TOEFL Junior Scores</label>
+            <label for="score_file" class="form-label">TOEFL Primary Step 1 Scores</label>
             <input type="file" name="score_file" id="score_file" class="form-control" required>
         </div>
 
