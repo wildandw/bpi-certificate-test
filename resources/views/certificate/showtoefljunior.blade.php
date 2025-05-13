@@ -136,12 +136,33 @@
             text-align: center;
             width: 32%;
         }
-        .signature-line {
-            width: 100%;
-            border-top: 1px solid #000;
-            margin: 10px 0;
-            margin-top: 120px;
+
+
+        .signature-sign {
+        display: block;
+        margin: 0 auto;
+        width: 100px;       /* lebar tanda tangan, sesuaikan */
+        height: auto;
+        margin-top: 10px;   /* jarak atas jika perlu */
+        margin-bottom: 5px; /* tarik sedikit ke atas agar tampak di atas garis */
+        z-index: 1;
         }
+        .signature-line {
+        width: 80%;
+        margin: 10px auto 0 auto;
+        border-top: 1px solid #000;
+        }
+
+        .signature-sign2 {
+        display: block;
+        margin: 0 auto;
+        width: 180px;       /* lebar tanda tangan, sesuaikan */
+        height: auto;
+        margin-top: 15px;   /* jarak atas jika perlu */
+        margin-bottom: 5px; /* tarik sedikit ke atas agar tampak di atas garis */
+        z-index: 1;
+        }
+
         .signature-title {
             font-size: 13px;
             text-align: center;
@@ -223,14 +244,17 @@
         
         <div class="signatures">
             <div class="signature">
-                <div class="signature-title">Development Director<br>of BPI Foundation</div>
+                <div class="signatory-title">Development Director<br>of BPI Foundation</div>
+                <div class="signature-space"></div>
                 <div class="signature-line"></div>
-                <div class="signature-name">Lukman Arif Rachman, M.Pd.</div>
+                <div class="signatory-name">Lukman Arif Rachman, M.Pd.</div>
             </div>         
             <div class="signature">
-                <div class="signature-title">Principal of BPI<br>Junior High School</div>
+                <div class="signatory-title">Principal of BPI<br>Junior High School</div>
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/RI-e1747172647638.png" alt="Tanda Tangan" class="signature-sign2">
+                <div class="signature-space"></div>
                 <div class="signature-line"></div>
-                <div class="signature-name">Rina Indrawaty, S.Pd</div>
+                <div class="signatory-name">Rina Indrawaty, S.Pd</div>
             </div>
             @php
                 // Pastikan kamu sudah meng-import Carbon
@@ -238,12 +262,14 @@
                             ->addDays(7);
             @endphp
             <div class="signature">
-                <div class="signature-title">
+                <div class="signatory-title">
                     Bandung, {{ $signDate->format('F j, Y') }}<br>
                     Head of UPK Prodiksus
                 </div>
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LR-e1747160183609.png" alt="Tanda Tangan" class="signature-sign">
+                <div class="signature-space"></div>
                 <div class="signature-line"></div>
-                <div class="signature-name">Lina Roufah, S.Pd.</div>
+                <div class="signatory-name">Lina Roufah, S.Pd.</div>
             </div>
         </div>
     </div>
