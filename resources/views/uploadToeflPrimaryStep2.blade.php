@@ -74,6 +74,15 @@
         </button>
       </form>
 
+      {{-- Form Reset DITARUH DI LUAR, tapi hanya muncul kalau sudah ada conversion --}}
+      @if($hasConversion)
+        <form action="{{ route('scoreconversiontoeflprimarystep2.reset') }}" method="POST" class="mt-3" onsubmit="return confirm('Yakin ingin me-reset score conversion toefl primary step2 ? Data akan dihapus seluruhnya.')">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger">Reset Conversion Rate</button>
+        </form>
+      @endif
+
       <!-- <hr class="my-4"> -->
 
       <!-- <div class="text-center">

@@ -54,7 +54,7 @@
 <body>
   <div class="container">
     <div class="table-container">
-      <h1 class="text-center">Data Siswa IELTS Test Prediction C</h1>
+      <h1 class="text-center">Data Siswa IELTS Test</h1>
 
       {{-- tombol download --}}
       <div class="mb-3 text-end">

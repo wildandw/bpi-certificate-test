@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1000">
+  <link rel="icon" href="{{ asset('img/test.png') }}" type="image/png">
   <title>TOEFL iBT Prediction Test Certificate</title>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -246,15 +247,34 @@
     .signature {
       text-align: center;
       font-size: 12px;
+      position: relative;
       flex: 1;
     }
 
     .signature-line {
+      position: relative;
       width: 80%;
+      margin: 0 auto;
       border-top: 1px solid #000;
-      margin: 5px auto;
-      margin-top: 100px;
     }
+
+.signature-sign {
+  display: block;
+  margin: 0 auto;
+  width: 120px;       /* lebar tanda tangan, sesuaikan */
+  height: auto;
+  margin-top: 10px;   /* jarak atas jika perlu */
+  margin-bottom: 10px; /* tarik sedikit ke atas agar tampak di atas garis */
+  z-index: 1;
+}
+
+.signature-line {
+  
+  top: -10px;         /* naikkan garis mendekati tanda tangan */
+  width: 80%;
+  margin: 20px auto 0 auto;
+  border-top: 1px solid #000;
+}
 
     .signature-title {
       font-weight: bold;
@@ -262,12 +282,28 @@
     }
 
     .signature-name {
-      margin-top: 5px;
+      margin-top: 0;
+    }
+    .LR {
+      content: "";
+      background: url('https://bpi-english-lab.com/wp-content/uploads/2025/05/LR.png') center center no-repeat;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 50%;
+      height: 50%;
+      z-index: 0;
+      pointer-events: none; 
+      background-color: #003366;
     }
 
   </style>
 </head>
 <body>
+  @php
+       use Carbon\Carbon;
+       $formattedExamDate = Carbon::parse($certificate->exam_date)->format('d-m-Y');
+       $formattedDateofBirth = Carbon::parse($certificate->date_of_birth)->format('d-m-Y');
+  @endphp
 
   <div class="certificate">
     <!-- BPI Logo Watermark -->
@@ -284,11 +320,11 @@
       <div class="fields">
         <div><span class="label">Name:</span> {{ $certificate->name }}</div>
         <div><span class="label">Email:</span> {{ $certificate->email }}</div>
-        <div><span class="label">Test Date:</span> {{ $certificate->exam_date }}</div>
+        <div><span class="label">Test Date:</span> {{ $formattedExamDate}}</div>
         <div><span class="label">Native Language:</span> {{ $certificate->native_language }}</div>
         <div><span class="label">Country/Region:</span> {{ $certificate->country_region_nationality }}</div>
         <div><span class="label">Gender:</span> {{ $certificate->gender }}</div>
-        <div><span class="label">Date of Birth:</span> {{ $certificate->date_of_birth }}</div>
+        <div><span class="label">Date of Birth:</span> {{ $formattedDateofBirth }}</div>
         <div><span class="label">Country of Birth:</span> {{ $certificate->country_region_origin }}</div>
       </div>
       <div class="right-column">
@@ -360,22 +396,32 @@
       <div class="signatures">
         <div class="signature">
           <div class="signature-title">Development Director<br>of BPI Foundation</div>
+          <!-- <img src="{{ asset('img/LR.png') }}" alt="Tanda Tangan" class="signature-sign"> -->
           <div class="signature-line"></div>
           <div class="signature-name">Lukman Arif Rachman, M.Pd.</div>
         </div>
         <div class="signature">
           <div class="signature-title">Principal of BPI 1<br>Senior High School</div>
+          <!-- <img src="{{ asset('img/LR.png') }}" alt="Tanda Tangan" class="signature-sign"> -->
           <div class="signature-line"></div>
           <div class="signature-name">Tatang, M.Pd.</div>
         </div>
-        <div class="signature">
-          <div class="signature-title">Bandung, May ..., 2025<br>Head of UPK Prodiksus</div>
-          <div class="signature-line"></div>
-          <div class="signature-name">Lina Roufah, S.Pd.</div>
-        </div>
+        @php
+                // Pastikan kamu sudah meng-import Carbon
+                $signDate = \Carbon\Carbon::parse($certificate->exam_date)
+                            ->addDays(7);
+            @endphp
+            <div class="signature">
+                <div class="signature-title">
+                    Bandung, {{ $signDate->format('F j, Y') }}<br>
+                    Head of UPK Prodiksus
+                </div>
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LR-e1747160183609.png" alt="Tanda Tangan" class="signature-sign">
+                <div class="signature-line"></div>
+                <div class="signature-name">Lina Roufah, S.Pd.</div>
+            </div>
       </div>
     </div>
   </div>
-
 </body>
 </html>

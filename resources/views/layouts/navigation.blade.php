@@ -63,7 +63,7 @@
                 <a href="{{ route('data.toefl') }}"
                    class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">TOEFL iBT</a>
                 <a href="{{ route('data.ieltstestc') }}"
-                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">IELTS Test Prediction C</a>
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">IELTS </a>
               </div>
             </div>
             <!-- SMK -->
@@ -169,7 +169,7 @@
                 </a>
                 <a href="{{ route('uploadIeltsTestC') }}"
                    class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                  IELTS Test Prediction C
+                  IELTS 
                 </a>
               </div>
             </div>

@@ -63,6 +63,9 @@
         </a>
       </div>
 
+    <!-- Tombol Hapus Semua Data -->
+  
+
       @if(session('success'))
         <div class="alert alert-success" role="alert">
           {{ session('success') }}
@@ -94,6 +97,7 @@
               <td>{{ $student->writing_score }}</td>
               <td>{{ $student->total_score }}</td>
               <td>
+                
                 <button class="btn btn-primary btn-sm"
                     data-preview="{{ route('certificate.show', $student->id) }}"
                     data-download="{{ route('certificate.pdf', $student->id) }}"
@@ -144,6 +148,15 @@
       pdfModal.show();
     }
   </script>
+
+  <!-- <script>
+  function confirmDelete() {
+    if (confirm("Apakah Anda yakin ingin menghapus SEMUA data? Tindakan ini tidak dapat dikembalikan.")) {
+      document.getElementById('deleteAllForm').submit();
+    }
+  }
+</script> -->
+
 </body>
 </html>
 </x-app-layout>

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=1200">
+  <link rel="icon" href="{{ asset('img/test.png') }}" type="image/png">
   <title>TOEIC Prediction Certificate</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -220,26 +221,47 @@
     }
 
     .signature-line {
-      width: 200px;
+       width: 80%;
+      margin: 20px auto 0 auto;
       border-top: 1px solid #000;
-      margin-bottom: 5px;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 80px;
+    }
+
+    .signature-sign {
+      display: block;
+      margin: 0 auto;
+      width: 100px;       /* lebar tanda tangan, sesuaikan */
+      height: auto;
+      margin-top: 5px;   /* jarak atas jika perlu */
+      margin-bottom: 5px; /* tarik sedikit ke atas agar tampak di atas garis */
+      z-index: 1;
+    }
+    .signature-sign2 {
+      display: block;
+      margin: 0 auto;
+      width: 80px;       /* lebar tanda tangan, sesuaikan */
+      height: auto;
+      margin-top: 5px;   /* jarak atas jika perlu */
+      margin-bottom: 0px; /* tarik sedikit ke atas agar tampak di atas garis */
+      z-index: 1;
     }
   </style>
 </head>
 <body>
+  @php
+      use Carbon\Carbon;
+      $formattedExamDate = Carbon::parse($certificatetoeic->exam_date)->format('d-m-Y');
+      $formattedDateofBirth = Carbon::parse($certificatetoeic->date_of_birth)->format('d-m-Y');
+  @endphp
   <div class="certificate">
     <img src="https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png" alt="Logo" class="logo" />
     
     <div class="certificate-number">No: {{ $certificatetoeic->no_sertif }}</div>
-    <div class="test-date">Test Date: {{ $certificatetoeic->exam_date }}</div>
+    <div class="test-date">Test Date: {{ $formattedExamDate }}</div>
 
     <div class="title">TOEIC Prediction Test</div>
     <div class="subtitle">Certificate of Achievement</div>
 
-    
+
     <div class="qrcode-topright">
       Scan here for validation
       <div class="qrcode">{!! $qrCode !!}</div>
@@ -275,17 +297,25 @@
         <div class="signature">
           <div class="signatory-title">Principal of BPI<br>Elementary School</div>
           <div class="signature-space"></div>
+          <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/DAM-e1747160353513.png" alt="Tanda Tangan" class="signature-sign">
           <div class="signature-line"></div>
           <div class="signatory-name">Doni Agus Maulana, S.Pd.</div>
         </div>
-        <div class="signature">
-          <div class="signatory-title">Bandung, May ... 2025<br>Head of UPK Prodiksus</div>
-          <div class="signature-space"></div>
-          <div class="signature-line"></div>
-          <div class="signatory-name">Lina Roufah, S.Pd.</div>
-        </div>
+        @php
+                // Pastikan kamu sudah meng-import Carbon
+                $signDate = \Carbon\Carbon::parse($certificatetoeic->exam_date)
+                            ->addDays(7);
+          @endphp
+            <div class="signature">
+                <div class="signature-title">
+                    Bandung, {{ $signDate->format('F j, Y') }}<br>
+                    Head of UPK Prodiksus
+                </div>
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LR-e1747160183609.png" alt="Tanda Tangan" class="signature-sign2">
+                <div class="signature-line"></div>
+                <div class="signature-name">Lina Roufah, S.Pd.</div>
+            </div>
       </div>
-
   </div>
 </body>
 </html>

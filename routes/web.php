@@ -10,6 +10,7 @@ use App\Http\Controllers\CertificateToeflPrimaryStep2Controller;
 
 use App\Http\Controllers\PanduanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 use App\Exports\ToeflExport;
 use App\Exports\ToeflJuniorExport;
@@ -113,6 +114,41 @@ Route::get('/export-ToeflPrimaryStep2', function () {
     return Excel::download(new ToeflPrimaryStep2Export, 'daftar_siswa_toeflprimarystep1.xlsx');
 })->name('toeflprimarystep2.export');
 
+
+// Reset Conversion Rate
+// iBT
+Route::delete('/scoreconversions/reset', [ScoreController::class, 'resetscoreconversions'])->name('scoreconversions.reset');
+// toefl junior
+Route::delete('/scoreconversiontoefljunior/reset', [ScoreController::class, 'resetscoreconversiontoefljunior'])->name('scoreconversiontoefljunior.reset');
+// ielts
+Route::delete('/scoreconversionielts/reset', [ScoreController::class, 'resetscoreconversionieltstestc'])->name('scoreconversionieltstestc.reset');
+// toeic
+Route::delete('/scoreconversiontoeic/reset', [ScoreController::class, 'resetscoreconversiontoeic'])->name('scoreconversiontoeic.reset');
+// toefl primary step 1
+Route::delete('/scoreconversiontoeflprimarystep1/reset', [ScoreController::class, 'resetscoreconversiontoeflprimarystep1'])->name('scoreconversiontoeflprimarystep1.reset');
+// toefl primary step 2
+Route::delete('/scoreconversiontoeflprimarystep2/reset', [ScoreController::class, 'resetscoreconversiontoeflprimarystep2'])->name('scoreconversiontoeflprimarystep2.reset');
+
+
+
+
+
+
+// hapus (destroy) data 
+// Route::delete('/toeflibt/delete-all', [ToeflIbtController::class, 'destroyAll'])->name('toeflibt.destroyAll');
+
+
+
+
+
+
+// edit data
+// Route::get('/toefl/{student}/edit', [StudentController::class, 'edit'])
+//      ->name('toefl.edit');
+
+// // Proses update
+// Route::put('/toefl/{student}', [StudentController::class, 'update'])
+//      ->name('toefl.update');
 
 
 

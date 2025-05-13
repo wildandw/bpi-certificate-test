@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1100">
+    <link rel="icon" href="{{ asset('img/test.png') }}" type="image/png">
     <title>TOEFL Junior Certificate</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -23,6 +24,7 @@
             padding: 20px;
             border: 20px solid #ffee00;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background: #fff;
         }
         .background-img {
             position: absolute;
@@ -173,6 +175,11 @@
     </style>
 </head>
 <body>
+    @php
+        use Carbon\Carbon;
+        $formattedExamDate = Carbon::parse($certificatetoefljunior->exam_date)->format('d-m-Y');
+        $formattedDateofBirth = Carbon::parse($certificatetoefljunior->date_of_birth)->format('d-m-Y');
+    @endphp
     <div class="certificate-container">
         <div class="background-img"></div>
         
@@ -189,7 +196,7 @@
         <div class="header">
             <div class="logo-container">
                 <img src="https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png" alt="BPI Logo" class="logo">
-                <div class="test-date">Test Date: {{ $certificatetoefljunior->exam_date }}</div>
+                <div class="test-date">Test Date: {{  $formattedExamDate }}</div>
             </div>
             <div class="title">TOEFL <strong>Junior.</strong></div>
         </div>
@@ -225,12 +232,19 @@
                 <div class="signature-line"></div>
                 <div class="signature-name">Rina Indrawaty, S.Pd</div>
             </div>
+            @php
+                // Pastikan kamu sudah meng-import Carbon
+                $signDate = \Carbon\Carbon::parse($certificatetoefljunior->exam_date)
+                            ->addDays(7);
+            @endphp
             <div class="signature">
-                <div class="signature-title">Bandung, May ... 2025<br>Head of UPK Prodiksus</div>
+                <div class="signature-title">
+                    Bandung, {{ $signDate->format('F j, Y') }}<br>
+                    Head of UPK Prodiksus
+                </div>
                 <div class="signature-line"></div>
                 <div class="signature-name">Lina Roufah, S.Pd.</div>
             </div>
-            
         </div>
     </div>
 </body>

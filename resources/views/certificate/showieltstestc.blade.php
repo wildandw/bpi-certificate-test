@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1300">
+    <link rel="icon" href="{{ asset('img/test.png') }}" type="image/png">
     <title>IELTS Prediction Test Report Form</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -73,6 +74,7 @@
             height: 25px;
             text-align: center;
             border: 1px solid #000;
+            font-size: 14px;
         }
         .reference-input {
             width: 250px;
@@ -160,7 +162,7 @@
             border: 1px solid #000;
             text-align: center;
             padding: 5px;
-            font-size: 13px;
+            font-size: 15px;
         }
 
         .form-input {
@@ -169,7 +171,7 @@
             border: 1px solid #000;
             text-align: left;
             padding: 5px;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .sex-input {
@@ -178,6 +180,7 @@
             border: 1px solid #000;
             text-align: center;
             margin-left: 10px;
+            font-size: 14px;
         }
 
         .test-results {
@@ -265,13 +268,22 @@
             text-align: center;
             width: 30%;
         }
-        .signature-line {
-            width: 70%;
-            border-top: 1px solid #000;
-            margin: 10px 0;
-            margin-top: 100px;
-            margin-left: 45px;
+       .signature-line {
+        width: 80%;
+        margin: 20px auto 0 auto;
+        border-top: 1px solid #000;
         }
+
+        .signature-sign {
+        display: block;
+        margin: 0 auto;
+        width: 100px;       /* lebar tanda tangan, sesuaikan */
+        height: auto;
+        margin-top: 5px;   /* jarak atas jika perlu */
+        margin-bottom: 5px; /* tarik sedikit ke atas agar tampak di atas garis */
+        z-index: 1;
+        }
+
         .signature-title {
             font-weight: bold;
             font-size: 12px;
@@ -279,18 +291,19 @@
             text-align: center;
         }
         .signature-name {
+            margin-top: 5px;
             font-weight: bold;
             font-size: 14px;
         }
     </style>
 </head>
 <body>
- @php
- function getCefrLevel($score) {
-        if ($score >= 9) return 'C2';
+@php
+    function getCefrLevel($score) {
+        if ($score == 9) return 'C2';
         elseif ($score >= 7.0 && $score <= 8.0) return 'C1';
-        elseif ($score >= 5.5 $score <= 6.5) return 'B2';
-        elseif ($score >= 4.0 $score <= 5.0) return 'B1';
+        elseif ($score >= 5.5 && $score <= 6.5) return 'B2';
+        elseif ($score >= 4.0 && $score <= 5.0) return 'B1';
         else return 'Below B1';
     }
 @endphp
@@ -302,9 +315,15 @@
             <div class="report-title">Prediction Test Report Form</div>
             <img src="https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png" alt="BPI Logo" class="bpi-logo">
         </div>
-        
+        @php
+            use Carbon\Carbon;
+            $formattedExamDate = Carbon::parse($certificateieltstestc->exam_date)->format('d-m-Y');
+            $formattedDateofBirth = Carbon::parse($certificateieltstestc->date_of_birth)->format('d-m-Y');
+        @endphp
+
+
         <div class="date-section">
-            <div>Test Date: <input type="text" class="date-input" value="{{ $certificateieltstestc->exam_date}}"></div>
+            <div>Test Date: <input type="text" class="date-input" value="{{ $formattedExamDate }}" readonly></div>
             <input type="text" class="reference-input" value="{{ $certificateieltstestc->no_sertif}}">
         </div>
         
@@ -318,10 +337,10 @@
                     <div class="form-label-nama">Nama</div>
                     <input type="text" class="form-input-nama" value="{{ $certificateieltstestc->name}}" readonly>
                 </div>
-                
+
                 <div class="form-row-birth">
                     <div class="form-label-birth">Date of Birth Sex (M/F)</div>
-                    <input type="text" class="form-input-birth" style="width: 200px;" value="{{ $certificateieltstestc->date_of_birth}}" readonly>
+                    <input type="text" class="form-input-birth" style="width: 200px;" value="{{ $formattedDateofBirth }}" readonly> 
                     <input type="text" class="sex-input" value="{{ strtolower($certificateieltstestc->gender ?? '') === 'female' ? 'F' : 'M' }}" readonly>
                 </div>
                 
@@ -332,7 +351,7 @@
                 
                 <div class="form-row">
                     <div class="form-label">Country or Region of Nationality</div>
-                    <input type="text" class="form-input" value="{{ $certificateieltstestc->country_of_region_of_nationality}}" readonly>
+                    <input type="text" class="form-input" value="{{ $certificateieltstestc->country_region_nationality}}" readonly>
                 </div>
                 
                 <div class="form-row">
@@ -375,9 +394,8 @@
                 </div>
                     <div class="cefr-container">
                         <div class="cefr-label">CEFR</div>
-                        <div class="cefr-box">{ !! getCefrLevel($certificateieltstestc->total_score) !!}</div>
+                        <div class="cefr-box">{{ getCefrLevel($certificateieltstestc->total_score) }}</div>
                     </div>
-                    @php
             </div>
         </div>
         
@@ -395,12 +413,20 @@
                 <div class="signature-line"></div>
                 <div class="signature-name">Tatang, M.Pd.</div>
             </div>
+            @php
+                // Pastikan kamu sudah meng-import Carbon
+                $signDate = \Carbon\Carbon::parse($certificateieltstestc->exam_date)
+                            ->addDays(7);
+            @endphp
             <div class="signature">
-                <div class="signature-title">Bandung, May ..., 2025<br>Head of UPK Prodiksus</div>
+                <div class="signature-title">
+                    Bandung, {{ $signDate->format('F j, Y') }}<br>
+                    Head of UPK Prodiksus
+                </div>
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LR-e1747160183609.png" alt="Tanda Tangan" class="signature-sign">
                 <div class="signature-line"></div>
                 <div class="signature-name">Lina Roufah, S.Pd.</div>
             </div>
-            
         </div>
     </div>
 </body>

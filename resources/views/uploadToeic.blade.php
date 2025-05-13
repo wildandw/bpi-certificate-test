@@ -74,6 +74,16 @@
         </button>
       </form>
 
+      {{-- Form Reset DITARUH DI LUAR, tapi hanya muncul kalau sudah ada conversion --}}
+      @if($hasConversion)
+        <form action="{{ route('scoreconversiontoeic.reset') }}" method="POST" class="mt-3" onsubmit="return confirm('Yakin ingin me-reset score conversion toeic? Data akan dihapus seluruhnya.')">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger">Reset Conversion Rate</button>
+        </form>
+      @endif
+
+
       <!-- <hr class="my-4">
 
       <div class="text-center">

@@ -29,7 +29,7 @@
 <body>
   <div class="container">
     <div class="upload-container">
-      <h1 class="text-center">IELTS Test Prediction C Raw Score Conversion</h1>
+      <h1 class="text-center">IELTS Test Raw Score Conversion</h1>
 
       @if(session('success'))
         <div class="alert alert-success" role="alert">
@@ -73,6 +73,15 @@
           {{ $hasConversion ? 'Upload Skor Saja' : 'Upload Semua' }}
         </button>
       </form>
+
+      {{-- Form Reset DITARUH DI LUAR, tapi hanya muncul kalau sudah ada conversion --}}
+      @if($hasConversion)
+        <form action="{{ route('scoreconversionieltstestc.reset') }}" method="POST" class="mt-3" onsubmit="return confirm('Yakin ingin me-reset score conversion ielts? Data akan dihapus seluruhnya.')">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger">Reset Conversion Rate</button>
+        </form>
+      @endif
 
       <!-- <hr class="my-4"> -->
 

@@ -52,7 +52,6 @@
       <form action="{{ route('scores.import') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        {{-- tampilkan jika belum ada conversion rate --}}
         @unless ($hasConversion)
           <div class="mb-3">
             <label for="conversion_file" class="form-label">Score Conversion Table</label>
@@ -73,6 +72,18 @@
           {{ $hasConversion ? 'Upload Skor Saja' : 'Upload Semua' }}
         </button>
       </form>
+
+      {{-- Form Reset DITARUH DI LUAR, tapi hanya muncul kalau sudah ada conversion --}}
+      @if($hasConversion)
+        <form action="{{ route('scoreconversions.reset') }}" method="POST" class="mt-3" onsubmit="return confirm('Yakin ingin me-reset score conversion toefl ibt? Data akan dihapus seluruhnya.')">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger">Reset Conversion Rate</button>
+        </form>
+      @endif
+
+      
+
 
       <!-- <hr class="my-4"> -->
 

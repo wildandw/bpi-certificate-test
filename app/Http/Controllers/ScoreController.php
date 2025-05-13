@@ -22,6 +22,7 @@ use App\Imports\ToeflPrimaryStep1ScoreImport;
 use App\Imports\ToeflPrimaryStep2ScoreImport;
 use App\Models\ScoreConversionIeltsTestC;
 use App\Models\ScoreConversionToeflJunior;
+use App\Models\NoSertif;
 use App\Models\ScoreConversionToeflPrimaryStep1;
 use App\Models\ScoreConversionToeflPrimaryStep2;
 use App\Models\ScoreConversionToeic;
@@ -94,6 +95,33 @@ class ScoreController extends Controller
         }
     }
 
+    public function resetscoreconversions()
+    {
+        // Hapus semua data dari tabel
+        DB::table('score_conversions')->truncate();
+
+        return redirect()->back()->with('success', 'Score Conversions Toefl iBT berhasil direset.');
+    }
+    // public function destroyAll()
+    // {
+    //     DB::beginTransaction();
+    //     try {
+    //         // Kosongkan data di kedua tabel
+    //         ToeflScores::truncate();
+    //         NoSertif::truncate();
+
+    //         // Reset auto increment ID agar kembali dari 1
+    //         DB::statement("ALTER TABLE toefl_scores AUTO_INCREMENT = 1");
+    //         DB::statement("ALTER TABLE no_sertif AUTO_INCREMENT = 1");
+
+    //         DB::commit();
+    //         return redirect()->back()->with('success', 'Semua data berhasil dihapus.');
+    //     } catch (\Exception $e) {
+    //         DB::rollback();
+    //         return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+    //     }
+    // }
+
 
 
 
@@ -162,6 +190,17 @@ class ScoreController extends Controller
         }
     }
 
+    public function resetscoreconversiontoefljunior()
+    {
+        // Hapus semua data dari tabel
+        DB::table('score_conversion_toefljunior')->truncate();
+
+        return redirect()->back()->with('success', 'Score Conversions Toefl iBT berhasil direset.');
+    }
+
+
+
+
 
 
     // 3. IELTS test prediction C
@@ -226,6 +265,17 @@ class ScoreController extends Controller
             return back()->withErrors($lines);
         }
     }
+
+    public function resetscoreconversionieltstestc()
+    {
+        // Hapus semua data dari tabel
+        DB::table('score_conversion_ieltstestc')->truncate();
+
+        return redirect()->back()->with('success', 'Score Conversions Toefl iBT berhasil direset.');
+    }
+
+
+
 
 
 
@@ -292,6 +342,17 @@ class ScoreController extends Controller
         }
     }
 
+    public function resetscoreconversiontoeic()
+    {
+        // Hapus semua data dari tabel
+        DB::table('score_conversion_toeic')->truncate();
+
+        return redirect()->back()->with('success', 'Score Conversions Toefl iBT berhasil direset.');
+    }
+
+
+
+
 
 
     // 5. Toefl Primary step 1
@@ -357,6 +418,16 @@ class ScoreController extends Controller
         }
     }
 
+    public function resetscoreconversiontoeflprimarystep1()
+    {
+        // Hapus semua data dari tabel
+        DB::table('score_conversion_toeflprimarystep1')->truncate();
+
+        return redirect()->back()->with('success', 'Score Conversions Toefl iBT berhasil direset.');
+    }
+
+
+
 
 
 // 6. Toefl Primary step 2
@@ -421,6 +492,19 @@ class ScoreController extends Controller
             return back()->withErrors($lines);
         }
     }
+
+    public function resetscoreconversiontoeflprimarystep2()
+    {
+        // Hapus semua data dari tabel
+        DB::table('score_conversion_toeflprimarystep2')->truncate();
+
+        return redirect()->back()->with('success', 'Score Conversions Toefl iBT berhasil direset.');
+    }
+
+
+
+
+
 
 
     // fungsi duplikasi data
