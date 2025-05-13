@@ -12,32 +12,42 @@ class ToeflPrimaryStep2Export implements FromCollection, WithHeadings
     {
         // Ambil semua kolom yang ingin diexport
         return ToeflPrimaryStep2Scores::select([
-            'id',
             'name',
             'class',
+            'email',
+            'gender',
+            'country_region_nationality',
+            'country_region_origin',
+            'native_language',
+            'date_of_birth',
+            'school_name',
             'exam_date',
             'reading_score',
             'listening_score',
             'speaking_score',
             'writing_score',
             'total_score',
-            'certificate_path'
         ])->get();
     }
 
     public function headings(): array
     {
         return [
-            'ID',
-            'Nama Siswa',
-            'Kelas',
-            'Tanggal Ujian',
-            'Skor Reading',
-            'Skor Listening',
-            'Skor Speaking',
-            'Skor Writing',
-            'Total Skor',
-            'Link Sertifikat',
+            'Full Name',
+            'Class',
+            'Email',
+            'Gender',
+            'Country of Region of Nationality',
+            'Country of Region of Origin',
+            'Native Language',
+            'Date of Birth',
+            'School Name',
+            'Exam Date',
+            'Reading Score',
+            'Listening Score',
+            'Speaking Score',
+            'Writing Score',
+            'Total Score',
         ];
     }
 }

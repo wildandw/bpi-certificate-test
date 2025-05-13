@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ToeflScores;
 use App\Models\ScoreConversion;
 use Illuminate\Support\Collection;          
-
+use Illuminate\Support\Facades\DB;
 use App\Imports\ToeflScoreImport;
 use App\Imports\ToeflJuniorScoreImport;
 use App\Imports\IeltsScoreImport;
@@ -59,20 +59,19 @@ class ScoreController extends Controller
         $request->validate($rules, $messages);
 
         try {
-            // 2. Import conversion jika perlu
             if (! $hasConversion && $request->hasFile('conversion_file')) {
-                Excel::import(new ScoreConversionImport, $request->file('conversion_file'));
-            }
+            Excel::import(new ScoreConversionImport, $request->file('conversion_file'));
+        }
 
-            // 3. Load skor ke Collection untuk cek duplikasi
-            $collection = Excel::toCollection(new ToeflScoreImport, $request->file('score_file'))->first();
+        $collection = Excel::toCollection(new ToeflScoreImport(true), $request->file('score_file'))->first();
 
-            // 4. Cek duplikasi di file & DB
-            $this->checkFileDuplicates($collection, ['name']);
-            $this->checkDatabaseDuplicates($collection, \App\Models\ToeflScores::class, ['name']);
+        // Validasi duplikasi
+        $this->checkFileDuplicates($collection, ['name']);
+        $this->checkDatabaseDuplicates($collection, \App\Models\ToeflScores::class, ['name']);
 
-            // 5. Import skor jika lolos cek duplikasi
-            Excel::import(new ToeflScoreImport, $request->file('score_file'));
+        // Import data + generate nomor sertifikat per baris
+        Excel::import(new ToeflScoreImport(false), $request->file('score_file'));
+
 
             return redirect()->back()->with('success', $hasConversion
                 ? 'Data skor berhasil diupload!'
@@ -134,15 +133,14 @@ class ScoreController extends Controller
                 Excel::import(new ScoreConversionToeflJuniorImport, $request->file('conversion_file'));
             }
 
-            // 3. Load skor ke Collection untuk cek duplikasi
-            $collection = Excel::toCollection(new ToeflJuniorScoreImport, $request->file('score_file'))->first();
+            $collection = Excel::toCollection(new ToeflJuniorScoreImport(true), $request->file('score_file'))->first();
 
-            // 4. Cek duplikasi di file & DB
+            // Validasi duplikasi
             $this->checkFileDuplicates($collection, ['name']);
             $this->checkDatabaseDuplicates($collection, \App\Models\ToeflJuniorScores::class, ['name']);
 
-            // 5. Import skor jika lolos cek duplikasi
-            Excel::import(new ToeflJuniorScoreImport, $request->file('score_file'));
+            // Import data + generate nomor sertifikat per baris
+            Excel::import(new ToeflJuniorScoreImport(false), $request->file('score_file'));
 
             return redirect()->back()->with('success', $hasConversion
                 ? 'Data skor berhasil diupload!'
@@ -200,15 +198,14 @@ class ScoreController extends Controller
                 Excel::import(new ScoreConversionIeltsTestCImport, $request->file('conversion_file'));
             }
 
-            // 3. Load skor ke Collection untuk cek duplikasi
-            $collection = Excel::toCollection(new IeltsScoreImport, $request->file('score_file'))->first();
+            $collection = Excel::toCollection(new IeltsScoreImport(true), $request->file('score_file'))->first();
 
-            // 4. Cek duplikasi di file & DB
+            // Validasi duplikasi
             $this->checkFileDuplicates($collection, ['name']);
             $this->checkDatabaseDuplicates($collection, \App\Models\IeltsTestCScores::class, ['name']);
 
-            // 5. Import skor jika lolos cek duplikasi
-            Excel::import(new IeltsScoreImport, $request->file('score_file'));
+            // Import data + generate nomor sertifikat per baris
+            Excel::import(new IeltsScoreImport(false), $request->file('score_file'));
 
             return redirect()->back()->with('success', $hasConversion
                 ? 'Data skor berhasil diupload!'
@@ -266,15 +263,14 @@ class ScoreController extends Controller
                 Excel::import(new ScoreConversionToeicImport, $request->file('conversion_file'));
             }
 
-            // 3. Load skor ke Collection untuk cek duplikasi
-            $collection = Excel::toCollection(new ToeicScoreImport, $request->file('score_file'))->first();
+            $collection = Excel::toCollection(new ToeicScoreImport(true), $request->file('score_file'))->first();
 
-            // 4. Cek duplikasi di file & DB
+            // Validasi duplikasi
             $this->checkFileDuplicates($collection, ['name']);
             $this->checkDatabaseDuplicates($collection, \App\Models\ToeicScores::class, ['name']);
 
-            // 5. Import skor jika lolos cek duplikasi
-            Excel::import(new ToeicScoreImport, $request->file('score_file'));
+            // Import data + generate nomor sertifikat per baris
+            Excel::import(new ToeicScoreImport(false), $request->file('score_file'));
 
             return redirect()->back()->with('success', $hasConversion
                 ? 'Data skor berhasil diupload!'
@@ -332,15 +328,14 @@ class ScoreController extends Controller
                 Excel::import(new ScoreConversionPrimaryStep1Import, $request->file('conversion_file'));
             }
 
-            // 3. Load skor ke Collection untuk cek duplikasi
-            $collection = Excel::toCollection(new ToeflPrimaryStep1ScoreImport, $request->file('score_file'))->first();
+            $collection = Excel::toCollection(new ToeflPrimaryStep1ScoreImport(true), $request->file('score_file'))->first();
 
-            // 4. Cek duplikasi di file & DB
+            // Validasi duplikasi
             $this->checkFileDuplicates($collection, ['name']);
             $this->checkDatabaseDuplicates($collection, \App\Models\ToeflPrimaryStep1Scores::class, ['name']);
 
-            // 5. Import skor jika lolos cek duplikasi
-            Excel::import(new ToeflPrimaryStep1ScoreImport, $request->file('score_file'));
+            // Import data + generate nomor sertifikat per baris
+            Excel::import(new ToeflPrimaryStep1ScoreImport(false), $request->file('score_file'));
 
             return redirect()->back()->with('success', $hasConversion
                 ? 'Data skor berhasil diupload!'
@@ -398,15 +393,14 @@ class ScoreController extends Controller
                 Excel::import(new ScoreConversionPrimaryStep2Import, $request->file('conversion_file'));
             }
 
-            // 3. Load skor ke Collection untuk cek duplikasi
-            $collection = Excel::toCollection(new ToeflPrimaryStep2ScoreImport, $request->file('score_file'))->first();
+            $collection = Excel::toCollection(new ToeflPrimaryStep2ScoreImport(true), $request->file('score_file'))->first();
 
-            // 4. Cek duplikasi di file & DB
+            // Validasi duplikasi
             $this->checkFileDuplicates($collection, ['name']);
             $this->checkDatabaseDuplicates($collection, \App\Models\ToeflPrimaryStep2Scores::class, ['name']);
 
-            // 5. Import skor jika lolos cek duplikasi
-            Excel::import(new ToeflPrimaryStep2ScoreImport, $request->file('score_file'));
+            // Import data + generate nomor sertifikat per baris
+            Excel::import(new ToeflPrimaryStep2ScoreImport(false), $request->file('score_file'));
 
             return redirect()->back()->with('success', $hasConversion
                 ? 'Data skor berhasil diupload!'
@@ -469,6 +463,28 @@ protected function checkDatabaseDuplicates(Collection $rows, string $modelClass,
         throw new \Exception(implode("\n", $errors));
     }
 }
+
+protected function createCertificateRecord(string $class): string
+    {
+        // insert dummy untuk dapatkan id
+        $id = DB::table('no_sertif')->insertGetId([
+            'no_sertif'  => null,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // build nomor
+        $period  = '05-2025';                       // statis
+        $noUrut  = str_pad($id, 4, '0', STR_PAD_LEFT);
+        $certNum = "LEAD05/13.{$noUrut}/{$class}/{$period}";
+
+        // update kolom
+        DB::table('no_sertif')
+          ->where('id', $id)
+          ->update(['no_sertif' => $certNum]);
+
+        return $certNum;
+    }
 
 
 

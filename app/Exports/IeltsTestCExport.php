@@ -15,9 +15,15 @@ class IeltsTestCExport implements FromCollection, WithHeadings
     {
         // Ambil semua kolom yang ingin diexport
         return IeltsTestCScores::select([
-            'id',
             'name',
             'class',
+            'email',
+            'gender',
+            'country_region_nationality',
+            'country_region_origin',
+            'native_language',
+            'date_of_birth',
+            'school_name',
             'exam_date',
             'reading_score',
             'listening_score',
@@ -31,15 +37,21 @@ class IeltsTestCExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'ID',
-            'Nama Siswa',
-            'Kelas',
-            'Tanggal Ujian',
-            'Skor Reading',
-            'Skor Listening',
-            'Skor Speaking',
-            'Skor Writing',
-            'Total Skor',
+            'Full Name',
+            'Class',
+            'Email',
+            'Gender',
+            'Country of Region of Nationality',
+            'Country of Region of Origin',
+            'Native Language',
+            'Date of Birth',
+            'School Name',
+            'Exam Date',
+            'Reading Score',
+            'Listening Score',
+            'Speaking Score',
+            'Writing Score',
+            'Total SCore',
             'Link Sertifikat',
         ];
     }

@@ -23,7 +23,6 @@
             padding: 20px;
             border: 20px solid #ffee00;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            background: #fff;
         }
         .background-img {
             position: absolute;
@@ -40,20 +39,32 @@
         }
         .header {
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             margin-bottom: 10px;
-            position: relative;
             margin-top: 20px;
-            margin-left: 20px;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            left: 20px;
+            top: 0;
         }
 
         .logo {
-            position: absolute;
-            left: 0;
             width: 90px;
             height: auto;
-            margin-top: 40px;
+        }
+
+        .test-date {
+            font-size: 12px;
+            margin-top: 10px;
+            text-align: center;
+            color: #000;
         }
 
         .title {
@@ -95,27 +106,18 @@
         }
         .scores {
             display: flex;
-            justify-content: space-between;
             text-align: left;
             margin: 20px 0 35px 200px;
             font-style: italic;
-            
         }
         
         .scores-left {
-            width: 100%;
             text-align: right;
-            margin-left: 50px;
-        }
-        .scores-right {
-            width: 30%;
-            margin-left: 200px;
-            text-align: right;
+            margin-left: 120px;
         }
 
-        .scores-right-2 {
-            width: 60%;
-            margin-right: 50px;
+        .scores-left strong{
+            padding-left: 30px;
         }
 
         .score-item {
@@ -136,15 +138,13 @@
             width: 100%;
             border-top: 1px solid #000;
             margin: 10px 0;
-            margin-top: 130px;
+            margin-top: 120px;
         }
         .signature-title {
-            font-weight: bold;
             font-size: 13px;
             text-align: center;
         }
         .signature-name {
-            font-weight: bold;
             font-size: 14px;
         }
         .certificate-number {
@@ -184,20 +184,23 @@
             <div class="valid-until">Valid until: May 2027</div>
         </div>
 
+        <div class="certificate-number">No. {{ $certificatetoefljunior->no_sertif }}</div>
+
         <div class="header">
-            <img src="https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png" alt="BPI Logo" class="logo">
+            <div class="logo-container">
+                <img src="https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png" alt="BPI Logo" class="logo">
+                <div class="test-date">Test Date: {{ $certificatetoefljunior->exam_date }}</div>
+            </div>
             <div class="title">TOEFL <strong>Junior.</strong></div>
         </div>
 
-        <div class="certificate-number">No. 2025/05/123456</div>
-        
         <div class="certificate-title">CERTIFICATE OF ACHIEVEMENT</div>
         
         <div class="certify-text">This is to certify that</div>
         
         <div class="student-name">{{ $certificatetoefljunior->name }}</div>
         
-        <div class="achievement-text">achieved the following scores on the</div>
+        <div class="achievement-text">has achieved the following scores on the</div>
         <div class="test-type">TOEFL Junior Prediction Test</div>
         
         
@@ -208,16 +211,6 @@
                 <div class="score-item">Reading: <strong>{{ $certificatetoefljunior->reading_score }}</strong></div>
                 <div class="score-item">Overall Score: <strong>{{ $certificatetoefljunior->total_score }}</strong></div>
             </div>
-            <div class="scores-right">
-                <div class="score-item">‎</div>
-                <div class="score-item">at: </div>
-                <div class="score-item">date: </div>
-            </div>
-            <div class="scores-right-2">
-                <div class="score-item"><strong>BPI English Lab</strong></div>
-                <div class="score-item"><strong>Bandung, Indonesia</strong> </div>
-                <div class="score-item"><strong>12-05-2025</strong></div>
-            </div>
         </div>
 
         
@@ -226,19 +219,18 @@
                 <div class="signature-title">Development Director<br>of BPI Foundation</div>
                 <div class="signature-line"></div>
                 <div class="signature-name">Lukman Arif Rachman, M.Pd.</div>
-            </div>
-            
-            <div class="signature">
-                <div class="signature-title">Head of UPK Prodiksusbr<br>‎</div>
-                <div class="signature-line"></div>
-                <div class="signature-name">Lina Roufah, S.Pd.</div>
-            </div>
-            
+            </div>         
             <div class="signature">
                 <div class="signature-title">Principal of BPI<br>Junior High School</div>
                 <div class="signature-line"></div>
                 <div class="signature-name">Rina Indrawaty, S.Pd</div>
             </div>
+            <div class="signature">
+                <div class="signature-title">Bandung, May ... 2025<br>Head of UPK Prodiksus</div>
+                <div class="signature-line"></div>
+                <div class="signature-name">Lina Roufah, S.Pd.</div>
+            </div>
+            
         </div>
     </div>
 </body>

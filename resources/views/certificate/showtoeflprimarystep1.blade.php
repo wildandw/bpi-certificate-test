@@ -63,11 +63,25 @@
       z-index: 1;
     }
 
-    .logo {
+    .logo-container {
       position: absolute;
       top: -10px;
       left: -10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo {
       width: 80px;
+      height: auto;
+    }
+
+    .test-date {
+      font-size: 11px;
+      margin-top: 4px;
+      color: #000;
+      text-align: center;
     }
 
     .qr-code {
@@ -119,33 +133,39 @@
     .test-description {
       font-size: 14px;
       font-style: italic;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
     }
 
     .scores-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px 20px;
-        margin-left: 160px;
-        margin-top: -20px;
-        width: 70%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 30px;
     }
 
     .score-column {
-        width: 40%;
-        text-align: left;
+      width: 100%;
+      max-width: 100px;
+      text-align: center;
+    }
+
+    .score-item {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
     }
 
     .score-label {
-        font-size: 14px;
-        font-weight: bold;
+      font-size: 14px;
     }
-
+    
     .score-value {
-        margin-top: 5px;
+      font-size: 14px;
+      text-align: right;
+      font-weight: bold;
     }
-
+    
     .stars img {
         height: auto;
         width: 24px;
@@ -163,8 +183,6 @@
         display: flex;
         align-items: center;
     }
-
-
 
     .footer {
       display: flex;
@@ -216,13 +234,12 @@
 
     .signatory-name {
       font-size: 13px;
-      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-     <!-- bintang untuk listening dan reading -->
+    <!-- bintang untuk listening dan reading -->
     @php
     function toeflPrimaryStars($score) {
         if ($score >= 107 && $score <=109) $level = 4;
@@ -276,17 +293,20 @@
     }
     @endphp
 
-
   <div class="certificate">
     <img class="watermark" src="https://bpi-english-lab.com/wp-content/uploads/2025/05/toefl-primary-e1747036028969.png" alt="BPI Watermark"/>
 
     <div class="certificate-inner">
-      <img class="logo" src="https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png" alt="BPI Logo"/>
+      <div class="logo-container">
+        <img class="logo" src="https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png" alt="BPI Logo"/>
+        <div class="test-date">Test Date: {{ $certificatetoeflprimarystep1->exam_date }}</div>
+      </div>
 
-      <div class="certificate-number">No: TOEFL-P1-2025/0568</div>
+
+      <div class="certificate-number">No: {{ $certificatetoeflprimarystep1->no_sertif }}</div>
       <div class="qr-validation">Scan here for validation</div>
           <div class="qr-code">{!! $qrCode !!}</div>
-      <div class="valid-until">Valid until: 12/05/26</div>
+      <div class="valid-until">Valid until: May 2027</div>
 
       <div class="toefl-header">TOEFL PRIMARY</div>
       <div class="step">Step 1</div>
@@ -297,36 +317,31 @@
       <div class="test-description">Has earned the following levels on the TOEFL Primary Prediction Test</div>
 
         <div class="scores-container">
-        <div class="score-column">
-            <div class="score-item">
-                <span class="score-label">Reading:</span>
-                <span class="score-value">{!! toeflPrimaryStars($certificatetoeflprimarystep1->reading_score ?? 0) !!}</span>
-            </div>
+          <div class="score-column">
+              <div class="score-item">
+                  <span class="score-label">Reading:</span>
+                  <span class="score-value">{!! toeflPrimaryStars($certificatetoeflprimarystep1->reading_score ?? 0) !!}</span>
+              </div>
+          </div>
+          <div class="score-column">
+              <div class="score-item">
+                  <span class="score-label">Speaking:</span>
+                  <span class="score-value">!! toeflPrimaryStars2($certificatetoeflprimarystep1->speaking_score ?? 0) !!</span>
+              </div>
+          </div>
+          <div class="score-column">
+              <div class="score-item">
+                  <span class="score-label">Listening:</span>
+                  <span class="score-value">{!! toeflPrimaryStars($certificatetoeflprimarystep1->listening_score ?? 0) !!}</span>
+              </div>
+          </div>
+          <div class="score-column">
+              <div class="score-item">
+                  <span class="score-label">Writing:</span>
+                  <span class="score-value">{!! toeflPrimaryStars3($certificatetoeflprimarystep1->writing_score ?? 0) !!}</span>
+              </div>
+          </div>
         </div>
-        <div class="score-column">
-            <div class="score-item">
-                <span class="score-label">Speaking:</span>
-                <span class="score-value">{!! toeflPrimaryStars2($certificatetoeflprimarystep1->speaking_score ?? 0) !!}</span>
-            </div>
-        </div>
-        <div class="score-column">
-            <div class="score-item">
-                <span class="score-label">Listening:</span>
-                <span class="score-value">{!! toeflPrimaryStars($certificatetoeflprimarystep1->listening_score ?? 0) !!}</span>
-            </div>
-        </div>
-        <div class="score-column">
-            <div class="score-item">
-                <span class="score-label">Writing:</span>
-                <span class="score-value">{!! toeflPrimaryStars3($certificatetoeflprimarystep1->writing_score ?? 0) !!}</span>
-            </div>
-        </div>
-        </div>
-
-
-      <div class="footer">
-        <div class="date">Test Date: {{ $certificatetoeflprimarystep1->exam_date}}</div>
-      </div>
 
       <div class="signatures">
         <div class="signature">
@@ -336,16 +351,16 @@
           <div class="signatory-name">Lukman Arif Rahman, M.Pd.</div>
         </div>
         <div class="signature">
-          <div class="signatory-title">Head of UPK Prodiksus<br>‎ </div>
-          <div class="signature-space"></div>
-          <div class="signature-line"></div>
-          <div class="signatory-name">Lina Roufah, S.Pd.</div>
-        </div>
-        <div class="signature">
           <div class="signatory-title">Principal of BPI<br>Elementary School</div>
           <div class="signature-space"></div>
           <div class="signature-line"></div>
           <div class="signatory-name">Rini Trisnawulan, S.S.</div>
+        </div>
+        <div class="signature">
+          <div class="signatory-title">Bandung, May ... 2025<br>Head of UPK Prodiksus </div>
+          <div class="signature-space"></div>
+          <div class="signature-line"></div>
+          <div class="signatory-name">Lina Roufah, S.Pd.</div>
         </div>
       </div>
     </div>

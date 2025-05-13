@@ -109,9 +109,9 @@ Route::get('/export-ToeflPrimaryStep1', function () {
     return Excel::download(new ToeflPrimaryStep1Export, 'daftar_siswa_toeflprimarystep1.xlsx');
 })->name('toeflprimarystep1.export');
 // Toefl Primary Step 2
-Route::get('/export-ToeflPrimaryStep1', function () {
+Route::get('/export-ToeflPrimaryStep2', function () {
     return Excel::download(new ToeflPrimaryStep2Export, 'daftar_siswa_toeflprimarystep1.xlsx');
-})->name('toeflprimarystep1.export');
+})->name('toeflprimarystep2.export');
 
 
 

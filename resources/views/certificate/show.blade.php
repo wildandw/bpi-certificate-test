@@ -95,14 +95,14 @@
       gap: 10px;
     }
 
-    .info .photo {
+    /* .info .photo {
       width: 120px;
       height: 120px;
       background: url('https://bpi-english-lab.com/wp-content/uploads/2025/05/image_placeholder.png');
       background-size: cover;
       background-position: center;
       border-radius: 4px;
-    }
+    } */
 
     .qrcode-section {
       text-align: center;
@@ -126,13 +126,16 @@
       display: inline-block;
       width: 140px;
     }
+
     .info .photo {
       width: 100px;
       height: 100px;
-      background: url('https://bpi-english-lab.com/wp-content/uploads/2025/05/image_placeholder.png');
-      background-size: cover;
+      background: url('https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png');
+      background-size: contain;
+      background-repeat: no-repeat;
       background-position: center;
     }
+
 
     /* SCORES */
     .scores-container {
@@ -182,6 +185,7 @@
       width: 40px;
       height: 40px;
       margin-bottom: 5px;
+      filter: grayscale(1) brightness(0);
     }
     .score-box {
       background-color: #d4f1f4;
@@ -278,14 +282,14 @@
     <!-- PARTICIPANT INFO -->
     <div class="info">
       <div class="fields">
-        <div><span class="label">Name:</span>{{ $certificate->name }}</div>
-        <div><span class="label">Email:</span></div>
+        <div><span class="label">Name:</span> {{ $certificate->name }}</div>
+        <div><span class="label">Email:</span> {{ $certificate->email }}</div>
         <div><span class="label">Test Date:</span> {{ $certificate->exam_date }}</div>
-        <div><span class="label">Native Language:</span> Indonesian</div>
-        <div><span class="label">Country/Region:</span> Indonesia</div>
-        <div><span class="label">Gender:</span> </div>
-        <div><span class="label">Date of Birth:</span> </div>
-        <div><span class="label">Country of Birth:</span> Indonesia</div>
+        <div><span class="label">Native Language:</span> {{ $certificate->native_language }}</div>
+        <div><span class="label">Country/Region:</span> {{ $certificate->country_region_nationality }}</div>
+        <div><span class="label">Gender:</span> {{ $certificate->gender }}</div>
+        <div><span class="label">Date of Birth:</span> {{ $certificate->date_of_birth }}</div>
+        <div><span class="label">Country of Birth:</span> {{ $certificate->country_region_origin }}</div>
       </div>
       <div class="right-column">
         <div class="photo"></div>
@@ -300,7 +304,7 @@
     </div>
 
 
-    <!-- SCORES -->
+   <!-- SCORES -->
     <div class="scores-container">
       <div class="test-date">Test Date:{{ $certificate->exam_date }}</div>
       <div class="total-score">
@@ -350,7 +354,7 @@
         </div>
       </div>
     </div>
-
+    
     <!-- Ganti bagian `.footer` -->
     <div class="footer">
       <div class="signatures">
@@ -360,14 +364,14 @@
           <div class="signature-name">Lukman Arif Rachman, M.Pd.</div>
         </div>
         <div class="signature">
-          <div class="signature-title">Head of UPK Prodiksus<br>&nbsp;</div>
-          <div class="signature-line"></div>
-          <div class="signature-name">Lina Roufah, S.Pd.</div>
-        </div>
-        <div class="signature">
           <div class="signature-title">Principal of BPI 1<br>Senior High School</div>
           <div class="signature-line"></div>
           <div class="signature-name">Tatang, M.Pd.</div>
+        </div>
+        <div class="signature">
+          <div class="signature-title">Bandung, May ..., 2025<br>Head of UPK Prodiksus</div>
+          <div class="signature-line"></div>
+          <div class="signature-name">Lina Roufah, S.Pd.</div>
         </div>
       </div>
     </div>

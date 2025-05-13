@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=1150">
+  <meta name="viewport" content="width=1200">
   <title>Sertifikat TOEFL Primary Step 2</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Lato:ital,wght@0,400;0,700;1,400&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet">
   <!-- Google Fonts -->
@@ -19,7 +19,7 @@
 
     body {
       font-family: 'Lato', sans-serif;
-      background-color:  #f5f5f5;
+      background-color: #f5f5f5;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -63,11 +63,25 @@
       z-index: 1;
     }
 
-    .logo {
+    .logo-container {
       position: absolute;
       top: -10px;
       left: -10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo {
       width: 80px;
+      height: auto;
+    }
+
+    .test-date {
+      font-size: 11px;
+      margin-top: 4px;
+      color: #000;
+      text-align: center;
     }
 
     .qr-code {
@@ -119,33 +133,39 @@
     .test-description {
       font-size: 14px;
       font-style: italic;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
     }
 
     .scores-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px 20px;
-        margin-left: 160px;
-        margin-top: -20px;
-        width: 70%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 30px;
     }
 
     .score-column {
-        width: 40%;
-        text-align: left;
+      width: 100%;
+      max-width: 100px;
+      text-align: center;
+    }
+
+    .score-item {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
     }
 
     .score-label {
-        font-size: 14px;
-        font-weight: bold;
+      font-size: 14px;
     }
-
+    
     .score-value {
-        margin-top: 5px;
+      font-size: 14px;
+      text-align: right;
+      font-weight: bold;
     }
-
+    
     .stars img {
         height: auto;
         width: 24px;
@@ -163,8 +183,6 @@
         display: flex;
         align-items: center;
     }
-
-
 
     .footer {
       display: flex;
@@ -216,18 +234,19 @@
 
     .signatory-name {
       font-size: 13px;
-      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
+ 
      <!-- bintang untuk listening dan reading -->
     @php
     function toeflPrimaryStars($score) {
-        if ($score >= 107 && $score <=109) $level = 4;
-        elseif ($score >= 104 && $score <=106) $level = 3;
-        elseif ($score >= 101 && $score <=103) $level = 2;
+        if ($score >= 113 && $score <=115) $level = 4;
+        elseif ($score >= 110 && $score <=112) $level = 4;
+        elseif ($score >= 107 && $score <=109) $level = 3;
+        elseif ($score >= 104 && $score <=106) $level = 2;
         else return '-';
 
         $output = '<div class="stars">';
@@ -281,15 +300,19 @@
     <img class="watermark" src="https://bpi-english-lab.com/wp-content/uploads/2025/05/toefl-primary-e1747036028969.png" alt="BPI Watermark"/>
 
     <div class="certificate-inner">
-      <img class="logo" src="https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png" alt="BPI Logo"/>
+      <div class="logo-container">
+        <img class="logo" src="https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png" alt="BPI Logo"/>
+        <div class="test-date">Test Date: {{ $certificatetoeflprimarystep2->exam_date }}</div>
+      </div>
 
-      <div class="certificate-number">No: TOEFL-P2-2025/0568</div>
+
+      <div class="certificate-number">No: {{ $certificatetoeflprimarystep2->no_sertif }}</div>
       <div class="qr-validation">Scan here for validation</div>
-      <div class="qr-code">{!! $qrCode !!}</div>
-      <div class="valid-until">Valid until: 12/05/26</div>
+          <div class="qr-code">{!! $qrCode !!}</div>
+      <div class="valid-until">Valid until: May 2027</div>
 
       <div class="toefl-header">TOEFL PRIMARY</div>
-      <div class="step">Step 1</div>
+      <div class="step">Step 2</div>
       <div class="title">Certificate of Achievement</div>
       <div class="subtitle">This is to certify that</div>
       <div class="participant">{{ $certificatetoeflprimarystep2->name }}</div>
@@ -297,36 +320,31 @@
       <div class="test-description">Has earned the following levels on the TOEFL Primary Prediction Test</div>
 
         <div class="scores-container">
-        <div class="score-column">
-            <div class="score-item">
-                <span class="score-label">Reading:</span>
-                <span class="score-value">{!! toeflPrimaryStars($certificatetoeflprimarystep2->reading_score ?? 0) !!}</span>
-            </div>
+          <div class="score-column">
+              <div class="score-item">
+                  <span class="score-label">Reading:</span>
+                  <span class="score-value">{!! toeflPrimaryStars($certificatetoeflprimarystep2->reading_score ?? 0) !!}</span>
+              </div>
+          </div>
+          <div class="score-column">
+              <div class="score-item">
+                  <span class="score-label">Speaking:</span>
+                  <span class="score-value">{!! toeflPrimaryStars2($certificatetoeflprimarystep2->speaking_score ?? 0) !!}</span>
+              </div>
+          </div>
+          <div class="score-column">
+              <div class="score-item">
+                  <span class="score-label">Listening:</span>
+                  <span class="score-value">{!! toeflPrimaryStars($certificatetoeflprimarystep2->listening_score ?? 0) !!}</span>
+              </div>
+          </div>
+          <div class="score-column">
+              <div class="score-item">
+                  <span class="score-label">Writing:</span>
+                  <span class="score-value">{!! toeflPrimaryStars3($certificatetoeflprimarystep2->writing_score ?? 0) !!}</span>
+              </div>
+          </div>
         </div>
-        <div class="score-column">
-            <div class="score-item">
-                <span class="score-label">Speaking:</span>
-                <span class="score-value">{!! toeflPrimaryStars2($certificatetoeflprimarystep2->speaking_score ?? 0) !!}</span>
-            </div>
-        </div>
-        <div class="score-column">
-            <div class="score-item">
-                <span class="score-label">Listening:</span>
-                <span class="score-value">{!! toeflPrimaryStars($certificatetoeflprimarystep2->listening_score ?? 0) !!}</span>
-            </div>
-        </div>
-        <div class="score-column">
-            <div class="score-item">
-                <span class="score-label">Writing:</span>
-                <span class="score-value">{!! toeflPrimaryStars3($certificatetoeflprimarystep2->writing_score ?? 0) !!}</span>
-            </div>
-        </div>
-        </div>
-
-
-      <div class="footer">
-        <div class="date">Test Date: {{ $certificatetoeflprimarystep2->exam_date}}</div>
-      </div>
 
       <div class="signatures">
         <div class="signature">
@@ -336,16 +354,16 @@
           <div class="signatory-name">Lukman Arif Rahman, M.Pd.</div>
         </div>
         <div class="signature">
-          <div class="signatory-title">Head of UPK Prodiksus<br>‎ </div>
-          <div class="signature-space"></div>
-          <div class="signature-line"></div>
-          <div class="signatory-name">Lina Roufah, S.Pd.</div>
-        </div>
-        <div class="signature">
           <div class="signatory-title">Principal of BPI<br>Elementary School</div>
           <div class="signature-space"></div>
           <div class="signature-line"></div>
           <div class="signatory-name">Rini Trisnawulan, S.S.</div>
+        </div>
+        <div class="signature">
+          <div class="signatory-title">Bandung, May ... 2025<br>Head of UPK Prodiksus </div>
+          <div class="signature-space"></div>
+          <div class="signature-line"></div>
+          <div class="signatory-name">Lina Roufah, S.Pd.</div>
         </div>
       </div>
     </div>

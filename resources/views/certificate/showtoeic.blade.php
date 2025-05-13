@@ -33,7 +33,22 @@
       padding: 40px;
       position: relative;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      border: solid 30px #9c6e22;
     }
+
+    .certificate-number {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .certify-section {
+      margin: 20px auto 30px auto;
+      text-align: center;
+      padding: 0 60px;
+    }
+
 
     .logo {
       position: absolute;
@@ -59,10 +74,14 @@
       margin-top: 20px;
     }
 
+    .test-date {
+      position: absolute;
+      top: 150px;
+      left: 15px;
+      font-size: 14px;
+      font-family: 'Lato', sans-serif;
+    }
     .certify-section {
-      margin-left: -220px;
-      margin-top: 20px;
-      margin-bottom: 30px;
       text-align: center;
       padding: 0 60px;
     }
@@ -78,7 +97,7 @@
       font-family: 'DM Serif Display', serif;
       font-weight: bold;
       font-size: 26px;
-      margin: 10px 0;
+      margin: 20px 0;
       text-transform: uppercase;
     }
 
@@ -86,7 +105,8 @@
       font-family: 'PT Serif', serif;
       font-style: italic;
       font-size: 15px;
-      margin-bottom: 5px;
+      text-align: center;
+      margin-bottom: 10px;
     }
 
     .test-title {
@@ -101,14 +121,12 @@
     .scores-section {
       display: flex;
       justify-content: center;
-      margin: 10px 0 10px -105px;
       font-weight: bold;
     }
     
     .scores-labels {
       font-family: 'PT Serif', serif;
-      text-align: left;
-      padding-right: 40px;
+      text-align: right;
       line-height: 1.6;
     }
     
@@ -207,20 +225,16 @@
       margin-bottom: 5px;
       margin-left: auto;
       margin-right: auto;
-      margin-top: 100px;
-    }
-    
-    .profile-image {
-      width: 100px;
-      position: absolute;
-      top: 210px;
-      right: 300px;
+      margin-top: 80px;
     }
   </style>
 </head>
 <body>
   <div class="certificate">
     <img src="https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png" alt="Logo" class="logo" />
+    
+    <div class="certificate-number">No: {{ $certificatetoeic->no_sertif }}</div>
+    <div class="test-date">Test Date: {{ $certificatetoeic->exam_date }}</div>
 
     <div class="title">TOEIC Prediction Test</div>
     <div class="subtitle">Certificate of Achievement</div>
@@ -235,11 +249,9 @@
     <div class="certify-section">
       <p class="certify-text">This is to certify that</p>
       <div class="participant-name">{{ $certificatetoeic->name }}</div>
-      <p class="score-text">achieved the following scores on the</p>
     </div>
+    <p class="score-text">achieved the following scores on the</p>
     <div class="test-title">Test of English for International Communication</div>
-    
-    <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/Screenshot-2025-05-12-182913.png" alt="Profile" class="profile-image" />
 
     <div class="scores-section">
       <div class="scores-labels">
@@ -253,22 +265,6 @@
         <p>{{ $certificatetoeic->total_score }}</p>
       </div>
     </div>
-
-    <div class="info-table">
-      <div class="info-row">
-        <div class="info-label">as administered under the auspices of:</div>
-        <div class="info-value">BPI English Lab</div>
-      </div>
-      <div class="info-row">
-        <div class="info-label">at:</div>
-        <div class="info-value">Indonesia</div>
-      </div>
-      <div class="info-row">
-        <div class="info-label">test date:</div>
-        <div class="info-value">{{ $certificatetoeic->exam_date }}</div>
-      </div>
-    </div>
-
       <div class="signatures">
         <div class="signature">
           <div class="signatory-title">Development Director<br>of BPI Foundation</div>
@@ -277,16 +273,16 @@
           <div class="signatory-name">Lukman Arif Rahman, M.Pd.</div>
         </div>
         <div class="signature">
-          <div class="signatory-title">Head of UPK Prodiksus<br>‎</div>
-          <div class="signature-space"></div>
-          <div class="signature-line"></div>
-          <div class="signatory-name">Lina Roufah, S.Pd.</div>
-        </div>
-        <div class="signature">
           <div class="signatory-title">Principal of BPI<br>Elementary School</div>
           <div class="signature-space"></div>
           <div class="signature-line"></div>
           <div class="signatory-name">Doni Agus Maulana, S.Pd.</div>
+        </div>
+        <div class="signature">
+          <div class="signatory-title">Bandung, May ... 2025<br>Head of UPK Prodiksus</div>
+          <div class="signature-space"></div>
+          <div class="signature-line"></div>
+          <div class="signatory-name">Lina Roufah, S.Pd.</div>
         </div>
       </div>
 

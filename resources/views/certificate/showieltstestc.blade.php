@@ -285,6 +285,16 @@
     </style>
 </head>
 <body>
+ @php
+ function getCefrLevel($score) {
+        if ($score >= 9) return 'C2';
+        elseif ($score >= 7.0 && $score <= 8.0) return 'C1';
+        elseif ($score >= 5.5 $score <= 6.5) return 'B2';
+        elseif ($score >= 4.0 $score <= 5.0) return 'B1';
+        else return 'Below B1';
+    }
+@endphp
+
     <div class="container">
         <div class="background-img"></div>
         <div class="header">
@@ -294,8 +304,8 @@
         </div>
         
         <div class="date-section">
-            <div>Test Date: <input type="text" class="date-input" value="12/05/2025"></div>
-            <input type="text" class="reference-input" value="LEAD00/00.0000/000-BILO/D-YYYY">
+            <div>Test Date: <input type="text" class="date-input" value="{{ $certificateieltstestc->exam_date}}"></div>
+            <input type="text" class="reference-input" value="{{ $certificateieltstestc->no_sertif}}">
         </div>
         
         <div class="divider"></div>
@@ -311,23 +321,23 @@
                 
                 <div class="form-row-birth">
                     <div class="form-label-birth">Date of Birth Sex (M/F)</div>
-                    <input type="text" class="form-input-birth" style="width: 200px;" value="01/01/2001" readonly>
-                    <input type="text" class="sex-input" value="M" readonly>
+                    <input type="text" class="form-input-birth" style="width: 200px;" value="{{ $certificateieltstestc->date_of_birth}}" readonly>
+                    <input type="text" class="sex-input" value="{{ strtolower($certificateieltstestc->gender ?? '') === 'female' ? 'F' : 'M' }}" readonly>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-label">Country or Region of Origin</div>
-                    <input type="text" class="form-input" value="INDONESIA" readonly>
+                    <input type="text" class="form-input" value="{{ $certificateieltstestc->country_region_origin}}" readonly>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-label">Country or Region of Nationality</div>
-                    <input type="text" class="form-input" value="INDONESIA" readonly>
+                    <input type="text" class="form-input" value="{{ $certificateieltstestc->country_of_region_of_nationality}}" readonly>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-label">First Language</div>
-                    <input type="text" class="form-input" value="BAHASA INDONESIA" readonly>
+                    <input type="text" class="form-input" value="{{ $certificateieltstestc->native_language}}" readonly>
                 </div>
             </div>
             
@@ -365,8 +375,9 @@
                 </div>
                     <div class="cefr-container">
                         <div class="cefr-label">CEFR</div>
-                        <div class="cefr-box">C1</div>
-                </div>
+                        <div class="cefr-box">{ !! getCefrLevel($certificateieltstestc->total_score) !!}</div>
+                    </div>
+                    @php
             </div>
         </div>
         
@@ -379,18 +390,17 @@
                 <div class="signature-line"></div>
                 <div class="signature-name">Lukman Arif Rachman, M.Pd.</div>
             </div>
-            
-            <div class="signature">
-                <div class="signature-title">Head of UPK Prodiksus<br>‎ </div>
-                <div class="signature-line"></div>
-                <div class="signature-name">Lina Roufah, S.Pd.</div>
-            </div>
-            
             <div class="signature">
                 <div class="signature-title">Principal of BPI 1<br>Senior High School</div>
                 <div class="signature-line"></div>
                 <div class="signature-name">Tatang, M.Pd.</div>
             </div>
+            <div class="signature">
+                <div class="signature-title">Bandung, May ..., 2025<br>Head of UPK Prodiksus</div>
+                <div class="signature-line"></div>
+                <div class="signature-name">Lina Roufah, S.Pd.</div>
+            </div>
+            
         </div>
     </div>
 </body>
