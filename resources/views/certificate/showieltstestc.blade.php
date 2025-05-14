@@ -274,15 +274,16 @@
         border-top: 1px solid #000;
         }
 
-        .signature-sign {
-        display: block;
-        margin: 0 auto;
-        width: 100px;       /* lebar tanda tangan, sesuaikan */
-        height: auto;
-        margin-top: 5px;   /* jarak atas jika perlu */
-        margin-bottom: 5px; /* tarik sedikit ke atas agar tampak di atas garis */
-        z-index: 1;
-        }
+    .signature-sign {
+      display: block;
+      margin: 0 auto;
+      width: 150px;
+      height: 80px;
+      object-fit: contain;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      z-index: 1;
+    }
 
         .signature-title {
             font-weight: bold;
@@ -324,7 +325,7 @@
 
         <div class="date-section">
             <div>Test Date: <input type="text" class="date-input" value="{{ $formattedExamDate }}" readonly></div>
-            <input type="text" class="reference-input" value="{{ $certificateieltstestc->no_sertif}}">
+            <input type="text" class="reference-input" value="No: 012/UPK_Prodiksus/V/2025">
         </div>
         
         <div class="divider"></div>
@@ -397,7 +398,6 @@
                         <div class="cefr-box">{{ getCefrLevel($certificateieltstestc->total_score) }}</div>
                     </div>
             </div>
-        </div>
         
         
         <div class="divider2"></div>
@@ -405,11 +405,13 @@
         <div class="signatures">
             <div class="signature">
                 <div class="signature-title">Development Director<br>of BPI Foundation</div>
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LAR-2.png" alt="Tanda Tangan" class="signature-sign">
                 <div class="signature-line"></div>
                 <div class="signature-name">Lukman Arif Rachman, M.Pd.</div>
             </div>
             <div class="signature">
                 <div class="signature-title">Principal of BPI 1<br>Senior High School</div>
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/T-2.png" alt="Tanda Tangan" class="signature-sign">
                 <div class="signature-line"></div>
                 <div class="signature-name">Tatang, M.Pd.</div>
             </div>

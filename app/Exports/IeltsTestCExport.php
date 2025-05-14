@@ -30,7 +30,7 @@ class IeltsTestCExport implements FromCollection, WithHeadings
             'speaking_score',
             'writing_score',
             'total_score',
-            'certificate_path'
+            'no_sertif',
         ])->get();
     }
 
@@ -52,7 +52,7 @@ class IeltsTestCExport implements FromCollection, WithHeadings
             'Speaking Score',
             'Writing Score',
             'Total SCore',
-            'Link Sertifikat',
+            'No Certificate'
         ];
     }
 }

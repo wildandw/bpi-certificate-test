@@ -49,11 +49,9 @@ class ToeflJuniorScoreImport implements ToModel, WithHeadingRow
                     'country_region_nationality'             => $row['country_of_region_of_nationality'],
                     'country_region_origin'                  => $row['country_of_region_of_origin'],
                     'native_language'                               => $row['native_language'],
-                    'date_of_birth'                                => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date_of_birth']),
-                    'school_name'                                  => $row['school_name'],
-                    'exam_date'             => is_numeric($row['exam_date']) 
-                                                ? Date::excelToDateTimeObject($row['exam_date']) 
-                                                : now(),
+                    'date_of_birth'            => $this->parseExcelDate($row['date_of_birth']),
+                    'school_name'              => $row['school_name'],
+                    'exam_date'                => $this->parseExcelDate($row['exam_date']),
                     'reading_score'         => $convertedReading,
                     'listening_score'       => $convertedListening,
                     'language_form_score'   => $convertedLanguage,
@@ -81,5 +79,25 @@ protected function generateCertificateNumber(string $class): string
             ->update(['no_sertif' => $certNum]);
 
         return $certNum;
+    }
+
+     protected function parseExcelDate($value): ?\DateTime
+    {
+        if (is_numeric($value)) {
+            return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value);
+        }
+
+        // Coba parsing string format umum seperti Y-m-d atau d/m/Y
+        try {
+            if ($date = \DateTime::createFromFormat('Y-m-d', $value)) {
+                return $date;
+            } elseif ($date = \DateTime::createFromFormat('d/m/Y', $value)) {
+                return $date;
+            }
+        } catch (\Exception $e) {
+            // Log error jika perlu
+        }
+
+        return null; // Jika tidak valid
     }
 }

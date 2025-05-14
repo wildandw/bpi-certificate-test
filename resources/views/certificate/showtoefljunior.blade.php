@@ -137,30 +137,21 @@
             width: 32%;
         }
 
-
         .signature-sign {
         display: block;
         margin: 0 auto;
-        width: 100px;       /* lebar tanda tangan, sesuaikan */
-        height: auto;
-        margin-top: 10px;   /* jarak atas jika perlu */
-        margin-bottom: 5px; /* tarik sedikit ke atas agar tampak di atas garis */
+        width: 150px;
+        height: 80px;
+        object-fit: contain;
+        margin-top: 10px;
+        margin-bottom: 10px;
         z-index: 1;
         }
+
         .signature-line {
         width: 80%;
         margin: 10px auto 0 auto;
         border-top: 1px solid #000;
-        }
-
-        .signature-sign2 {
-        display: block;
-        margin: 0 auto;
-        width: 180px;       /* lebar tanda tangan, sesuaikan */
-        height: auto;
-        margin-top: 15px;   /* jarak atas jika perlu */
-        margin-bottom: 5px; /* tarik sedikit ke atas agar tampak di atas garis */
-        z-index: 1;
         }
 
         .signature-title {
@@ -212,7 +203,7 @@
             <div class="valid-until">Valid until: May 2027</div>
         </div>
 
-        <div class="certificate-number">No. {{ $certificatetoefljunior->no_sertif }}</div>
+        <div class="certificate-number">No. 011/UPK_Prodiksus/V/2025</div>
 
         <div class="header">
             <div class="logo-container">
@@ -245,13 +236,14 @@
         <div class="signatures">
             <div class="signature">
                 <div class="signatory-title">Development Director<br>of BPI Foundation</div>
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LAR-2.png" alt="Tanda Tangan" class="signature-sign">
                 <div class="signature-space"></div>
                 <div class="signature-line"></div>
                 <div class="signatory-name">Lukman Arif Rachman, M.Pd.</div>
             </div>         
             <div class="signature">
                 <div class="signatory-title">Principal of BPI<br>Junior High School</div>
-                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/RI-e1747172647638.png" alt="Tanda Tangan" class="signature-sign2">
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/RI-2.png" alt="Tanda Tangan" class="signature-sign">
                 <div class="signature-space"></div>
                 <div class="signature-line"></div>
                 <div class="signatory-name">Rina Indrawaty, S.Pd</div>
@@ -266,7 +258,7 @@
                     Bandung, {{ $signDate->format('F j, Y') }}<br>
                     Head of UPK Prodiksus
                 </div>
-                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LR-e1747160183609.png" alt="Tanda Tangan" class="signature-sign">
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LR-2.png" alt="Tanda Tangan" class="signature-sign">
                 <div class="signature-space"></div>
                 <div class="signature-line"></div>
                 <div class="signatory-name">Lina Roufah, S.Pd.</div>

@@ -26,6 +26,7 @@ class ToeflJuniorExport implements FromCollection, WithHeadings
             'listening_score',
             'language_form_score',
             'total_score',
+            'no_sertif'
         ])->get();
     }
 
@@ -46,6 +47,7 @@ class ToeflJuniorExport implements FromCollection, WithHeadings
             'Listening Score',
             'Language Form Score',
             'Total Score',
+            'No Certificate'
         ];
     }
 }

@@ -39,9 +39,9 @@ class ToeicScoreImport implements ToModel, WithHeadingRow
                     'country_region_nationality'             => $row['country_of_region_of_nationality'],
                     'country_region_origin'                  => $row['country_of_region_of_origin'],
                     'native_language'                               => $row['native_language'],
-                    'date_of_birth'                                => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date_of_birth']),
-                    'school_name'                                  => $row['school_name'],
-                    'exam_date' => Date::excelToDateTimeObject($row['exam_date']),
+                    'date_of_birth'            => $this->parseExcelDate($row['date_of_birth']),
+                    'school_name'              => $row['school_name'],
+                    'exam_date'                => $this->parseExcelDate($row['exam_date']),
                     'raw_listening' => $rawListening,
                     'raw_reading' => $rawReading,
                     'listening_score' => $this->formatDecimal($convertedListening),
@@ -75,5 +75,25 @@ class ToeicScoreImport implements ToModel, WithHeadingRow
     private function formatDecimal($value)
     {
         return strpos($value, '.') !== false ? rtrim(rtrim(number_format($value, 3, '.', ''), '0'), '.') : $value;
+    }
+
+     protected function parseExcelDate($value): ?\DateTime
+    {
+        if (is_numeric($value)) {
+            return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value);
+        }
+
+        // Coba parsing string format umum seperti Y-m-d atau d/m/Y
+        try {
+            if ($date = \DateTime::createFromFormat('Y-m-d', $value)) {
+                return $date;
+            } elseif ($date = \DateTime::createFromFormat('d/m/Y', $value)) {
+                return $date;
+            }
+        } catch (\Exception $e) {
+            // Log error jika perlu
+        }
+
+        return null; // Jika tidak valid
     }
 }

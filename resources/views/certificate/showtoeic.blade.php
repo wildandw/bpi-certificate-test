@@ -211,7 +211,7 @@
     .signatures {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
+      margin-top: 10px;
       padding: 0 60px;
     }
 
@@ -229,21 +229,14 @@
     .signature-sign {
       display: block;
       margin: 0 auto;
-      width: 100px;       /* lebar tanda tangan, sesuaikan */
-      height: auto;
-      margin-top: 5px;   /* jarak atas jika perlu */
-      margin-bottom: 5px; /* tarik sedikit ke atas agar tampak di atas garis */
+      width: 150px;
+      height: 80px;
+      object-fit: contain;
+      margin-top: 10px;
+      margin-bottom: 10px;
       z-index: 1;
     }
-    .signature-sign2 {
-      display: block;
-      margin: 0 auto;
-      width: 80px;       /* lebar tanda tangan, sesuaikan */
-      height: auto;
-      margin-top: 5px;   /* jarak atas jika perlu */
-      margin-bottom: 0px; /* tarik sedikit ke atas agar tampak di atas garis */
-      z-index: 1;
-    }
+
   </style>
 </head>
 <body>
@@ -290,6 +283,7 @@
       <div class="signatures">
         <div class="signature">
           <div class="signatory-title">Development Director<br>of BPI Foundation</div>
+          <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LAR-2.png" alt="Tanda Tangan" class="signature-sign">
           <div class="signature-space"></div>
           <div class="signature-line"></div>
           <div class="signatory-name">Lukman Arif Rahman, M.Pd.</div>
@@ -297,7 +291,7 @@
         <div class="signature">
           <div class="signatory-title">Principal of BPI<br>Elementary School</div>
           <div class="signature-space"></div>
-          <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/DAM-e1747160353513.png" alt="Tanda Tangan" class="signature-sign">
+          <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/DAM-2.png" alt="Tanda Tangan" class="signature-sign">
           <div class="signature-line"></div>
           <div class="signatory-name">Doni Agus Maulana, S.Pd.</div>
         </div>
@@ -311,7 +305,7 @@
                     Bandung, {{ $signDate->format('F j, Y') }}<br>
                     Head of UPK Prodiksus
                 </div>
-                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LR-e1747160183609.png" alt="Tanda Tangan" class="signature-sign2">
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LR-2.png" alt="Tanda Tangan" class="signature-sign">
                 <div class="signature-line"></div>
                 <div class="signature-name">Lina Roufah, S.Pd.</div>
             </div>
