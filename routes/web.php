@@ -1,6 +1,14 @@
 <?php
 
+
+use App\Http\Controllers\ToeflController;
+use App\Http\Controllers\IeltsTestCController;
+use App\Http\Controllers\ToeflJuniorController;
+use App\Http\Controllers\ToeflPrimaryStep1Controller;
+use App\Http\Controllers\ToeflPrimaryStep2Controller;
+use App\Http\Controllers\ToeicController;
 use App\Http\Controllers\ScoreController;
+
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CertificateToeflJuniorController;
 use App\Http\Controllers\CertificateIeltsTestCController;
@@ -36,27 +44,110 @@ Route::middleware('auth')->group(function () {
 Route::get('/panduan', [PanduanController::class, 'index'])->name('panduan');
 
 // upload data toefl
-Route::get('/upload', [ScoreController::class, 'uploadForm'])->name('upload');
-Route::post('/import', [ScoreController::class, 'importScores'])->name('scores.import');
+Route::get('/upload', [ToeflController::class, 'uploadForm'])->name('upload');
+Route::post('/import', [ToeflController::class, 'importScores'])->name('scores.import');
 // upload data toefl junior
-Route::get('/toefljunior', [ScoreController::class, 'uploadFormJunior'])->name('uploadJunior');
-Route::post('/importtoefljunior', [ScoreController::class, 'importScoresJunior'])->name('scores.importJunior');
+Route::get('/toefljunior-upload', [ToeflJuniorController::class, 'uploadFormJunior'])->name('uploadJunior');
+Route::post('/importtoefljunior', [ToeflJuniorController::class, 'importScoresJunior'])->name('scores.importJunior');
 // upload data ielts test Prediction C
-Route::get('/ieltstestc', [ScoreController::class, 'uploadFormIeltsTestC'])->name('uploadIeltsTestC');
-Route::post('/importieltstestc', [ScoreController::class, 'importScoresIeltsTestC'])->name('scores.importIeltsTestC');
+Route::get('/ieltstestc-upload', [IeltsTestCController::class, 'uploadFormIeltsTestC'])->name('uploadIeltsTestC');
+Route::post('/importieltstestc', [IeltsTestCController::class, 'importScoresIeltsTestC'])->name('scores.importIeltsTestC');
 // upload data toeic
-Route::get('/toeic', [ScoreController::class, 'uploadFormToeic'])->name('uploadToeic');
-Route::post('/importToeic', [ScoreController::class, 'importScoresToeic'])->name('scores.importToeic');
+Route::get('/toeic-upload', [ToeicController::class, 'uploadFormToeic'])->name('uploadToeic');
+Route::post('/importToeic', [ToeicController::class, 'importScoresToeic'])->name('scores.importToeic');
 // upload data toefl primary step 1
-Route::get('/toeflprimarystep1', [ScoreController::class, 'uploadFormToeflPrimaryStep1'])->name('uploadToeflPrimaryStep1');
-Route::post('/importToeflPrimaryStep1', [ScoreController::class, 'importScoresToeflPrimaryStep1'])->name('scores.importToeflPrimaryStep1');
+Route::get('/toeflprimarystep1-upload', [ToeflPrimaryStep1Controller::class, 'uploadFormToeflPrimaryStep1'])->name('uploadToeflPrimaryStep1');
+Route::post('/importToeflPrimaryStep1', [ToeflPrimaryStep1Controller::class, 'importScoresToeflPrimaryStep1'])->name('scores.importToeflPrimaryStep1');
 // upload data toefl primary step 2
-Route::get('/toeflprimarystep2', [ScoreController::class, 'uploadFormToeflPrimaryStep2'])->name('uploadToeflPrimaryStep2');
-Route::post('/importToeflPrimaryStep2', [ScoreController::class, 'importScoresToeflPrimaryStep2'])->name('scores.importToeflPrimaryStep2');
-
+Route::get('/toeflprimarystep2-upload', [ToeflPrimaryStep2Controller::class, 'uploadFormToeflPrimaryStep2'])->name('uploadToeflPrimaryStep2');
+Route::post('/importToeflPrimaryStep2', [ToeflPrimaryStep2Controller::class, 'importScoresToeflPrimaryStep2'])->name('scores.importToeflPrimaryStep2');
 // manual
 Route::get('/create', [ScoreController::class, 'create'])->name('create');
 Route::post('/store', [ScoreController::class, 'store'])->name('scores.store');
+
+
+
+
+
+// edit,hapus dan search data
+// toefl ibt
+Route::put('/toefl/{id}', [ToeflController::class, 'updatetoefl'])
+     ->name('toefl.update');
+// Hapus satu siswa
+Route::delete('/toefl/{id}', [ToeflController::class, 'destroytoefl'])
+     ->name('toefl.destroy');
+// Hapus semua siswa
+Route::delete('/toefl', [ToeflController::class, 'destroyalltoefl'])
+     ->name('toefl.destroyall');
+// search siswa
+Route::get('/toefl', [ToeflController::class, 'index'])
+     ->name('toefl.index');
+
+// toefl junior
+Route::put('/toefljunior/{id}', [ToeflJuniorController::class, 'updatetoefljunior'])
+     ->name('toefljunior.update');
+// Hapus satu siswa
+Route::delete('/toefljunior/{id}', [ToeflJuniorController::class, 'destroytoefljunior'])
+     ->name('toefljunior.destroy');
+// Hapus semua siswa
+Route::delete('/toefljunior', [ToeflJuniorController::class, 'destroyalltoefljunior'])
+     ->name('toefljunior.destroyall');
+// search siswa
+Route::get('/toefljunior', [ToeflJuniorController::class, 'index'])
+     ->name('toefljunior.index');
+
+// ielts
+Route::put('/ielts/{id}', [IeltsTestCController::class, 'updateielts'])
+     ->name('ielts.update');
+// Hapus satu siswa
+Route::delete('/ielts/{id}', [IeltsTestCController::class, 'destroyielts'])
+     ->name('ielts.destroy');
+// Hapus semua siswa
+Route::delete('/ielts', [IeltsTestCController::class, 'destroyallielts'])
+     ->name('ielts.destroyall');
+// search siswa
+Route::get('/ielts', [IeltsTestCController::class, 'index'])
+     ->name('ielts.index');
+
+// primary step 1
+Route::put('/toeflprimarystep1/{id}', [ToeflPrimaryStep1Controller::class, 'updatetoeflprimarystep1'])
+     ->name('toeflprimarystep1.update');
+// Hapus satu siswa
+Route::delete('/toeflprimarystep1/{id}', [ToeflPrimaryStep1Controller::class, 'destroytoeflprimarystep1'])
+     ->name('toeflprimarystep1.destroy');
+// Hapus semua siswa
+Route::delete('/toeflprimarystep1', [ToeflPrimaryStep1Controller::class, 'destroyalltoeflprimarystep1'])
+     ->name('toeflprimarystep1.destroyall');
+// search siswa
+Route::get('/toeflprimarystep1', [ToeflPrimaryStep1Controller::class, 'index'])
+     ->name('toeflprimarystep1.index');
+
+// primary step 2
+Route::put('/toeflprimarystep2/{id}', [ToeflPrimaryStep2Controller::class, 'updatetoeflprimarystep2'])
+     ->name('toeflprimarystep2.update');
+// Hapus satu siswa
+Route::delete('/toeflprimarystep2/{id}', [ToeflPrimaryStep2Controller::class, 'destroytoeflprimarystep2'])
+     ->name('toeflprimarystep2.destroy');
+// Hapus semua siswa
+Route::delete('/toeflprimarystep2', [ToeflPrimaryStep2Controller::class, 'destroyalltoeflprimarystep2'])
+     ->name('toeflprimarystep2.destroyall');
+// search siswa
+Route::get('/toeflprimarystep2', [ToeflPrimaryStep2Controller::class, 'index'])
+     ->name('toeflprimarystep2.index');
+
+// toeic
+Route::put('/toeic/{id}', [ToeicController::class, 'updatetoeic'])
+     ->name('toeic.update');
+// Hapus satu siswa
+Route::delete('/toeic/{id}', [ToeicController::class, 'destroytoeic'])
+     ->name('toeic.destroy');
+// Hapus semua siswa
+Route::delete('/toeic', [ToeicController::class, 'destroyalltoeic'])
+     ->name('toeic.destroyall');
+// search siswa
+Route::get('/toeic', [ToeicController::class, 'index'])
+     ->name('toeic.index');
+
 
 
 
@@ -88,6 +179,9 @@ Route::get('/certificate-toeflprimarystep2/{id}/pdf', [CertificateToeflPrimarySt
 
 
 
+
+
+
 // unduh data
 // Toefl iBT
 Route::get('/export-ToefliBT', function () {
@@ -115,19 +209,22 @@ Route::get('/export-ToeflPrimaryStep2', function () {
 })->name('toeflprimarystep2.export');
 
 
+
+
+
 // Reset Conversion Rate
 // iBT
-Route::delete('/scoreconversions/reset', [ScoreController::class, 'resetscoreconversions'])->name('scoreconversions.reset');
+Route::delete('/scoreconversions/reset', [ToeflController::class, 'resetscoreconversions'])->name('scoreconversions.reset');
 // toefl junior
-Route::delete('/scoreconversiontoefljunior/reset', [ScoreController::class, 'resetscoreconversiontoefljunior'])->name('scoreconversiontoefljunior.reset');
+Route::delete('/scoreconversiontoefljunior/reset', [ToeflJuniorController::class, 'resetscoreconversiontoefljunior'])->name('scoreconversiontoefljunior.reset');
 // ielts
-Route::delete('/scoreconversionielts/reset', [ScoreController::class, 'resetscoreconversionieltstestc'])->name('scoreconversionieltstestc.reset');
+Route::delete('/scoreconversionielts/reset', [IeltsTestCController::class, 'resetscoreconversionieltstestc'])->name('scoreconversionieltstestc.reset');
 // toeic
-Route::delete('/scoreconversiontoeic/reset', [ScoreController::class, 'resetscoreconversiontoeic'])->name('scoreconversiontoeic.reset');
+Route::delete('/scoreconversiontoeic/reset', [ToeicController::class, 'resetscoreconversiontoeic'])->name('scoreconversiontoeic.reset');
 // toefl primary step 1
-Route::delete('/scoreconversiontoeflprimarystep1/reset', [ScoreController::class, 'resetscoreconversiontoeflprimarystep1'])->name('scoreconversiontoeflprimarystep1.reset');
+Route::delete('/scoreconversiontoeflprimarystep1/reset', [ToeflPrimaryStep1Controller::class, 'resetscoreconversiontoeflprimarystep1'])->name('scoreconversiontoeflprimarystep1.reset');
 // toefl primary step 2
-Route::delete('/scoreconversiontoeflprimarystep2/reset', [ScoreController::class, 'resetscoreconversiontoeflprimarystep2'])->name('scoreconversiontoeflprimarystep2.reset');
+Route::delete('/scoreconversiontoeflprimarystep2/reset', [ToeflPrimaryStep2Controller::class, 'resetscoreconversiontoeflprimarystep2'])->name('scoreconversiontoeflprimarystep2.reset');
 
 
 

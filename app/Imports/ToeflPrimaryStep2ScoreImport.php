@@ -23,7 +23,6 @@ class ToeflPrimaryStep2ScoreImport implements ToModel, WithHeadingRow
         // Ambil nilai raw
         $rawReading   = $row['reading_score'];
         $rawListening = $row['listening_score'];
-        $speaking     = $row['speaking_score'];
         $writing      = $row['writing_score'];
 
         // Cari hasil konversi dari tabel conversion
@@ -38,7 +37,6 @@ class ToeflPrimaryStep2ScoreImport implements ToModel, WithHeadingRow
         $total = (
             $convertedReading
             + $convertedListening
-            + $speaking
             + $writing
         ) / 4;
 
@@ -66,7 +64,6 @@ class ToeflPrimaryStep2ScoreImport implements ToModel, WithHeadingRow
                     'exam_date'                => $this->parseExcelDate($row['exam_date']),
                     'reading_score'  => $convertedReading,
                     'listening_score'=> $convertedListening,
-                    'speaking_score' => $speaking,
                     'writing_score'  => $writing,
                     'total_score'    => $formatted,
                     'no_sertif'                => $noSertif,
@@ -95,21 +92,36 @@ protected function generateCertificateNumber(string $class): string
 
      protected function parseExcelDate($value): ?\DateTime
     {
+        // 1. Angka Excel serial date
         if (is_numeric($value)) {
             return \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value);
         }
 
-        // Coba parsing string format umum seperti Y-m-d atau d/m/Y
-        try {
-            if ($date = \DateTime::createFromFormat('Y-m-d', $value)) {
-                return $date;
-            } elseif ($date = \DateTime::createFromFormat('d/m/Y', $value)) {
-                return $date;
+        // 2. Daftar format yang akan dicoba
+        $formats = [
+            'Y-m-d',   // 2025-05-14
+            'Y/m/d',   // 2013/05/01
+            'm/d/Y',   // 05/14/2025
+            'd/m/Y',   // 14/05/2025
+            'd-m-Y',   // 14-05-2025
+        ];
+
+        // 3. Coba setiap format
+        foreach ($formats as $fmt) {
+            $dt = \DateTime::createFromFormat($fmt, $value);
+            if ($dt && $dt->format($fmt) === $value) {
+                return $dt;
             }
-        } catch (\Exception $e) {
-            // Log error jika perlu
         }
 
-        return null; // Jika tidak valid
+        // 4. Fallback: parse string bebas
+        try {
+            return new \DateTime($value);
+        } catch (\Exception $e) {
+            // gagal parse
+        }
+
+        // 5. Jika semua gagal, kembalikan null
+        return null;
     }
 }

@@ -226,6 +226,19 @@
       border-top: 1px solid #000;
     }
 
+    .cap {
+      display: block;
+      margin: 0 auto;
+      width: 120px;
+      height: auto;
+      object-fit: contain;
+      margin-top: -25px;
+      margin-bottom: 140px;
+      margin-left: 30px;
+      z-index: -5;
+      position: absolute;
+    }
+
     .signature-sign {
       display: block;
       margin: 0 auto;
@@ -234,7 +247,7 @@
       object-fit: contain;
       margin-top: 10px;
       margin-bottom: 10px;
-      z-index: 1;
+      z-index: 9;
     }
 
   </style>
@@ -295,16 +308,12 @@
           <div class="signature-line"></div>
           <div class="signatory-name">Doni Agus Maulana, S.Pd.</div>
         </div>
-        @php
-                // Pastikan kamu sudah meng-import Carbon
-                $signDate = \Carbon\Carbon::parse($certificatetoeic->exam_date)
-                            ->addDays(7);
-          @endphp
             <div class="signature">
                 <div class="signature-title">
-                    Bandung, {{ $signDate->format('F j, Y') }}<br>
+                    Bandung, May 30, 2025<br>
                     Head of UPK Prodiksus
                 </div>
+                 <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/upk-e1747674338525.png" alt="cap" class="cap">
                 <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LR-2.png" alt="Tanda Tangan" class="signature-sign">
                 <div class="signature-line"></div>
                 <div class="signature-name">Lina Roufah, S.Pd.</div>

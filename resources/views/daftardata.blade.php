@@ -36,6 +36,16 @@
     .table-container table td:nth-child(2) {
       text-align: left;
     }
+    /* Untuk tombol-tombol di kolom Aksi */
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px; /* Jarak antar tombol */
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+
     #pdfViewer {
         width: 100%;
         height: 700px;
@@ -54,16 +64,49 @@
 <body>
   <div class="container-fluid">
     <div class="table-container">
-      <h1 class="text-center">Data Siswa TOEFL iBT</h1>
+      <h1 class="text-center">Data Siswa - TOEFL iBT</h1>
 
-      {{-- tombol download --}}
-      <div class="mb-3 text-end">
-        <a href="{{ route('toeflibt.export') }}" class="btn btn-success">
-          <i class="bi bi-file-earmark-spreadsheet"></i> Download Semua Data
-        </a>
+      
+        <div class="d-flex justify-content-between align-items-center mb-3">
+        {{-- Search form di kiri --}}
+        {{-- Input Search Real-time --}}
+          <div>
+            <input type="text" id="searchInput"
+                  class="form-control border border-dark"
+                  placeholder="Cari nama siswa..."
+                  style="width: 300px;">
+          </div>
+
+
+        {{-- Tombol Download dan Hapus di kanan --}}
+        <div>
+          <a href="{{ route('toeflibt.export') }}" class="btn btn-success me-2">
+            <i class="bi bi-file-earmark-spreadsheet"></i> Download Semua Data
+          </a>
+
+          <form id="form-delete-all"
+                action="{{ route('toefl.destroyall') }}"
+                method="POST"
+                class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button type="button"
+                    class="btn btn-danger btn-delete"
+                    data-message="Yakin ingin menghapus SEMUA data siswa?"
+                    data-form="#form-delete-all"
+                    data-bs-toggle="modal"
+                    data-bs-target="#confirmModal">
+              <i class="bi bi-trash"></i> Hapus Semua Data
+            </button>
+          </form>
+        </div>
       </div>
 
+
+
     <!-- Tombol Hapus Semua Data -->
+     
+
   
 
       @if(session('success'))
@@ -71,7 +114,7 @@
           {{ session('success') }}
         </div>
       @endif
-      <table class="table table-bordered table-striped">
+      <table id="toeflTable" class="table table-bordered table-striped">
         <thead class="table-primary">
           <tr>
             <th>No</th>
@@ -97,13 +140,52 @@
               <td>{{ $student->writing_score }}</td>
               <td>{{ $student->total_score }}</td>
               <td>
-                
-                <button class="btn btn-primary btn-sm"
-                    data-preview="{{ route('certificate.show', $student->id) }}"
-                    data-download="{{ route('certificate.pdf', $student->id) }}"
-                    onclick="showCertificate(this.getAttribute('data-preview'), this.getAttribute('data-download'))">
-                    Lihat Sertifikat
-                </button>
+                <div class="action-buttons">
+                  <button class="btn btn-primary btn-sm"
+                      data-preview="{{ route('certificate.show', $student->id) }}"
+                      data-download="{{ route('certificate.pdf', $student->id) }}"
+                      onclick="showCertificate(this.getAttribute('data-preview'), this.getAttribute('data-download'))">
+                      Lihat Sertifikat
+                  </button>
+                  {{-- Edit (trigger modal) --}}
+                  <button class="btn btn-warning btn-sm ms-1"
+                          data-bs-toggle="modal"
+                          data-bs-target="#editModal"
+                          data-id="{{ $student->id }}"
+                          data-name="{{ $student->name }}"
+                          data-class="{{ $student->class }}"
+                          data-email="{{ $student->email }}"
+                          data-gender="{{ $student->gender }}"
+                          data-country_region_nationality="{{ $student->country_region_nationality }}"
+                          data-country_region_origin="{{ $student->country_region_origin }}"
+                          data-native_language="{{ $student->native_language }}"
+                          data-date_of_birth="{{ $student->date_of_birth }}"
+                          data-school_name="{{ $student->school_name }}"
+                          data-exam_date="{{ $student->exam_date }}"
+                          data-reading_score="{{ $student->reading_score }}"
+                          data-listening_score="{{ $student->listening_score }}"
+                          data-speaking_score="{{ $student->speaking_score }}"
+                          data-writing_score="{{ $student->writing_score }}"
+                          data-no_sertif="{{ $student->no_sertif }}">
+                    Edit
+                  </button>
+                  <!-- hapus -->
+                    <form id="form-delete-{{ $student->id }}"
+                        action="{{ route('toefl.destroy', $student->id) }}"
+                        method="POST"
+                        class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="button"
+                            class="btn btn-danger btn-sm ms-1 btn-delete"
+                            data-message="Hapus data siswa {{ $student->name }}?"
+                            data-form="#form-delete-{{ $student->id }}"
+                            data-bs-toggle="modal"
+                            data-bs-target="#confirmModal">
+                      Hapus
+                    </button>
+                    </form>
+                </div>
               </td>
             </tr>
           @endforeach
@@ -131,6 +213,120 @@
     </div>
   </div>
 
+  <!-- Modal Edit Data Siswa -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit Data Siswa TOEFL iBT</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="editForm" method="POST">
+          @csrf
+          @method('PUT')
+          <div class="modal-body p-4">  
+          <div class="row gx-4 gy-3"> 
+              <input type="hidden" name="id" id="edit-id">
+              <div class="col-md-6">
+                <label class="form-label"><b>Nama Siswa</b></label>
+                <input type="text" name="name" id="edit-name" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><b>Class</b></label>
+                <input type="text" name="class" id="edit-class" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><b>Email</b></label>
+                <input type="email" name="email" id="edit-email" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><b>Gender</b></label>
+                <select name="gender" id="edit-gender" class="form-select">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><b>Country of Region of Nationality</b></label>
+                <input type="text" name="country_region_nationality" id="edit-country_region_nationality" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><b>Country of Region of Origin</b></label>
+                <input type="text" name="country_region_origin" id="edit-country_region_origin" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><b>Native Language</b></label>
+                <input type="text" name="native_language" id="edit-native_language" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><b>Date of Birth</b></label>
+                <input type="date" name="date_of_birth" id="edit-date_of_birth" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><b>School Name</b></label>
+                <input type="text" name="school_name" id="edit-school_name" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><b>Exam Date</b></label>
+                <input type="date" name="exam_date" id="edit-exam_date" class="form-control" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label"><b>Reading Score</b></label>
+                <input type="number" name="reading_score" id="edit-reading_score" class="form-control" step="0.01" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label"><b>Listening Score</b></label>
+                <input type="number" name="listening_score" id="edit-listening_score" class="form-control" step="0.01" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label"><b>Speaking Score</b></label>
+                <input type="number" name="speaking_score" id="edit-speaking_score" class="form-control" step="0.01" required>
+              </div>
+              <div class="col-md-3">
+              <label class="form-label"><b>Writing Score</b></label>
+                <input type="number" name="writing_score" id="edit-writing_score" class="form-control" step="0.01" required>
+              </div>
+              <div class="col-md-9">
+                <label class="form-label"><b>*jumlah soal benar / skor sebelum di konversi</b></label>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><b>No Sertifikat</b></label>
+                <input type="text" name="no_sertif" id="edit-no_sertif" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- model hapus data -->
+  <!-- Modal Konfirmasi Hapus -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">Konfirmasi</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4" id="confirmModalBody">
+          <div class="row gx-4 gy-3">
+          <!-- Pesan akan diisi via JS -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+          <button type="button" class="btn btn-danger" id="confirmYes">Ya</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- Bootstrap 5 JS Bundle CDN -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
@@ -149,13 +345,62 @@
     }
   </script>
 
-  <!-- <script>
-  function confirmDelete() {
-    if (confirm("Apakah Anda yakin ingin menghapus SEMUA data? Tindakan ini tidak dapat dikembalikan.")) {
-      document.getElementById('deleteAllForm').submit();
-    }
-  }
-</script> -->
+<!-- edit -->
+  <script>
+// Populate form ketika modal dibuka
+var editModal = document.getElementById('editModal');
+editModal.addEventListener('show.bs.modal', function (event) {
+  var btn = event.relatedTarget;
+  var id = btn.getAttribute('data-id');
+
+  // Atur action URL
+  var form = document.getElementById('editForm');
+  form.action = '/toefl/' + id;
+
+  // Map setiap field
+  ['name','class','email','gender',
+   'country_region_nationality','country_region_origin',
+   'native_language','date_of_birth','school_name',
+   'exam_date','reading_score','listening_score',
+   'speaking_score','writing_score','no_sertif'
+  ].forEach(function(field) {
+    var el = document.getElementById('edit-' + field);
+    el.value = btn.getAttribute('data-' + field);
+  });
+});
+</script>
+
+<!-- hapus -->
+  <script>
+  document.querySelectorAll('.btn-delete').forEach(btn => {
+    btn.addEventListener('click', event => {
+      // Baca pesan dan target form
+      const message = btn.getAttribute('data-message');
+      const formSelector = btn.getAttribute('data-form');
+      // Isi teks di modal
+      document.getElementById('confirmModalBody').innerText = message;
+      // Saat tekan 'Ya', submit form yang tepat
+      const yesBtn = document.getElementById('confirmYes');
+      yesBtn.onclick = () => {
+        document.querySelector(formSelector).submit();
+      };
+    });
+  });
+</script>
+
+<!-- hapus -->
+<script>
+  document.getElementById("searchInput").addEventListener("keyup", function () {
+    const filter = this.value.toLowerCase();
+    const rows = document.querySelectorAll("#toeflTable tbody tr");
+
+    rows.forEach(function (row) {
+      const name = row.querySelector("td:nth-child(2)").textContent.toLowerCase(); // Nama Siswa
+      row.style.display = name.includes(filter) ? "" : "none";
+    });
+  });
+</script>
+
 
 </body>
 </html>

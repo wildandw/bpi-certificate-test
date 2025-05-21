@@ -23,7 +23,6 @@ class ToeflPrimaryStep1Scores extends Model
         'exam_date',
         'reading_score',
         'listening_score',
-        'speaking_score',
         'writing_score',
         'total_score',
         'no_sertif',
