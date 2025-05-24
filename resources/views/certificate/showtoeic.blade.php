@@ -218,23 +218,26 @@
     .signature {
       text-align: center;
       font-size: 14px;
+       position: relative;
+      z-index: 99;
     }
 
+
     .signature-line {
-       width: 80%;
-      margin: 20px auto 0 auto;
+       width: 100%;
+      margin: 5px auto 0 auto;
       border-top: 1px solid #000;
     }
 
     .cap {
       display: block;
       margin: 0 auto;
-      width: 120px;
+      width: 110px;
       height: auto;
       object-fit: contain;
-      margin-top: -25px;
-      margin-bottom: 140px;
-      margin-left: 30px;
+      margin-top: -15px;
+      margin-bottom: 90px;
+      margin-left: -40px;
       z-index: -5;
       position: absolute;
     }
@@ -246,8 +249,22 @@
       height: 80px;
       object-fit: contain;
       margin-top: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
       z-index: 9;
+    }
+    .signature-sign2 {
+      display: block;
+      margin: 0 auto;
+      width: 220px;
+      height: 110px;
+      object-fit: contain;
+      margin-top: -15px;
+      margin-bottom: -5px;
+      z-index: -5;
+    }
+
+    .signatory-title{
+      z-index: 99;
     }
 
   </style>
@@ -302,9 +319,9 @@
           <div class="signatory-name">Lukman Arif Rahman, M.Pd.</div>
         </div>
         <div class="signature">
-          <div class="signatory-title">Principal of BPI<br>Elementary School</div>
+          <div class="signatory-title">Principal of BPI<br>Vocational High School</div>
           <div class="signature-space"></div>
-          <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/DAM-2.png" alt="Tanda Tangan" class="signature-sign">
+          <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/DAM-ttd-e1748083111153.png" alt="Tanda Tangan" class="signature-sign2">
           <div class="signature-line"></div>
           <div class="signatory-name">Doni Agus Maulana, S.Pd.</div>
         </div>

@@ -24,6 +24,7 @@ class ToeflPrimaryStep2Scores extends Model
         'reading_score',
         'listening_score',
         'writing_score',
+        'speaking_score',
         'total_score',
         'no_sertif',
         'certificate_path'

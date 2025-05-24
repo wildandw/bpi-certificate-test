@@ -38,7 +38,7 @@ class ToeflPrimaryStep2ScoreImport implements ToModel, WithHeadingRow
             $convertedReading
             + $convertedListening
             + $writing
-        ) / 4;
+        ) / 3;
 
         
         $formatted = rtrim(
@@ -65,6 +65,7 @@ class ToeflPrimaryStep2ScoreImport implements ToModel, WithHeadingRow
                     'reading_score'  => $convertedReading,
                     'listening_score'=> $convertedListening,
                     'writing_score'  => $writing,
+                    // 'speaking_score'  =>  $row['speaking'],
                     'total_score'    => $formatted,
                     'no_sertif'                => $noSertif,
                 ]);

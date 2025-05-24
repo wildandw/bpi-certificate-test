@@ -66,6 +66,27 @@ class ToeflPrimaryStep1Controller extends Controller
 
             $collection = Excel::toCollection(new ToeflPrimaryStep1ScoreImport(true), $request->file('score_file'))->first();
 
+            // ✅ Validasi manual isi data per baris
+            $errors = [];
+            $requiredFields = [
+                'name', 'class', 'email', 'gender',
+                'country_of_region_of_nationality', 'country_of_region_of_origin',
+                'native_language', 'date_of_birth', 'school_name',
+                'exam_date'
+            ];
+
+            foreach ($collection as $index => $row) {
+                foreach ($requiredFields as $field) {
+                    if (empty($row[$field])) {
+                        $errors[] = 'Baris ' . ($index + 2) . ': kolom ' . $field . ' kosong';
+                    }
+                }
+            }
+
+            if (count($errors)) {
+                return back()->withErrors($errors);
+            }
+
             // Validasi duplikasi
             $this->checkFileDuplicates($collection, ['name']);
             $this->checkDatabaseDuplicates($collection, \App\Models\ToeflPrimaryStep1Scores::class, ['name']);
