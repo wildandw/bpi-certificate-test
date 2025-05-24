@@ -66,7 +66,7 @@ class ToeflPrimaryStep2Controller extends Controller
 
             $collection = Excel::toCollection(new ToeflPrimaryStep2ScoreImport(true), $request->file('score_file'))->first();
 
-            // ✅ Validasi manual isi data per baris
+            // Validasi manual isi data per baris
             $errors = [];
             $requiredFields = [
                 'name', 'class', 'email', 'gender',

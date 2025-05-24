@@ -67,7 +67,7 @@ class IeltsTestCController extends Controller
             $collection = Excel::toCollection(new IeltsScoreImport(true), $request->file('score_file'))->first();
 
 
-            // ✅ Validasi manual isi data per baris
+            // Validasi manual isi data per baris
             $errors = [];
             $requiredFields = [
                 'name', 'class', 'email', 'gender',

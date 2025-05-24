@@ -61,10 +61,9 @@ class ToeicController extends Controller
             Excel::import(new ScoreConversionToeicImport, $request->file('conversion_file'));
         }
 
-        // Ambil koleksi data Excel
         $collection = Excel::toCollection(new ToeicScoreImport(true), $request->file('score_file'))->first();
 
-        // ✅ Validasi manual isi data per baris
+        //  Validasi manual isi data per baris
         $errors = [];
         $requiredFields = [
             'name', 'class', 'email', 'gender',
