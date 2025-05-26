@@ -44,7 +44,7 @@ class CertificateToeflPrimaryStep1Controller extends Controller
 
         // 2. Panggil aPDF.io Create API
         $resp = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('APDF_API_KEY'),
+                'Authorization' => 'Bearer ' . env('APDF_API_KEY_toeflprimarystep1'),
                 'Accept'        => 'application/json',
                 'Content-Type'  => 'application/json',
             ])
