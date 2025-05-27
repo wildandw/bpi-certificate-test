@@ -37,6 +37,32 @@ class ToeflJuniorController extends Controller
         return view('uploadJunior', compact('hasConversion'));
     }
 
+    public function importScoreConversionOnly(Request $request)
+    {
+        $request->validate([
+            'conversion_file' => 'required|mimes:xlsx,xls,csv',
+        ], [
+            'conversion_file.required' => 'File conversion rate wajib diunggah.',
+            'conversion_file.mimes' => 'Format file salah, pastikan file Excel (.xlsx/.xls/.csv).',
+        ]);
+
+        try {
+            Excel::import(new ScoreConversionToeflJuniorImport, $request->file('conversion_file'));
+
+            return redirect()->back()->with('success', 'Conversion rate berhasil diupload!');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errorMessages = collect($failures)
+                            ->flatMap(fn($f) => $f->errors())
+                            ->unique()
+                            ->toArray();
+            return back()->withErrors($errorMessages);
+        } catch (\Exception $e) {
+            return back()->withErrors([ 'Gagal mengimpor conversion rate: ' . $e->getMessage() ]);
+        }
+    }
+
+
     // Proses import file Excel
     public function importScoresJunior(Request $request)
     {
@@ -119,7 +145,7 @@ class ToeflJuniorController extends Controller
         // Hapus semua data dari tabel
         DB::table('score_conversion_toefljunior')->truncate();
 
-        return redirect()->back()->with('success', 'Score Conversions Toefl iBT berhasil direset.');
+        return redirect()->back()->with('success', 'Score Conversions Toefl Junior berhasil direset.');
     }
 
     public function updatetoefljunior(Request $request, $id)
@@ -138,11 +164,10 @@ class ToeflJuniorController extends Controller
             'exam_date'                         => 'required|date',
             'reading_score'                     => 'required|numeric|min:0',
             'listening_score'                   => 'required|numeric|min:0',
-            'speaking_score'                    => 'required|numeric|min:0',
-            'writing_score'                     => 'required|numeric|min:0',
+            'language_form_score'               => 'required|numeric|min:0',
             'no_sertif'                         => 'nullable|string|max:100',
         ]);
-
+        
         if ($validator->fails()) {
             return redirect()->back()
                              ->withErrors($validator)
@@ -164,42 +189,46 @@ class ToeflJuniorController extends Controller
         // Ambil raw dari request
         $rawReading   = $request->input('reading_score');
         $rawListening = $request->input('listening_score');
+        $rawLanguage  = $request->input('language_form_score'); 
 
         // Cari konversi di tabel score_conversions,
         // sesuai kolom yang di-import (reading_score & listening_score)
-        $convReading = ScoreConversionToeflJunior::where('test_type', 'toefl')
+        $convReading = ScoreConversionToeflJunior::where('test_type', 'toefljunior')
                             ->where('raw_score', $rawReading)
                             ->value('reading_score')
                     ?? $rawReading;
 
-        $convListening = ScoreConversionToeflJunior::where('test_type', 'toefl')
+        $convListening = ScoreConversionToeflJunior::where('test_type', 'toefljunior')
                             ->where('raw_score', $rawListening)
                             ->value('listening_score')
                         ?? $rawListening;
+        
+        $convertedLanguage = ScoreConversionToeflJunior::where('test_type', 'toefljunior')
+                            ->where('raw_score', $rawLanguage)
+                            ->value('language_form') 
+                        ?? $rawLanguage;
 
         // Set skor ke model siswa
         $student->reading_score   = $convReading;
         $student->listening_score = $convListening;
-        $student->speaking_score  = $request->input('speaking_score');
-        $student->writing_score   = $request->input('writing_score');
+        $student->language_form_score   = $convertedLanguage;
 
         // Hitung total dari skor hasil konversi + speaking + writing
         $student->total_score = $convReading
                             + $convListening
-                            + $student->speaking_score
-                            + $student->writing_score;
+                            + $convertedLanguage;
 
         $student->save();
 
         return back()->with('success', 'Data siswa berhasil diperbarui.');
     }
-    public function destroytoefl($id)
+    public function destroytoefljunior($id)
     {
         ToeflJuniorScores::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Siswa berhasil dihapus.');
     }
 
-    public function destroyalltoefl()
+    public function destroyalltoefljunior()
     {
         ToeflJuniorScores::truncate();
         return redirect()->back()->with('success', 'Semua data siswa berhasil dihapus.');

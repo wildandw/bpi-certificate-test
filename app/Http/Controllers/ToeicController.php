@@ -113,12 +113,12 @@ class ToeicController extends Controller
         }
     }
 
-    public function resetscoreconversionstoeic()
+    public function resetscoreconversiontoeic()
     {
         // Hapus semua data dari tabel
-        DB::table('score_conversions_toeic')->truncate();
+        DB::table('score_conversion_toeic')->truncate();
 
-        return redirect()->back()->with('success', 'Score Conversions Toeic iBT berhasil direset.');
+        return redirect()->back()->with('success', 'Score Conversions Toeic berhasil direset.');
     }
     // …
 

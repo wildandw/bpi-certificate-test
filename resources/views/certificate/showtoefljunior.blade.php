@@ -146,7 +146,19 @@
       margin-top: -25px;
       margin-bottom: 140px;
       margin-left: 30px;
-      z-index: -5;
+      z-index: 1;
+      position: absolute;
+    }
+        .cap2 {
+      display: block;
+      margin: 0 auto;
+      width: 170px;
+      height: auto;
+      object-fit: contain;
+      margin-top: -25px;
+      margin-bottom: 140px;
+      margin-left: 5px;
+      z-index: 1;
       position: absolute;
     }
 
@@ -256,7 +268,7 @@
             </div>         
             <div class="signature">
                 <div class="signatory-title">Principal of BPI<br>Junior High School</div>
-                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/cap-smp.png" alt="cap" class="cap">
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/cap-smp.png" alt="cap" class="cap2">
                 <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/RI-2.png" alt="Tanda Tangan" class="signature-sign">
                 <div class="signature-space"></div>
                 <div class="signature-line"></div>

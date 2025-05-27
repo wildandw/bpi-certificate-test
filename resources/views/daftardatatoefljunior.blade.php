@@ -109,8 +109,8 @@
               <th>No</th>
               <th>Nama Siswa</th>
               <th>Tanggal Ujian</th>
-              <th>Reading Skor</th>
               <th>Listening Skor</th>
+              <th>Reading Skor</th>
               <th>Language Form Skor</th>
               <th>Total Skor</th>
               <th>Aksi</th>
@@ -122,8 +122,8 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $student->name }}</td>
                 <td>{{ $student->exam_date }}</td>
-                <td>{{ $student->reading_score }}</td>
                 <td>{{ $student->listening_score }}</td>
+                <td>{{ $student->reading_score }}</td>
                 <td>{{ $student->language_form_score }}</td>
                 <td>{{ $student->total_score }}</td>
                 <td>
@@ -150,8 +150,8 @@
                           data-date_of_birth="{{ $student->date_of_birth }}"
                           data-school_name="{{ $student->school_name }}"
                           data-exam_date="{{ $student->exam_date }}"
-                          data-reading_score="{{ $student->reading_score }}"
                           data-listening_score="{{ $student->listening_score }}"
+                          data-reading_score="{{ $student->reading_score }}"
                           data-language_form_score="{{ $student->language_form_score }}"
                           data-no_sertif="{{ $student->no_sertif }}">
                     Edit

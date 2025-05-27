@@ -19,8 +19,8 @@ class ToeflJuniorScoreImport implements ToModel, WithHeadingRow
     }
     public function model(array $row)
     {
-        $rawReading   = $row['reading'];
-        $rawListening = $row['listening'];
+        $rawReading   = $row['reading_score'];
+        $rawListening = $row['listening_score'];
         $rawLanguage  = $row['language_form']; 
 
         $convertedReading = ScoreConversionToeflJunior::where('test_type', 'toefljunior')
