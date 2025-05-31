@@ -41,6 +41,7 @@ class CertificateToeflPrimaryStep1Controller extends Controller
 
         // 1. Render HTML via Blade
         $html = view('certificate.showtoeflprimarystep1', compact('certificatetoeflprimarystep1', 'qrCode'))->render();
+        
 
         // 2. Panggil aPDF.io Create API
         $resp = Http::withHeaders([
@@ -69,6 +70,7 @@ class CertificateToeflPrimaryStep1Controller extends Controller
             Log::error('aPDF.io download error: ' . $pdfResp->status());
             abort(500, 'Gagal mengambil file PDF.');
         }
+        
 
         // 4. Stream PDF ke browser tanpa simpan di disk
         $filename = 'Sertifikat_ToeflPrimaryStep1_' . Str::slug($certificatetoeflprimarystep1->name) . '.pdf';
