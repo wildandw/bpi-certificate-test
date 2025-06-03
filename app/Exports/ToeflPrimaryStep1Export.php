@@ -26,8 +26,7 @@ class ToeflPrimaryStep1Export implements FromCollection, WithHeadings
             'listening_score',
             'speaking_score',
             'writing_score',
-            'total_score',
-            'no_sertif'
+            'total_score'
         ])->get();
     }
 
@@ -48,8 +47,7 @@ class ToeflPrimaryStep1Export implements FromCollection, WithHeadings
             'Listening Score',
             'Speaking Score',
             'Writing Score',
-            'Total Score',
-            'No Certificate'
+            'Total Score'
         ];
     }
 }

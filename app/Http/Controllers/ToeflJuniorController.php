@@ -37,6 +37,7 @@ class ToeflJuniorController extends Controller
         return view('uploadJunior', compact('hasConversion'));
     }
 
+    // import score 
     public function importScoreConversionOnly(Request $request)
     {
         $request->validate([
@@ -140,6 +141,7 @@ class ToeflJuniorController extends Controller
         }
     }
 
+    // fungsi untuk reset conversion table
     public function resetscoreconversiontoefljunior()
     {
         // Hapus semua data dari tabel
@@ -148,6 +150,7 @@ class ToeflJuniorController extends Controller
         return redirect()->back()->with('success', 'Score Conversions Toefl Junior berhasil direset.');
     }
 
+    // fungsi untuk edit data 
     public function updatetoefljunior(Request $request, $id)
     {
          // 1. Validasi input
@@ -222,12 +225,15 @@ class ToeflJuniorController extends Controller
 
         return back()->with('success', 'Data siswa berhasil diperbarui.');
     }
+
+    // fungsi untuk menghapus data siswa di toefl junior
     public function destroytoefljunior($id)
     {
         ToeflJuniorScores::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Siswa berhasil dihapus.');
     }
 
+    // fungsi untuk menghapus semua data di toefl junior
     public function destroyalltoefljunior()
     {
         ToeflJuniorScores::truncate();

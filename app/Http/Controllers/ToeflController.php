@@ -29,6 +29,7 @@ class ToeflController extends Controller
         return view('daftardata', compact('scores', 'search'));
     }
 
+    // fungsi untuk upload form 
     public function uploadForm()
     {
         $hasConversion = ScoreConversion::exists();
@@ -113,6 +114,7 @@ class ToeflController extends Controller
         }
     }
 
+    // fungsi untuk reset conversion table
     public function resetscoreconversions()
     {
         // Hapus semua data dari tabel
@@ -120,8 +122,8 @@ class ToeflController extends Controller
 
         return redirect()->back()->with('success', 'Score Conversions Toefl iBT berhasil direset.');
     }
-    // …
-
+    
+    // fungsi untuk edit data toefl iBT
     public function updatetoefl(Request $request, $id)
     {
          // 1. Validasi input
@@ -193,12 +195,15 @@ class ToeflController extends Controller
 
         return back()->with('success', 'Data siswa berhasil diperbarui.');
     }
+
+    // fungsi untuk hapus data siswa di toefl iBT
     public function destroytoefl($id)
     {
         ToeflScores::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Siswa berhasil dihapus.');
     }
 
+    // fungsi untuk hapus semua data di toefl iBT
     public function destroyalltoefl()
     {
         ToeflScores::truncate();
@@ -210,46 +215,47 @@ class ToeflController extends Controller
 
 
 
-   // fungsi duplikasi data
- protected function checkFileDuplicates(Collection $rows, array $uniqueKeys)
-{
-    $seen = [];
-    $duplicates = [];
+   // fungsi duplikasi data file import excel
+    protected function checkFileDuplicates(Collection $rows, array $uniqueKeys)
+    {
+        $seen = [];
+        $duplicates = [];
 
-    foreach ($rows as $i => $row) {
-        $key = implode(' | ', array_map(fn($k) => "{$k}={$row[$k]}", $uniqueKeys));
-        if (isset($seen[$key])) {
-            $duplicates[] = "Duplikasi terdeteksi dalam file pada baris ke-".($i+2)." ({$key})";
-        } else {
-            $seen[$key] = true;
+        foreach ($rows as $i => $row) {
+            $key = implode(' | ', array_map(fn($k) => "{$k}={$row[$k]}", $uniqueKeys));
+            if (isset($seen[$key])) {
+                $duplicates[] = "Duplikasi terdeteksi dalam file pada baris ke-".($i+2)." ({$key})";
+            } else {
+                $seen[$key] = true;
+            }
+        }
+
+        if ($duplicates) {
+            throw new \Exception(implode("\n", $duplicates));
         }
     }
 
-    if ($duplicates) {
-        throw new \Exception(implode("\n", $duplicates));
-    }
-}
+    // fungsi duplikasi data di database
+    protected function checkDatabaseDuplicates(Collection $rows, string $modelClass, array $uniqueKeys)
+    {
+        $errors = [];
 
-protected function checkDatabaseDuplicates(Collection $rows, string $modelClass, array $uniqueKeys)
-{
-    $errors = [];
-
-    foreach ($rows as $row) {
-        // Panggil static query() langsung dari class
-        $query = $modelClass::query();
-        foreach ($uniqueKeys as $key) {
-            $query->where($key, $row[$key]);
+        foreach ($rows as $row) {
+            // Panggil static query() langsung dari class
+            $query = $modelClass::query();
+            foreach ($uniqueKeys as $key) {
+                $query->where($key, $row[$key]);
+            }
+            if ($query->exists()) {
+                $identifier = implode(' | ', array_map(fn($k) => "{$k}={$row[$k]}", $uniqueKeys));
+                $errors[] = "Data sudah ada di database ({$identifier})";
+            }
         }
-        if ($query->exists()) {
-            $identifier = implode(' | ', array_map(fn($k) => "{$k}={$row[$k]}", $uniqueKeys));
-            $errors[] = "Data sudah ada di database ({$identifier})";
+
+        if (! empty($errors)) {
+            throw new \Exception(implode("\n", $errors));
         }
     }
-
-    if (! empty($errors)) {
-        throw new \Exception(implode("\n", $errors));
-    }
-}
 
 protected function createCertificateRecord(string $class): string
     {

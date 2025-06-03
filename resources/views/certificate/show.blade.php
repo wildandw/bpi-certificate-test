@@ -406,7 +406,7 @@
       </div>
     </div>
     
-    <!-- Ganti bagian `.footer` -->
+    <!-- footer-->
     <div class="footer">
       <div class="signatures">
         <div class="signature">

@@ -29,8 +29,7 @@ class IeltsTestCExport implements FromCollection, WithHeadings
             'listening_score',
             'speaking_score',
             'writing_score',
-            'total_score',
-            'no_sertif',
+            'total_score'
         ])->get();
     }
 
@@ -51,8 +50,7 @@ class IeltsTestCExport implements FromCollection, WithHeadings
             'Listening Score',
             'Speaking Score',
             'Writing Score',
-            'Total SCore',
-            'No Certificate'
+            'Total SCore'
         ];
     }
 }

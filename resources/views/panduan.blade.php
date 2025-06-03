@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900">
                     <h3 class="text-lg font-semibold mb-4">Panduan Tutorial</h3>
                     <iframe 
-                        src="{{ asset('dummy.pdf') }}" 
+                        src="{{ asset('panduan.pdf') }}" 
                         width="100%" 
                         height="600px" 
                         style="border: none;">

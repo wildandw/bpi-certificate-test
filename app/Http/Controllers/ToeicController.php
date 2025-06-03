@@ -113,6 +113,7 @@ class ToeicController extends Controller
         }
     }
 
+    // fungsi untuk reset conversion table 
     public function resetscoreconversiontoeic()
     {
         // Hapus semua data dari tabel
@@ -120,8 +121,9 @@ class ToeicController extends Controller
 
         return redirect()->back()->with('success', 'Score Conversions Toeic berhasil direset.');
     }
-    // …
 
+
+// fungsi untuk edit data toeic
     public function updatetoeic(Request $request, $id)
     {
          // 1. Validasi input
@@ -188,12 +190,15 @@ class ToeicController extends Controller
 
         return back()->with('success', 'Data siswa berhasil diperbarui.');
     }
+
+    // fungsi untuk menghapus data siswa toeic
     public function destroytoeic($id)
     {
         ToeicScores::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Siswa berhasil dihapus.');
     }
 
+    // fungsi untuk menghapus semua data siswa di toeic 
     public function destroyalltoeic()
     {
         ToeicScores::truncate();
@@ -205,66 +210,67 @@ class ToeicController extends Controller
 
 
 
-   // fungsi duplikasi data
- protected function checkFileDuplicates(Collection $rows, array $uniqueKeys)
-{
-    $seen = [];
-    $duplicates = [];
-
-    foreach ($rows as $i => $row) {
-        $key = implode(' | ', array_map(fn($k) => "{$k}={$row[$k]}", $uniqueKeys));
-        if (isset($seen[$key])) {
-            $duplicates[] = "Duplikasi terdeteksi dalam file pada baris ke-".($i+2)." ({$key})";
-        } else {
-            $seen[$key] = true;
-        }
-    }
-
-    if ($duplicates) {
-        throw new \Exception(implode("\n", $duplicates));
-    }
-}
-
-protected function checkDatabaseDuplicates(Collection $rows, string $modelClass, array $uniqueKeys)
-{
-    $errors = [];
-
-    foreach ($rows as $row) {
-        // Panggil static query() langsung dari class
-        $query = $modelClass::query();
-        foreach ($uniqueKeys as $key) {
-            $query->where($key, $row[$key]);
-        }
-        if ($query->exists()) {
-            $identifier = implode(' | ', array_map(fn($k) => "{$k}={$row[$k]}", $uniqueKeys));
-            $errors[] = "Data sudah ada di database ({$identifier})";
-        }
-    }
-
-    if (! empty($errors)) {
-        throw new \Exception(implode("\n", $errors));
-    }
-}
-
-protected function createCertificateRecord(string $class): string
+   // fungsi duplikasi data di file import excel
+    protected function checkFileDuplicates(Collection $rows, array $uniqueKeys)
     {
-        // insert dummy untuk dapatkan id
-        $id = DB::table('no_sertif')->insertGetId([
-            'no_sertif'  => null,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $seen = [];
+        $duplicates = [];
 
-        // build nomor
-        $period  = '05-2025';                       // statis
-        $noUrut  = str_pad($id, 4, '0', STR_PAD_LEFT);
-        $certNum = "LEAD05/13.{$noUrut}/{$class}/{$period}";
+        foreach ($rows as $i => $row) {
+            $key = implode(' | ', array_map(fn($k) => "{$k}={$row[$k]}", $uniqueKeys));
+            if (isset($seen[$key])) {
+                $duplicates[] = "Duplikasi terdeteksi dalam file pada baris ke-".($i+2)." ({$key})";
+            } else {
+                $seen[$key] = true;
+            }
+        }
 
-        // update kolom
-        DB::table('no_sertif')
-          ->where('id', $id)
-          ->update(['no_sertif' => $certNum]);
-
-        return $certNum;
+        if ($duplicates) {
+            throw new \Exception(implode("\n", $duplicates));
+        }
     }
-}
+
+    // fungsi duplikasi data di database 
+    protected function checkDatabaseDuplicates(Collection $rows, string $modelClass, array $uniqueKeys)
+    {
+        $errors = [];
+
+        foreach ($rows as $row) {
+            // Panggil static query() langsung dari class
+            $query = $modelClass::query();
+            foreach ($uniqueKeys as $key) {
+                $query->where($key, $row[$key]);
+            }
+            if ($query->exists()) {
+                $identifier = implode(' | ', array_map(fn($k) => "{$k}={$row[$k]}", $uniqueKeys));
+                $errors[] = "Data sudah ada di database ({$identifier})";
+            }
+        }
+
+        if (! empty($errors)) {
+            throw new \Exception(implode("\n", $errors));
+        }
+    }
+
+    protected function createCertificateRecord(string $class): string
+        {
+            // insert dummy untuk dapatkan id
+            $id = DB::table('no_sertif')->insertGetId([
+                'no_sertif'  => null,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            // build nomor
+            $period  = '05-2025';                       // statis
+            $noUrut  = str_pad($id, 4, '0', STR_PAD_LEFT);
+            $certNum = "LEAD05/13.{$noUrut}/{$class}/{$period}";
+
+            // update kolom
+            DB::table('no_sertif')
+            ->where('id', $id)
+            ->update(['no_sertif' => $certNum]);
+
+            return $certNum;
+        }
+    }

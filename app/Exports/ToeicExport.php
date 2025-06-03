@@ -27,8 +27,7 @@ class ToeicExport implements FromCollection, WithHeadings
             'exam_date',
             'reading_score',
             'listening_score',
-            'total_score',
-            'no_sertif'
+            'total_score'
         ])->get();
     }
 
@@ -47,8 +46,7 @@ class ToeicExport implements FromCollection, WithHeadings
             'Exam Date',
             'Reading Score',
             'Listening Score',
-            'Total Skor',
-            'No Certificate'
+            'Total Skor'
         ];
     }
 }
