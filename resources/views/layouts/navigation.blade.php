@@ -8,6 +8,7 @@
     smpOpen: false,
     sdOpen: false,
     // Data submenu state
+    dataUmumOpen: false,
     dataSmaOpen: false,
     dataSmkOpen: false,
     dataSmpOpen: false,
@@ -44,11 +45,39 @@
             </svg>
           </button>
           <div x-show="dataOpen" x-transition
-               class="absolute left-0 mt-48 w-48 bg-white border rounded shadow-lg z-50"
+               class="absolute left-0 mt-60 w-48 bg-white border rounded shadow-lg z-50"
                style="display: none;">
+            <!-- Umum -->
+            <div class="relative">
+              <button @click="dataUmumOpen = !dataUmumOpen; dataSmaOpen = dataSmkOpen = dataSmpOpen = dataSdOpen = false"
+                      class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
+                Umum
+                <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                        d="M7.21 5.23a.75.75 0 011.06-.02l4.24 4.24a.75.75 0 010 1.06l-4.24 4.24a.75.75 0 11-1.06-1.06L10.944 10 7.21 6.29a.75.75 0 01-.02-1.06z"
+                        clip-rule="evenodd"/>
+                </svg>
+              </button>
+              <div x-show="dataUmumOpen" x-transition
+                   class="absolute left-full top-0 ml-1 w-56 bg-white border rounded shadow-lg z-50"
+                   style="display: none;">
+                <a href="{{ route('data.toefl') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">TOEFL iBT</a>
+                <a href="{{ route('data.ieltstestc') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">IELTS </a>
+                <a href="{{ route('data.toefl') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">TOEIC</a>
+                <a href="{{ route('data.ieltstestc') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">TOEFL Junior </a>
+                <a href="{{ route('data.toefl') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">TOEFL Primary Step 1</a>
+                <a href="{{ route('data.ieltstestc') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">TOEFL Primary Step 2 </a>
+              </div>
+            </div>
             <!-- SMA -->
             <div class="relative">
-              <button @click="dataSmaOpen = !dataSmaOpen; dataSmkOpen = dataSmpOpen = dataSdOpen = false"
+              <button @click="dataSmaOpen = !dataSmaOpen; dataUmumOpen = dataSmkOpen = dataSmpOpen = dataSdOpen = false"
                       class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
                 SMA
                 <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
@@ -68,7 +97,7 @@
             </div>
             <!-- SMK -->
             <div class="relative">
-              <button @click="dataSmkOpen = !dataSmkOpen; dataSmaOpen = dataSmpOpen = dataSdOpen = false"
+              <button @click="dataSmkOpen = !dataSmkOpen; dataUmumOpen = dataSmaOpen = dataSmpOpen = dataSdOpen = false"
                       class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
                 SMK
                 <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
@@ -86,7 +115,7 @@
             </div>
             <!-- SMP -->
             <div class="relative">
-              <button @click="dataSmpOpen = !dataSmpOpen; dataSmaOpen = dataSmkOpen = dataSdOpen = false"
+              <button @click="dataSmpOpen = !dataSmpOpen; dataUmumOpen = dataSmaOpen = dataSmkOpen = dataSdOpen = false"
                       class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
                 SMP
                 <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
@@ -104,7 +133,7 @@
             </div>
             <!-- SD -->
             <div class="relative">
-              <button @click="dataSdOpen = !dataSdOpen; dataSmaOpen = dataSmkOpen = dataSmpOpen = false"
+              <button @click="dataSdOpen = !dataSdOpen; dataUmumOpen = dataSmaOpen = dataSmkOpen = dataSmpOpen = false"
                       class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
                 SD
                 <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">

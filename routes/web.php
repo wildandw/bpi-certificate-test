@@ -180,8 +180,6 @@ Route::get('/certificate-toeflprimarystep2/{id}/pdf', [CertificateToeflPrimarySt
 
 
 
-
-
 // unduh data
 // Toefl iBT
 Route::get('/export-ToefliBT', function () {
