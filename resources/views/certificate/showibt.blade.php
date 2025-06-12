@@ -239,10 +239,9 @@
     .signatures {
       display: flex;
       justify-content: space-between;
-      gap: 40px;
-      width: 70%;
+      gap: 10px;
+      width: 100%;
       margin-top: 20px;
-      margin-left: 160px;
     }
 
     .signature {
@@ -251,6 +250,13 @@
       position: relative;
       flex: 1;
       z-index: 99;
+    }
+
+    .signature-line {
+      position: relative;
+      width: 80%;
+      margin: 0 auto;
+      border-top: 1px solid #000;
     }
 
     .cap {
@@ -278,7 +284,7 @@
     }
     .signature-line {
       top: -10px;      
-      width: 70%;
+      width: 80%;
       margin: 20px auto 0 auto;
       border-top: 1px solid #000;
     }
@@ -400,7 +406,7 @@
       </div>
     </div>
     
-    <!-- footer-->
+    <!-- footer -->
     <div class="footer">
       <div class="signatures">
         <div class="signature">
@@ -410,7 +416,14 @@
           <div class="signature-line"></div>
           <div class="signature-name">Lukman Arif Rachman, M.Pd.</div>
         </div>
-        
+        <div class="signature">
+          <div class="signature-title">Principal of BPI 1<br>Senior High School</div>
+          <!-- <img src="{{ asset('img/LR.png') }}" alt="Tanda Tangan" class="signature-sign"> -->
+           <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/cap-sma-e1747674943239.png" alt="cap" class="cap">
+          <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/T-2.png" alt="Tanda Tangan" class="signature-sign">
+          <div class="signature-line"></div>
+          <div class="signature-name">Tatang, M.Pd.</div>
+        </div>
             <div class="signature">
                 <div class="signature-title">
                     Bandung, May 30, 2025<br>

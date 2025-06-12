@@ -154,7 +154,7 @@ Route::get('/toeic', [ToeicController::class, 'index'])
 
 // sertifikat Toefl iBT
 Route::get('/toefl-scores', [CertificateController::class, 'index'])->name('data.toefl');
-Route::get('/toefl-scores/{id}', [CertificateController::class, 'show'])->name('certificate.show');
+Route::get('/toefl-scores/{id}', [CertificateController::class, 'show'])->name('certificate.showibt');
 Route::get('/certificate/{id}/pdf', [CertificateController::class, 'downloadPdf'])->name('certificate.pdf');
 // sertifikat Toefl Junior
 Route::get('/toefljunior-scores', [CertificateToeflJuniorController::class, 'index'])->name('data.toefljunior');

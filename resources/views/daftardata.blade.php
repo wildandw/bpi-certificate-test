@@ -142,7 +142,7 @@
               <td>
                 <div class="action-buttons">
                   <button class="btn btn-primary btn-sm"
-                      data-preview="{{ route('certificate.show', $student->id) }}"
+                      data-preview="{{ route('certificate.showibt', $student->id) }}"
                       data-download="{{ route('certificate.pdf', $student->id) }}"
                       onclick="showCertificate(this.getAttribute('data-preview'), this.getAttribute('data-download'))">
                       Lihat Sertifikat

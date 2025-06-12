@@ -22,9 +22,9 @@ class CertificateController extends Controller
     public function show($id)
     {
         $certificate = ToeflScores::findOrFail($id);
-        $qrCode = QrCode::size(100)->generate(route('certificate.show', $id));
+        $qrCode = QrCode::size(100)->generate(route('certificate.showibt', $id));
 
-        return view('certificate.show', compact('certificate', 'qrCode'));
+        return view('certificate.showibt', compact('certificate', 'qrCode'));
     }
 
     // Download PDF versi Browsershot
@@ -33,10 +33,10 @@ class CertificateController extends Controller
     public function downloadPdf($id) 
     {
         $certificate = ToeflScores::findOrFail($id);
-        $qrCode      = QrCode::size(100)->generate(route('certificate.show', $id));
+        $qrCode      = QrCode::size(100)->generate(route('certificate.showibt', $id));
 
         // 1. Render HTML via Blade
-        $html = view('certificate.show', compact('certificate', 'qrCode'))->render();
+        $html = view('certificate.showibt', compact('certificate', 'qrCode'))->render();
 
         // 2. Panggil aPDF.io Create API
         $resp = Http::withHeaders([
