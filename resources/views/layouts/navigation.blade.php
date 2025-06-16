@@ -3,6 +3,7 @@
     uploadOpen: false,
     dataOpen: false,
     // Upload submenu state
+    umumOpen: false,
     toeflOpen: false,
     smkOpen: false,
     smpOpen: false,
@@ -61,17 +62,17 @@
               <div x-show="dataUmumOpen" x-transition
                    class="absolute left-full top-0 ml-1 w-56 bg-white border rounded shadow-lg z-50"
                    style="display: none;">
-                <a href="{{ route('data.toefl') }}"
+                <a href="{{ route('data.toeflumum') }}"
                    class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">TOEFL iBT</a>
-                <a href="{{ route('data.ieltstestc') }}"
+                <a href="{{ route('data.ieltstestcumum') }}"
                    class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">IELTS </a>
-                <a href="{{ route('data.toefl') }}"
+                <a href="{{ route('data.toeicumum') }}"
                    class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">TOEIC</a>
-                <a href="{{ route('data.ieltstestc') }}"
+                <a href="{{ route('data.toefljuniorumum') }}"
                    class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">TOEFL Junior </a>
-                <a href="{{ route('data.toefl') }}"
+                <a href="{{ route('data.toeflprimarystep1umum') }}"
                    class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">TOEFL Primary Step 1</a>
-                <a href="{{ route('data.ieltstestc') }}"
+                <a href="{{ route('data.toeflprimarystep2umum') }}"
                    class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">TOEFL Primary Step 2 </a>
               </div>
             </div>
@@ -154,6 +155,10 @@
           </div>
         </div>
 
+
+
+
+
         <!-- Score Conversion Dropdown -->
         <div @click.away="uploadOpen = false; toeflOpen = false; smkOpen = false; smpOpen = false; sdOpen = false"
              class="relative hidden sm:flex sm:items-center sm:ms-10">
@@ -176,10 +181,49 @@
                x-transition
                class="absolute left-0 mt-48 w-48 bg-white border rounded shadow-lg z-50"
                style="display: none;">
+              <!-- Umum -->
+            <div class="relative">
+              <button @click="umumOpen = !umumOpen; toeflOpen = false; smkOpen = false; smpOpen = false; sdOpen = false"
+                      class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
+                Umum
+                <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                        d="M7.21 5.23a.75.75 0 011.06-.02l4.24 4.24a.75.75 0 010 1.06l-4.24 4.24a.75.75 0 11-1.06-1.06L10.944 10 7.21 6.29a.75.75 0 01-.02-1.06z"
+                        clip-rule="evenodd" />
+                </svg>
+              </button>
+              <div x-show="umumOpen"
+                   x-transition
+                   class="absolute left-full top-0 ml-1 w-64 bg-white border rounded shadow-lg z-50"
+                   style="display: none;">
+                <a href="{{ route('uploadumum') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  TOEFL iBT
+                </a>
+                <a href="{{ route('uploadIeltsTestCumum') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  IELTS 
+                </a>
+                  <a href="{{ route('uploadToeicumum') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  TOEIC
+                </a>
+                <a href="{{ route('uploadJuniorumum') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  TOEFL Junior
+                </a>
+                <a href="{{ route('uploadToeflPrimaryStep1umum') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">Toefl Primary Step 1</a>
+                <a href="{{ route('uploadToeflPrimaryStep2umum') }}"
+                   class="block px-6 py-2 text-sm text-gray-700 hover:bg-gray-100">Toefl Primary Step 2</a>
+              </div>
+            </div>
 
+
+               
             <!-- SMA -->
             <div class="relative">
-              <button @click="toeflOpen = !toeflOpen; smkOpen = false; smpOpen = false; sdOpen = false"
+              <button @click="toeflOpen = !toeflOpen; umumOpen = false; smkOpen = false; smpOpen = false; sdOpen = false"
                       class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex justify-between items-center">
                 SMA
                 <svg class="w-4 h-4 ml-2" fill="currentColor" viewBox="0 0 20 20">

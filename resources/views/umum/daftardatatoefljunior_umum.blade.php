@@ -1,42 +1,41 @@
 <x-app-layout>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IELTS Test Prediction C</title>
-  <!-- Bootstrap 5 CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: #f8f9fa;
-    }
-    .table-container {
-      max-width: 1200px;
-      width: 100%;
-      margin: 50px auto;
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .table-container h1 {
-      margin-bottom: 20px;
-      font-size: 1.75rem;
-      font-weight: 600;
-    }
-    /* Center align all cells by default */
-    .table-container table th,
-    .table-container table td {
-      text-align: center;
-      vertical-align: middle;
-    }
-    /* Left-align the 'Nama Siswa' column (2nd column) */
-    .table-container table th:nth-child(2),
-    .table-container table td:nth-child(2) {
-      text-align: left;
-    }
-    .action-buttons {
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TOEFL Junior</title>
+    <!-- Bootstrap 5 CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        background: #f8f9fa;
+      }
+      .table-container {
+        max-width: 1200px;
+        margin: 50px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      .table-container h1 {
+        margin-bottom: 20px;
+        font-size: 1.75rem;
+        font-weight: 600;
+      }
+      /* Center align all cells by default */
+      .table-container table th,
+      .table-container table td {
+        text-align: center;
+        vertical-align: middle;
+      }
+      /* Left-align the 'Nama Siswa' column */
+      .table-container table th:nth-child(2),
+      .table-container table td:nth-child(2) {
+        text-align: left;
+      }
+      .action-buttons {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -44,7 +43,7 @@
       flex-wrap: nowrap;
       white-space: nowrap;
     }
-    #pdfViewer {
+      #pdfViewer {
         width: 100%;
         height: 700px;
         border: none;
@@ -57,14 +56,14 @@
       .modal-body {
         padding: 0;
       }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="table-container">
-      <h1 class="text-center">Data Siswa - IELTS Test</h1>
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="table-container">
+        <h1 class="text-center">Data TOEFL Junior - Umum</h1>
 
-      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
         {{-- Search form di kiri --}}
         {{-- Input Search Real-time --}}
           <div>
@@ -77,12 +76,12 @@
 
         {{-- Tombol Download dan Hapus di kanan --}}
         <div>
-          <a href="{{ route('ieltstestc.export') }}" class="btn btn-success me-2">
+          <a href="{{ route('toefljunior.export') }}" class="btn btn-success me-2">
             <i class="bi bi-file-earmark-spreadsheet"></i> Download Semua Data
           </a>
 
           <form id="form-delete-all"
-                action="{{ route('ielts.destroyall') }}"
+                action="{{ route('toefljunior.destroyallumum') }}"
                 method="POST"
                 class="d-inline">
             @csrf
@@ -99,43 +98,40 @@
         </div>
       </div>
 
-      @if(session('success'))
-        <div class="alert alert-success" role="alert">
-          {{ session('success') }}
-        </div>
-      @endif
-      <table id="toeflTable" class="table table-bordered table-striped">
-        <thead class="table-primary">
-          <tr>
-            <th>No</th>
-            <th>Nama Siswa</th>
-            <th>Tanggal Ujian</th>
-            <th>Listening Skor</th>
-            <th>Reading Skor</th>
-            <th>Speaking Skor</th>
-            <th>Writing Skor</th>
-            <th>Total Skor</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($students as $student)
+        @if(session('success'))
+          <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+          </div>
+        @endif
+        <table id="toeflTable" class="table table-bordered table-striped">
+          <thead class="table-primary">
             <tr>
-              <!-- <td>{{ $student->id }}</td> -->
-              <td>{{ $loop->iteration }}</td>
-              <td>{{ $student->name }}</td>
-              <td>{{ $student->exam_date }}</td>
-              <td>{{ $student->listening_score }}</td>
-              <td>{{ $student->reading_score }}</td>
-              <td>{{ $student->speaking_score }}</td>
-              <td>{{ $student->writing_score }}</td>
-              <td>{{ $student->total_score }}</td>
-              <td>
-                <!-- Simpan URL preview dan download dalam atribut data -->
+              <th>No</th>
+              <th>Nama Siswa</th>
+              <th>Tanggal Ujian</th>
+              <th>Listening Skor</th>
+              <th>Reading Skor</th>
+              <th>Language Form Skor</th>
+              <th>Total Skor</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($students as $student)
+              <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $student->name }}</td>
+                <td>{{ $student->exam_date }}</td>
+                <td>{{ $student->listening_score }}</td>
+                <td>{{ $student->reading_score }}</td>
+                <td>{{ $student->language_form_score }}</td>
+                <td>{{ $student->total_score }}</td>
+                <td>
+                   <!-- Simpan URL preview dan download dalam atribut data -->
                <div class="action-buttons">
                   <button class="btn btn-primary btn-sm"
-                      data-preview="{{ route('certificate.showieltstestc', $student->id) }}"
-                      data-download="{{ route('certificateieltstestc.pdf', $student->id) }}"
+                      data-preview="{{ route('certificate.showtoefljuniorumum', $student->id) }}"
+                      data-download="{{ route('certificatetoefljunior.pdfumum', $student->id) }}"
                       onclick="showCertificate(this.getAttribute('data-preview'), this.getAttribute('data-download'))">
                       Lihat Sertifikat
                   </button>
@@ -156,14 +152,13 @@
                           data-exam_date="{{ $student->exam_date }}"
                           data-listening_score="{{ $student->listening_score }}"
                           data-reading_score="{{ $student->reading_score }}"
-                          data-speaking_score="{{ $student->speaking_score }}"
-                          data-writing_score="{{ $student->writing_score }}"
+                          data-language_form_score="{{ $student->language_form_score }}"
                           data-no_sertif="{{ $student->no_sertif }}">
                     Edit
                   </button>
                   <!-- hapus -->
                     <form id="form-delete-{{ $student->id }}"
-                        action="{{ route('ielts.destroy', $student->id) }}"
+                        action="{{ route('toefljunior.destroyumum', $student->id) }}"
                         method="POST"
                         class="d-inline">
                     @csrf
@@ -178,39 +173,41 @@
                     </button>
                     </form>
                 </div>
-              </td>
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
 
-  <!-- Modal untuk Pratinjau PDF -->
-  <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="pdfModalLabel">Pratinjau Sertifikat</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <iframe id="pdfViewer"></iframe>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-          <button id="downloadBtn" class="btn btn-success">Unduh PDF</button>
+    <!-- Modal for PDF Preview -->
+    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="pdfModalLabel">Pratinjau Sertifikat</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="pdf-container">
+              <iframe id="pdfViewer"></iframe>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            <button id="downloadBtn" class="btn btn-success">Unduh PDF</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-   <!-- Modal Edit Data Siswa -->
+     <!-- Modal Edit Data Siswa -->
   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit Data Siswa Ielts</h5>
+          <h5 class="modal-title" id="editModalLabel">Edit Data Siswa Toefl Junior</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <form id="editForm" method="POST">
@@ -271,12 +268,8 @@
                 <input type="number" name="listening_score" id="edit-listening_score" class="form-control" step="0.01" required>
               </div>
               <div class="col-md-3">
-                <label class="form-label"><b>Speaking Score</b></label>
-                <input type="number" name="speaking_score" id="edit-speaking_score" class="form-control" step="0.01" required>
-              </div>
-              <div class="col-md-3">
-              <label class="form-label"><b>Writing Score</b></label>
-                <input type="number" name="writing_score" id="edit-writing_score" class="form-control" step="0.01" required>
+                <label class="form-label"><b>Language Form Score</b></label>
+                <input type="number" name="language_form_score" id="edit-language_form_score" class="form-control" step="0.01" required>
               </div>
               <div class="col-md-9">
                 <label class="form-label"><b>*jumlah soal benar / skor sebelum di konversi</b></label>
@@ -318,30 +311,30 @@
     </div>
   </div>
 
-  <!-- Bootstrap 5 JS Bundle CDN (termasuk Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function showCertificate(previewUrl, downloadUrl) {
-      // Setel URL PDF ke dalam iframe untuk pratinjau
-      document.getElementById('pdfViewer').src = previewUrl;
-      
-      // Setel tombol unduh untuk mengunduh PDF dengan URL yang tepat
-      document.getElementById('downloadBtn').onclick = function () {
+    <!-- Bootstrap 5 JS Bundle CDN (including Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function showCertificate(previewUrl, downloadUrl) {
+        // Set the PDF URL in iframe for preview
+        document.getElementById('pdfViewer').src = previewUrl;
+        
+        // Set up the download button functionality
+        document.getElementById('downloadBtn').onclick = function () {
           const link = document.createElement("a");
           link.href = downloadUrl;
-          link.download = "Sertifikat_IeltsTestC.pdf";
+          link.download = "Sertifikat_TOEFLJunior.pdf";
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-      };
+        };
 
-      // Tampilkan modal Bootstrap
-      var pdfModal = new bootstrap.Modal(document.getElementById('pdfModal'));
-      pdfModal.show();
-    }
-  </script>
+        // Show the Bootstrap modal
+        var pdfModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+        pdfModal.show();
+      }
+    </script>
 
-  <!-- edit -->
+     <!-- edit -->
   <script>
 // Populate form ketika modal dibuka
 var editModal = document.getElementById('editModal');
@@ -351,14 +344,14 @@ editModal.addEventListener('show.bs.modal', function (event) {
 
   // Atur action URL
   var form = document.getElementById('editForm');
-  form.action = '/ielts/' + id;
+  form.action = '/toefljunior/' + id;
 
   // Map setiap field
   ['name','class','email','gender',
    'country_region_nationality','country_region_origin',
    'native_language','date_of_birth','school_name',
    'exam_date','reading_score','listening_score',
-   'speaking_score','writing_score','no_sertif'
+   'language_form_score','no_sertif'
   ].forEach(function(field) {
     var el = document.getElementById('edit-' + field);
     el.value = btn.getAttribute('data-' + field);
@@ -396,6 +389,6 @@ editModal.addEventListener('show.bs.modal', function (event) {
     });
   });
 </script>
-</body>
-</html>
+  </body>
+  </html>
 </x-app-layout>

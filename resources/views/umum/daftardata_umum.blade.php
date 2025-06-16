@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IELTS Test Prediction C</title>
+  <title>TOEFL iBT</title>
   <!-- Bootstrap 5 CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -36,6 +36,7 @@
     .table-container table td:nth-child(2) {
       text-align: left;
     }
+    /* Untuk tombol-tombol di kolom Aksi */
     .action-buttons {
       display: flex;
       justify-content: center;
@@ -44,6 +45,7 @@
       flex-wrap: nowrap;
       white-space: nowrap;
     }
+
     #pdfViewer {
         width: 100%;
         height: 700px;
@@ -60,11 +62,12 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <div class="table-container">
-      <h1 class="text-center">Data Siswa - IELTS Test</h1>
+      <h1 class="text-center">Data TOEFL iBT - Umum</h1>
 
-      <div class="d-flex justify-content-between align-items-center mb-3">
+      
+        <div class="d-flex justify-content-between align-items-center mb-3">
         {{-- Search form di kiri --}}
         {{-- Input Search Real-time --}}
           <div>
@@ -77,12 +80,12 @@
 
         {{-- Tombol Download dan Hapus di kanan --}}
         <div>
-          <a href="{{ route('ieltstestc.export') }}" class="btn btn-success me-2">
+          <a href="{{ route('toeflibt.export') }}" class="btn btn-success me-2">
             <i class="bi bi-file-earmark-spreadsheet"></i> Download Semua Data
           </a>
 
           <form id="form-delete-all"
-                action="{{ route('ielts.destroyall') }}"
+                action="{{ route('toefl.destroyallumum') }}"
                 method="POST"
                 class="d-inline">
             @csrf
@@ -98,6 +101,13 @@
           </form>
         </div>
       </div>
+
+
+
+    <!-- Tombol Hapus Semua Data -->
+     
+
+  
 
       @if(session('success'))
         <div class="alert alert-success" role="alert">
@@ -121,7 +131,6 @@
         <tbody>
           @foreach ($students as $student)
             <tr>
-              <!-- <td>{{ $student->id }}</td> -->
               <td>{{ $loop->iteration }}</td>
               <td>{{ $student->name }}</td>
               <td>{{ $student->exam_date }}</td>
@@ -131,11 +140,10 @@
               <td>{{ $student->writing_score }}</td>
               <td>{{ $student->total_score }}</td>
               <td>
-                <!-- Simpan URL preview dan download dalam atribut data -->
-               <div class="action-buttons">
+                <div class="action-buttons">
                   <button class="btn btn-primary btn-sm"
-                      data-preview="{{ route('certificate.showieltstestc', $student->id) }}"
-                      data-download="{{ route('certificateieltstestc.pdf', $student->id) }}"
+                      data-preview="{{ route('certificate.showibtumum', $student->id) }}"
+                      data-download="{{ route('certificate.pdfumum', $student->id) }}"
                       onclick="showCertificate(this.getAttribute('data-preview'), this.getAttribute('data-download'))">
                       Lihat Sertifikat
                   </button>
@@ -163,7 +171,7 @@
                   </button>
                   <!-- hapus -->
                     <form id="form-delete-{{ $student->id }}"
-                        action="{{ route('ielts.destroy', $student->id) }}"
+                        action="{{ route('toefl.destroyumum', $student->id) }}"
                         method="POST"
                         class="d-inline">
                     @csrf
@@ -205,12 +213,12 @@
     </div>
   </div>
 
-   <!-- Modal Edit Data Siswa -->
+  <!-- Modal Edit Data Siswa -->
   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit Data Siswa Ielts</h5>
+          <h5 class="modal-title" id="editModalLabel">Edit Data Siswa TOEFL iBT</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <form id="editForm" method="POST">
@@ -318,30 +326,26 @@
     </div>
   </div>
 
-  <!-- Bootstrap 5 JS Bundle CDN (termasuk Popper) -->
+
+  <!-- Bootstrap 5 JS Bundle CDN -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     function showCertificate(previewUrl, downloadUrl) {
-      // Setel URL PDF ke dalam iframe untuk pratinjau
       document.getElementById('pdfViewer').src = previewUrl;
-      
-      // Setel tombol unduh untuk mengunduh PDF dengan URL yang tepat
       document.getElementById('downloadBtn').onclick = function () {
           const link = document.createElement("a");
           link.href = downloadUrl;
-          link.download = "Sertifikat_IeltsTestC.pdf";
+          link.download = "Sertifikat_TOEFL.pdf";
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
       };
-
-      // Tampilkan modal Bootstrap
       var pdfModal = new bootstrap.Modal(document.getElementById('pdfModal'));
       pdfModal.show();
     }
   </script>
 
-  <!-- edit -->
+<!-- edit -->
   <script>
 // Populate form ketika modal dibuka
 var editModal = document.getElementById('editModal');
@@ -351,7 +355,7 @@ editModal.addEventListener('show.bs.modal', function (event) {
 
   // Atur action URL
   var form = document.getElementById('editForm');
-  form.action = '/ielts/' + id;
+  form.action = '/toefl/' + id;
 
   // Map setiap field
   ['name','class','email','gender',
@@ -384,7 +388,7 @@ editModal.addEventListener('show.bs.modal', function (event) {
   });
 </script>
 
-<!-- hapus -->
+<!-- search -->
 <script>
   document.getElementById("searchInput").addEventListener("keyup", function () {
     const filter = this.value.toLowerCase();
@@ -396,6 +400,8 @@ editModal.addEventListener('show.bs.modal', function (event) {
     });
   });
 </script>
+
+
 </body>
 </html>
 </x-app-layout>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Upload Data Skor TOEFL Junior</title>
+  <title>Upload Data Skor TOEFL Primary Step 2 - Umum</title>
   <!-- Bootstrap 5 CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -29,7 +29,7 @@
 <body>
   <div class="container">
     <div class="upload-container">
-      <h1 class="text-center">TOEFL Junior Raw Score Conversion</h1>
+      <h1 class="text-center">TOEFL Primary Step 2 Raw Score Conversion - <b>Umum</b></h1>
 
       @if(session('success'))
         <div class="alert alert-success" role="alert">
@@ -49,7 +49,7 @@
         </div>
     @endif
 
-      <form action="{{ route('scores.importJunior') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('scores.importToeflPrimaryStep2umum') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         {{-- tampilkan jika belum ada conversion rate --}}
@@ -63,9 +63,10 @@
             Conversion rate sudah di‐upload. Cukup upload file skor saja.
           </div>
         @endunless
+
         <div class="mb-3">
-            <label for="score_file" class="form-label fw-semibold">TOEFL Junior Scores</label>
-            <input type="file" name="score_file" id="score_file" class="form-control" >
+            <label for="score_file" class="form-label">TOEFL Primary Step 2 Scores</label>
+            <input type="file" name="score_file" id="score_file" class="form-control" required>
         </div>
 
         <button type="submit" class="btn btn-primary">
@@ -75,7 +76,7 @@
 
       {{-- Form Reset DITARUH DI LUAR, tapi hanya muncul kalau sudah ada conversion --}}
       @if($hasConversion)
-        <form action="{{ route('scoreconversiontoefljunior.reset') }}" method="POST" class="mt-3" onsubmit="return confirm('Yakin ingin me-reset score conversion toefl junior? Data akan dihapus seluruhnya.')">
+        <form action="{{ route('scoreconversiontoeflprimarystep2.reset') }}" method="POST" class="mt-3" onsubmit="return confirm('Yakin ingin me-reset score conversion toefl primary step2 ? Data akan dihapus seluruhnya.')">
           @csrf
           @method('DELETE')
           <button type="submit" class="btn btn-danger">Reset Conversion Rate</button>

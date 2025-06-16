@@ -65,6 +65,26 @@ Route::post('/importToeflPrimaryStep2', [ToeflPrimaryStep2Controller::class, 'im
 Route::get('/create', [ScoreController::class, 'create'])->name('create');
 Route::post('/store', [ScoreController::class, 'store'])->name('scores.store');
 
+// umum
+// upload data toefl
+Route::get('/upload-umum', [ToeflController::class, 'uploadFormumum'])->name('uploadumum');
+Route::post('/import-umum', [ToeflController::class, 'importScoresumum'])->name('scores.importumum');
+// upload data toefl junior
+Route::get('/toefljuniorupload-umum', [ToeflJuniorController::class, 'uploadFormJuniorumum'])->name('uploadJuniorumum');
+Route::post('/importtoefljunior-umum', [ToeflJuniorController::class, 'importScoresJuniorumum'])->name('scores.importJuniorumum');
+// upload data ielts test Prediction C
+Route::get('/ieltstestcupload-umum', [IeltsTestCController::class, 'uploadFormIeltsTestCumum'])->name('uploadIeltsTestCumum');
+Route::post('/importieltstestc-umum', [IeltsTestCController::class, 'importScoresIeltsTestCumum'])->name('scores.importIeltsTestCumum');
+// upload data toeic
+Route::get('/toeicupload-umum', [ToeicController::class, 'uploadFormToeicumum'])->name('uploadToeicumum');
+Route::post('/importToeic-umum', [ToeicController::class, 'importScoresToeicumum'])->name('scores.importToeicumum');
+// upload data toefl primary step 1
+Route::get('/toeflprimarystep1upload-umum', [ToeflPrimaryStep1Controller::class, 'uploadFormToeflPrimaryStep1umum'])->name('uploadToeflPrimaryStep1umum');
+Route::post('/importToeflPrimaryStep1-umum', [ToeflPrimaryStep1Controller::class, 'importScoresToeflPrimaryStep1umum'])->name('scores.importToeflPrimaryStep1umum');
+// upload data toefl primary step 2
+Route::get('/toeflprimarystep2upload-umum', [ToeflPrimaryStep2Controller::class, 'uploadFormToeflPrimaryStep2umum'])->name('uploadToeflPrimaryStep2umum');
+Route::post('/importToeflPrimaryStep2-umum', [ToeflPrimaryStep2Controller::class, 'importScoresToeflPrimaryStep2umum'])->name('scores.importToeflPrimaryStep2umum');
+
 
 
 
@@ -148,6 +168,85 @@ Route::delete('/toeic', [ToeicController::class, 'destroyalltoeic'])
 Route::get('/toeic', [ToeicController::class, 'index'])
      ->name('toeic.index');
 
+// umum
+// toefl ibt
+Route::put('/toefl-umum/{id}', [ToeflController::class, 'updatetoeflumum'])
+     ->name('toefl.updateumum');
+// Hapus satu siswa
+Route::delete('/toefl-umum/{id}', [ToeflController::class, 'destroytoeflumum'])
+     ->name('toefl.destroyumum');
+// Hapus semua siswa
+Route::delete('/toefl-umum', [ToeflController::class, 'destroyalltoeflumum'])
+     ->name('toefl.destroyallumum');
+// search siswa
+Route::get('/toefl-umum', [ToeflController::class, 'indexumum'])
+     ->name('toefl.indexumum');
+
+// toefl junior
+Route::put('/toefljunior-umum/{id}', [ToeflJuniorController::class, 'updatetoefljuniorumum'])
+     ->name('toefljunior.updateumum');
+// Hapus satu siswa
+Route::delete('/toefljunior-umum/{id}', [ToeflJuniorController::class, 'destroytoefljunior-umum'])
+     ->name('toefljunior.destroy-umum');
+// Hapus semua siswa
+Route::delete('/toefljunior-umum', [ToeflJuniorController::class, 'destroyalltoefljuniorumum'])
+     ->name('toefljunior.destroyallumum');
+// search siswa
+Route::get('/toefljunior-umum', [ToeflJuniorController::class, 'indexumum'])
+     ->name('toefljunior.indexumum');
+
+// ielts
+Route::put('/ielts-umum/{id}', [IeltsTestCController::class, 'updateieltsumum'])
+     ->name('ielts.updateumum');
+// Hapus satu siswa
+Route::delete('/ielts-umum/{id}', [IeltsTestCController::class, 'destroyieltsumum'])
+     ->name('ielts.destroyumum');
+// Hapus semua siswa
+Route::delete('/ielts-umum', [IeltsTestCController::class, 'destroyallieltsumum'])
+     ->name('ielts.destroyallumum');
+// search siswa
+Route::get('/ielts-umum', [IeltsTestCController::class, 'indexumum'])
+     ->name('ielts.indexumum');
+
+// primary step 1
+Route::put('/toeflprimarystep1-umum/{id}', [ToeflPrimaryStep1Controller::class, 'updatetoeflprimarystep1umum'])
+     ->name('toeflprimarystep1.updateumum');
+// Hapus satu siswa
+Route::delete('/toeflprimarystep1-umum/{id}', [ToeflPrimaryStep1Controller::class, 'destroytoeflprimarystep1umum'])
+     ->name('toeflprimarystep1.destroyumum');
+// Hapus semua siswa
+Route::delete('/toeflprimarystep1-umum', [ToeflPrimaryStep1Controller::class, 'destroyalltoeflprimarystep1umum'])
+     ->name('toeflprimarystep1.destroyallumum');
+// search siswa
+Route::get('/toeflprimarystep1-umum', [ToeflPrimaryStep1Controller::class, 'indexumum'])
+     ->name('toeflprimarystep1.indexumum');
+
+// primary step 2
+Route::put('/toeflprimarystep2-umum/{id}', [ToeflPrimaryStep2Controller::class, 'updatetoeflprimarystep2umum'])
+     ->name('toeflprimarystep2.updateumum');
+// Hapus satu siswa
+Route::delete('/toeflprimarystep2-umum/{id}', [ToeflPrimaryStep2Controller::class, 'destroytoeflprimarystep2umum'])
+     ->name('toeflprimarystep2.destroyumum');
+// Hapus semua siswa
+Route::delete('/toeflprimarystep2-umum', [ToeflPrimaryStep2Controller::class, 'destroyalltoeflprimarystep2umum'])
+     ->name('toeflprimarystep2.destroyallumum');
+// search siswa
+Route::get('/toeflprimarystep2-umum', [ToeflPrimaryStep2Controller::class, 'indexumum'])
+     ->name('toeflprimarystep2.indexumum');
+
+// toeic
+Route::put('/toeic-umum/{id}', [ToeicController::class, 'updatetoeicumum'])
+     ->name('toeic.updateumum');
+// Hapus satu siswa
+Route::delete('/toeic-umum/{id}', [ToeicController::class, 'destroytoeicumum'])
+     ->name('toeic.destroyumum');
+// Hapus semua siswa
+Route::delete('/toeic-umum', [ToeicController::class, 'destroyalltoeicumum'])
+     ->name('toeic.destroyallumum');
+// search siswa
+Route::get('/toeic-umum', [ToeicController::class, 'indexumum'])
+     ->name('toeic.indexumum');
+
 
 
 
@@ -177,10 +276,62 @@ Route::get('/toeflprimarystep2-scores', [CertificateToeflPrimaryStep2Controller:
 Route::get('/toeflprimarystep2-scores/{id}', [CertificateToeflPrimaryStep2Controller::class, 'show'])->name('certificate.showtoeflprimarystep2');
 Route::get('/certificate-toeflprimarystep2/{id}/pdf', [CertificateToeflPrimaryStep2Controller::class, 'downloadPdf'])->name('certificatetoeflprimarystep2.pdf');
 
+// Sertifikat Umum
+// sertifikat Toefl iBT
+Route::get('/toefl-scores-umum', [CertificateController::class, 'indextoeflibt'])->name('data.toeflumum');
+Route::get('/toefl-scores-umum/{id}', [CertificateController::class, 'showtoeflibt'])->name('certificate.showibtumum');
+Route::get('/certificate-umum/{id}/pdf', [CertificateController::class, 'downloadPdftoeflibt'])->name('certificate.pdfumum');
+// sertifikat Toefl Junior
+Route::get('/toefljunior-scores-umum', [CertificateToeflJuniorController::class, 'indextoefljunior'])->name('data.toefljuniorumum');
+Route::get('/toefljunior-scores-umum/{id}', [CertificateToeflJuniorController::class, 'showtoefljunior'])->name('certificate.showtoefljuniorumum');
+Route::get('/certificatetoefljunior-umum/{id}/pdf', [CertificateToeflJuniorController::class, 'downloadPdftoefljunior'])->name('certificatetoefljunior.pdfumum');
+// sertifikat IELTS Test Prediction C
+Route::get('/ieltstestc-scores-umum', [CertificateIeltsTestCController::class, 'indexieltstestc'])->name('data.ieltstestcumum');
+Route::get('/ieltstestc-scores-umum/{id}', [CertificateIeltsTestCController::class, 'showieltstestc'])->name('certificate.showieltstestcumum');
+Route::get('/certificate-ieltstestc-umum/{id}/pdf', [CertificateIeltsTestCController::class, 'downloadPdfieltstestc'])->name('certificateieltstestc.pdfumum');
+// sertifikat TOEIC
+Route::get('/toeic-scores-umum', [CertificateToeicController::class, 'indextoeic'])->name('data.toeicumum');
+Route::get('/toeic-scores-umum/{id}', [CertificateToeicController::class, 'showtoeic'])->name('certificate.showtoeicumum');
+Route::get('/certificate-toeic-umum/{id}/pdf', [CertificateToeicController::class, 'downloadPdftoeic'])->name('certificatetoeic.pdfumum');
+// sertifikat TOEFL Primary Step 1
+Route::get('/toeflprimarystep1-scores-umum', [CertificateToeflPrimaryStep1Controller::class, 'indextoeflprimarystep1'])->name('data.toeflprimarystep1umum');
+Route::get('/toeflprimarystep1-scores-umum/{id}', [CertificateToeflPrimaryStep1Controller::class, 'showtoeflprimarystep1'])->name('certificate.showtoeflprimarystepumum');
+Route::get('/certificate-toeflprimarystep1-umum/{id}/pdf', [CertificateToeflPrimaryStep1Controller::class, 'downloadPdftoeflprimarystep1'])->name('certificatetoeflprimarystep1.pdfumum');
+// sertifikat TOEFL Primary Step 2
+Route::get('/toeflprimarystep2-scores-umum', [CertificateToeflPrimaryStep2Controller::class, 'indextoeflprimarystep2'])->name('data.toeflprimarystep2umum');
+Route::get('/toeflprimarystep2-scores-umum/{id}', [CertificateToeflPrimaryStep2Controller::class, 'showtoeflprimarystep2'])->name('certificate.showtoeflprimarystep2umum');
+Route::get('/certificate-toeflprimarystep2-umum/{id}/pdf', [CertificateToeflPrimaryStep2Controller::class, 'downloadPdftoeflprimarystep2'])->name('certificatetoeflprimarystep2.pdfumum');
 
 
 
-// unduh data
+
+// unduh data semua
+// Toefl iBT
+Route::get('/export-ToefliBT', function () {
+    return Excel::download(new ToeflExport, 'daftar_siswa_toefl_ibt.xlsx');
+})->name('toeflibt.export');
+// Toefl Junior
+Route::get('/export-ToeflJunior', function () {
+    return Excel::download(new ToeflJuniorExport, 'daftar_siswa_toefl_junior.xlsx');
+})->name('toefljunior.export');
+// Ielts Test Prediction C
+Route::get('/export-IeltsTestC', function () {
+    return Excel::download(new IeltsTestCExport, 'daftar_siswa_ieltstestc.xlsx');
+})->name('ieltstestc.export');
+// Toeic
+Route::get('/export-Toeic', function () {
+    return Excel::download(new ToeicExport, 'daftar_siswa_toeic.xlsx');
+})->name('toeic.export');
+// Toefl Primary Step 1
+Route::get('/export-ToeflPrimaryStep1', function () {
+    return Excel::download(new ToeflPrimaryStep1Export, 'daftar_siswa_toeflprimarystep1.xlsx');
+})->name('toeflprimarystep1.export');
+// Toefl Primary Step 2
+Route::get('/export-ToeflPrimaryStep2', function () {
+    return Excel::download(new ToeflPrimaryStep2Export, 'daftar_siswa_toeflprimarystep1.xlsx');
+})->name('toeflprimarystep2.export');
+
+// umum
 // Toefl iBT
 Route::get('/export-ToefliBT', function () {
     return Excel::download(new ToeflExport, 'daftar_siswa_toefl_ibt.xlsx');

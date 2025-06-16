@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IELTS Test Prediction C</title>
+  <title>TOEFL Primary Step 2</title>
   <!-- Bootstrap 5 CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -62,9 +62,9 @@
 <body>
   <div class="container">
     <div class="table-container">
-      <h1 class="text-center">Data Siswa - IELTS Test</h1>
+      <h1 class="text-center">Data TOEFL Primary Step 2 - Umum</h1>
 
-      <div class="d-flex justify-content-between align-items-center mb-3">
+       <div class="d-flex justify-content-between align-items-center mb-3">
         {{-- Search form di kiri --}}
         {{-- Input Search Real-time --}}
           <div>
@@ -77,12 +77,12 @@
 
         {{-- Tombol Download dan Hapus di kanan --}}
         <div>
-          <a href="{{ route('ieltstestc.export') }}" class="btn btn-success me-2">
+          <a href="{{ route('toeflprimarystep2.export') }}" class="btn btn-success me-2">
             <i class="bi bi-file-earmark-spreadsheet"></i> Download Semua Data
           </a>
 
           <form id="form-delete-all"
-                action="{{ route('ielts.destroyall') }}"
+                action="{{ route('toeflprimarystep2.destroyallumum') }}"
                 method="POST"
                 class="d-inline">
             @csrf
@@ -112,7 +112,6 @@
             <th>Tanggal Ujian</th>
             <th>Listening Skor</th>
             <th>Reading Skor</th>
-            <th>Speaking Skor</th>
             <th>Writing Skor</th>
             <th>Total Skor</th>
             <th>Aksi</th>
@@ -127,15 +126,14 @@
               <td>{{ $student->exam_date }}</td>
               <td>{{ $student->listening_score }}</td>
               <td>{{ $student->reading_score }}</td>
-              <td>{{ $student->speaking_score }}</td>
               <td>{{ $student->writing_score }}</td>
               <td>{{ $student->total_score }}</td>
               <td>
                 <!-- Simpan URL preview dan download dalam atribut data -->
-               <div class="action-buttons">
+                <div class="action-buttons">
                   <button class="btn btn-primary btn-sm"
-                      data-preview="{{ route('certificate.showieltstestc', $student->id) }}"
-                      data-download="{{ route('certificateieltstestc.pdf', $student->id) }}"
+                      data-preview="{{ route('certificate.showtoeflprimarystep2umum', $student->id) }}"
+                      data-download="{{ route('certificatetoeflprimarystep2.pdfumum', $student->id) }}"
                       onclick="showCertificate(this.getAttribute('data-preview'), this.getAttribute('data-download'))">
                       Lihat Sertifikat
                   </button>
@@ -156,14 +154,13 @@
                           data-exam_date="{{ $student->exam_date }}"
                           data-listening_score="{{ $student->listening_score }}"
                           data-reading_score="{{ $student->reading_score }}"
-                          data-speaking_score="{{ $student->speaking_score }}"
                           data-writing_score="{{ $student->writing_score }}"
                           data-no_sertif="{{ $student->no_sertif }}">
                     Edit
                   </button>
                   <!-- hapus -->
                     <form id="form-delete-{{ $student->id }}"
-                        action="{{ route('ielts.destroy', $student->id) }}"
+                        action="{{ route('toeflprimarystep2.destroyumum', $student->id) }}"
                         method="POST"
                         class="d-inline">
                     @csrf
@@ -205,12 +202,12 @@
     </div>
   </div>
 
-   <!-- Modal Edit Data Siswa -->
+  <!-- Modal Edit Data Siswa -->
   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit Data Siswa Ielts</h5>
+          <h5 class="modal-title" id="editModalLabel">Edit Data Siswa Toefl Primary Step 2</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <form id="editForm" method="POST">
@@ -271,10 +268,6 @@
                 <input type="number" name="listening_score" id="edit-listening_score" class="form-control" step="0.01" required>
               </div>
               <div class="col-md-3">
-                <label class="form-label"><b>Speaking Score</b></label>
-                <input type="number" name="speaking_score" id="edit-speaking_score" class="form-control" step="0.01" required>
-              </div>
-              <div class="col-md-3">
               <label class="form-label"><b>Writing Score</b></label>
                 <input type="number" name="writing_score" id="edit-writing_score" class="form-control" step="0.01" required>
               </div>
@@ -329,7 +322,7 @@
       document.getElementById('downloadBtn').onclick = function () {
           const link = document.createElement("a");
           link.href = downloadUrl;
-          link.download = "Sertifikat_IeltsTestC.pdf";
+          link.download = "Sertifikat_toeflprimarystep2.pdf";
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -341,6 +334,7 @@
     }
   </script>
 
+  
   <!-- edit -->
   <script>
 // Populate form ketika modal dibuka
@@ -351,14 +345,13 @@ editModal.addEventListener('show.bs.modal', function (event) {
 
   // Atur action URL
   var form = document.getElementById('editForm');
-  form.action = '/ielts/' + id;
+  form.action = '/toeflprimarystep2/' + id;
 
   // Map setiap field
   ['name','class','email','gender',
    'country_region_nationality','country_region_origin',
    'native_language','date_of_birth','school_name',
-   'exam_date','reading_score','listening_score',
-   'speaking_score','writing_score','no_sertif'
+   'exam_date','reading_score','listening_score','writing_score','no_sertif'
   ].forEach(function(field) {
     var el = document.getElementById('edit-' + field);
     el.value = btn.getAttribute('data-' + field);

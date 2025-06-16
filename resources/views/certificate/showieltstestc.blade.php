@@ -282,8 +282,8 @@
         object-fit: contain;
         margin-top: -25px;
         margin-bottom: 140px;
-        margin-left: 30px;
-        z-index: -5;
+        margin-left: 20px;
+        z-index: -1;
         position: absolute;
         }
 
@@ -435,7 +435,7 @@
                     Head of UPK Prodiksus
                 </div>
                 <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/upk-e1747674338525.png" alt="cap" class="cap">
-                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LR-e1747160183609.png" alt="Tanda Tangan" class="signature-sign">
+                <img src="https://bpi-english-lab.com/wp-content/uploads/2025/05/LR-2.png" alt="Tanda Tangan" class="signature-sign">
                 <div class="signature-line"></div>
                 <div class="signature-name">Lina Roufah, S.Pd.</div>
             </div>

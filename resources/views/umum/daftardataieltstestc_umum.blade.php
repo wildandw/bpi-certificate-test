@@ -62,7 +62,7 @@
 <body>
   <div class="container">
     <div class="table-container">
-      <h1 class="text-center">Data Siswa - IELTS Test</h1>
+      <h1 class="text-center">Data IELTS Test - Umum</h1>
 
       <div class="d-flex justify-content-between align-items-center mb-3">
         {{-- Search form di kiri --}}
@@ -82,7 +82,7 @@
           </a>
 
           <form id="form-delete-all"
-                action="{{ route('ielts.destroyall') }}"
+                action="{{ route('ielts.destroyallumum') }}"
                 method="POST"
                 class="d-inline">
             @csrf
@@ -134,8 +134,8 @@
                 <!-- Simpan URL preview dan download dalam atribut data -->
                <div class="action-buttons">
                   <button class="btn btn-primary btn-sm"
-                      data-preview="{{ route('certificate.showieltstestc', $student->id) }}"
-                      data-download="{{ route('certificateieltstestc.pdf', $student->id) }}"
+                      data-preview="{{ route('certificate.showieltstestcumum', $student->id) }}"
+                      data-download="{{ route('certificateieltstestc.pdfumum', $student->id) }}"
                       onclick="showCertificate(this.getAttribute('data-preview'), this.getAttribute('data-download'))">
                       Lihat Sertifikat
                   </button>
@@ -163,7 +163,7 @@
                   </button>
                   <!-- hapus -->
                     <form id="form-delete-{{ $student->id }}"
-                        action="{{ route('ielts.destroy', $student->id) }}"
+                        action="{{ route('ielts.destroyumum', $student->id) }}"
                         method="POST"
                         class="d-inline">
                     @csrf

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Imports\ToeflScoreImport;
 use App\Imports\ScoreConversionImport;
-
+use App\Models\ToeflScores_Umum;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,6 +28,7 @@ class ToeflController extends Controller
 
         return view('daftardata', compact('scores', 'search'));
     }
+
 
     // fungsi untuk upload form 
     public function uploadForm()
@@ -212,6 +213,187 @@ class ToeflController extends Controller
 
 
 
+// umum
+    public function indexumum(Request $request)
+    {
+        $search = $request->input('search');
+
+        $scores = ToeflScores_Umum::when($search, function ($query, $search) {
+            return $query->where('name', 'like', '%' . $search . '%');
+        })->get();
+
+        return view('umum/daftardata_umum', compact('scores', 'search'));
+    }
+public function uploadFormumum()
+    {
+        $hasConversion = ScoreConversion::exists();
+        return view('umum/uploadumum', compact('hasConversion'));
+    }
+    /**
+     * Proses import POST
+     */
+    public function importScoresumum(Request $request)
+    {
+        $hasConversion = ScoreConversion::exists();
+
+        // 1. Validasi file upload
+        $rules = ['score_file' => 'required|mimes:xlsx,xls,csv'];
+        if (! $hasConversion) {
+            $rules['conversion_file'] = 'required|mimes:xlsx,xls,csv';
+        }
+        $messages = [
+            'score_file.required'    => 'File skor wajib diunggah.',
+            'score_file.mimes'       => 'Format file atau excel salah, silakan lihat <a href="' 
+                                        . route('panduan') . '" class="underline text-blue-600">Panduan</a>.',
+            'conversion_file.required' => 'File conversion rate wajib diunggah karena belum ada data.',
+            'conversion_file.mimes'   => 'Format file atau excel salah, silakan lihat <a href="' 
+                                        . route('panduan') . '" class="underline text-blue-600">Panduan</a>.',
+        ];
+        $request->validate($rules, $messages);
+
+        try {
+            if (! $hasConversion && $request->hasFile('conversion_file')) {
+            Excel::import(new ScoreConversionImport, $request->file('conversion_file'));
+        }
+
+        $collection = Excel::toCollection(new ToeflScoreImport(true), $request->file('score_file'))->first();
+
+        // Validasi manual isi data per baris
+            $errors = [];
+            $requiredFields = [
+                'name', 'class', 'email', 'gender',
+                'country_of_region_of_nationality', 'country_of_region_of_origin',
+                'native_language', 'date_of_birth', 'school_name',
+                'exam_date'
+            ];
+
+            foreach ($collection as $index => $row) {
+                foreach ($requiredFields as $field) {
+                    if (empty($row[$field])) {
+                        $errors[] = 'Baris ' . ($index + 2) . ': kolom ' . $field . ' kosong';
+                    }
+                }
+            }
+
+            if (count($errors)) {
+                return back()->withErrors($errors);
+            }
+
+        // Validasi duplikasi
+        $this->checkFileDuplicates($collection, ['name']);
+        $this->checkDatabaseDuplicates($collection, \App\Models\ToeflScores_Umum::class, ['name']);
+
+        // Import data + generate nomor sertifikat per baris
+        Excel::import(new ToeflScoreImport(false), $request->file('score_file'));
+
+
+            return redirect()->back()->with('success', $hasConversion
+                ? 'Data skor berhasil diupload!'
+                : 'Conversion rate dan data skor berhasil diupload!'
+            );
+
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            // Error validasi isi Excel (tipe data, heading row, etc)
+            $failures     = $e->failures();
+            $errorMessages = collect($failures)
+                            ->flatMap(fn($f) => $f->errors())
+                            ->unique()
+                            ->toArray();
+            return back()->withErrors($errorMessages);
+
+        } catch (\Exception $e) {
+            // Bisa berupa duplikasi (helper) atau exception lain
+            $lines = explode("\n", $e->getMessage());
+            return back()->withErrors($lines);
+        }
+    }
+    
+    // fungsi untuk edit data toefl iBT
+    public function updatetoeflumum(Request $request, $id)
+    {
+         // 1. Validasi input
+        $validator = Validator::make($request->all(), [
+            'name'                              => 'required|string|max:255',
+            'class'                             => 'nullable|string|max:100',
+            'email'                             => 'nullable|email|max:255',
+            'gender'                            => 'nullable|in:Male,Female,Other',
+            'country_region_nationality'        => 'nullable|string|max:100',
+            'country_region_origin'             => 'nullable|string|max:100',
+            'native_language'                   => 'nullable|string|max:100',
+            'date_of_birth'                     => 'nullable|date',
+            'school_name'                       => 'nullable|string|max:255',
+            'exam_date'                         => 'required|date',
+            'reading_score'                     => 'required|numeric|min:0',
+            'listening_score'                   => 'required|numeric|min:0',
+            'speaking_score'                    => 'required|numeric|min:0',
+            'writing_score'                     => 'required|numeric|min:0',
+            'no_sertif'                         => 'nullable|string|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                             ->withErrors($validator)
+                             ->withInput();
+        }
+
+        // 2. Ambil model
+        $student = ToeflScores_Umum::findOrFail($id);
+
+        // 3. Isi field dasar
+        $student->fill($request->only([
+            'name','class','email','gender',
+            'country_region_nationality','country_region_origin',
+            'native_language','date_of_birth','school_name',
+            'exam_date','no_sertif'
+        ]));
+
+
+        // Ambil raw dari request
+        $rawReading   = $request->input('reading_score');
+        $rawListening = $request->input('listening_score');
+
+        // Cari konversi di tabel score_conversions,
+        // sesuai kolom yang di-import (reading_score & listening_score)
+        $convReading = ScoreConversion::where('test_type', 'toefl')
+                            ->where('raw_score', $rawReading)
+                            ->value('reading_score')
+                    ?? $rawReading;
+
+        $convListening = ScoreConversion::where('test_type', 'toefl')
+                            ->where('raw_score', $rawListening)
+                            ->value('listening_score')
+                        ?? $rawListening;
+
+        // Set skor ke model siswa
+        $student->reading_score   = $convReading;
+        $student->listening_score = $convListening;
+        $student->speaking_score  = $request->input('speaking_score');
+        $student->writing_score   = $request->input('writing_score');
+
+        // Hitung total dari skor hasil konversi + speaking + writing
+        $student->total_score = $convReading
+                            + $convListening
+                            + $student->speaking_score
+                            + $student->writing_score;
+
+        $student->save();
+
+        return back()->with('success', 'Data siswa berhasil diperbarui.');
+    }
+
+    // fungsi untuk hapus data siswa di toefl iBT
+    public function destroytoeflumum($id)
+    {
+        ToeflScores_Umum::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Siswa berhasil dihapus.');
+    }
+
+    // fungsi untuk hapus semua data di toefl iBT
+    public function destroyalltoeflumum()
+    {
+        ToeflScores_Umum::truncate();
+        return redirect()->back()->with('success', 'Semua data siswa berhasil dihapus.');
+    }
 
 
 
