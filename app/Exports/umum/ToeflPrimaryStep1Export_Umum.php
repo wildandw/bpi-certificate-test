@@ -2,19 +2,16 @@
 
 namespace App\Exports;
 
-use App\Models\ToeicScores;
+use App\Models\ToeflPrimaryStep1Scores_Umum;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ToeicExport implements FromCollection, WithHeadings
+class ToeflPrimaryStep1Export_Umum implements FromCollection, WithHeadings
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
     public function collection()
     {
         // Ambil semua kolom yang ingin diexport
-        return ToeicScores::select([
+        return ToeflPrimaryStep1Scores_Umum::select([
             'name',
             'class',
             'email',
@@ -27,6 +24,8 @@ class ToeicExport implements FromCollection, WithHeadings
             'exam_date',
             'reading_score',
             'listening_score',
+            'speaking_score',
+            'writing_score',
             'total_score',
             'valid_date'
         ])->get();
@@ -47,7 +46,9 @@ class ToeicExport implements FromCollection, WithHeadings
             'Exam Date',
             'Reading Score',
             'Listening Score',
-            'Total Skor',
+            'Speaking Score',
+            'Writing Score',
+            'Total Score',
             'Valid Date'
         ];
     }

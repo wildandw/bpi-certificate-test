@@ -333,6 +333,7 @@
             use Carbon\Carbon;
             $formattedExamDate = Carbon::parse($certificateieltstestc->exam_date)->format('d-m-Y');
             $formattedDateofBirth = Carbon::parse($certificateieltstestc->date_of_birth)->format('d-m-Y');
+             $formattedValidDate = Carbon::parse($certificate->valid_date)->format('F Y');
         @endphp
 
 
@@ -378,7 +379,7 @@
                 <div class="validation-section">
                     <div class="validation-text">Scan here for validation</div>
                        <div class="qrcode">{!! $qrCode !!}</div> 
-                    <div class="valid-until">Valid until: May 2027</div>
+                    <div class="valid-until">Valid until: {{ $formattedValidDate}}</div>
                 </div>
             </div>
         </div>

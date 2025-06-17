@@ -27,6 +27,7 @@ class ToeflPrimaryStep2Scores extends Model
         'speaking_score',
         'total_score',
         'no_sertif',
+        'valid_date',
         'certificate_path'
     ];
 }

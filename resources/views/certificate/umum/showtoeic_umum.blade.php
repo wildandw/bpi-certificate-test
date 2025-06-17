@@ -274,6 +274,7 @@
       use Carbon\Carbon;
       $formattedExamDate = Carbon::parse($certificatetoeic->exam_date)->format('d-m-Y');
       $formattedDateofBirth = Carbon::parse($certificatetoeic->date_of_birth)->format('d-m-Y');
+      $formattedValidDate = Carbon::parse($certificate->valid_date)->format('F Y');
   @endphp
   <div class="certificate">
     <img src="https://bpiedu.id/yayasanbpi/images/2022/10/03/logo%20bpi%20clear.png" alt="Logo" class="logo" />
@@ -288,7 +289,7 @@
     <div class="qrcode-topright">
       Scan here for validation
       <div class="qrcode">{!! $qrCode !!}</div>
-      Valid until: May 2027
+      Valid until: {{$formattedValidDate }}
     </div>
 
     <div class="certify-section">

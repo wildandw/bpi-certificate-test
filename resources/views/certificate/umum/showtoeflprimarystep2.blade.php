@@ -379,6 +379,7 @@
             use Carbon\Carbon;
             $formattedExamDate = Carbon::parse($certificatetoeflprimarystep2->exam_date)->format('d-m-Y');
             $formattedDateofBirth = Carbon::parse($certificatetoeflprimarystep2->date_of_birth)->format('d-m-Y');
+            $formattedValidDate = Carbon::parse($certificate->valid_date)->format('F Y');
         @endphp
 
 
@@ -395,7 +396,7 @@
       <div class="certificate-number">No: 010/UPK_Prodiksus/V/2025</div>
       <div class="qr-validation">Scan here for validation</div>
           <div class="qr-code">{!! $qrCode !!}</div>
-      <div class="valid-until">Valid until: May 2027</div>
+      <div class="valid-until">Valid until: {{$formattedValidDate }}</div>
 
       <div class="toefl-header">TOEFL PRIMARY</div>
       <div class="step">Step 2</div>

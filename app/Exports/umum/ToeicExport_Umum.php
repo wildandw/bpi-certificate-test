@@ -27,7 +27,8 @@ class ToeicExport_Umum implements FromCollection, WithHeadings
             'exam_date',
             'reading_score',
             'listening_score',
-            'total_score'
+            'total_score',
+            'valid_date'
         ])->get();
     }
 
@@ -46,7 +47,8 @@ class ToeicExport_Umum implements FromCollection, WithHeadings
             'Exam Date',
             'Reading Score',
             'Listening Score',
-            'Total Skor'
+            'Total Skor',
+            'Valid Date'
         ];
     }
 }

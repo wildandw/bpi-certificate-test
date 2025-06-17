@@ -26,5 +26,6 @@ class ToeflJuniorScores_Umum extends Model
         'language_form_score',
         'total_score',
         'no_sertif',
+        'valid_date',
     ];
 }

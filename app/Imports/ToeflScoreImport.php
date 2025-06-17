@@ -12,12 +12,15 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 class ToeflScoreImport implements ToCollection, WithHeadingRow
 {
     protected bool $simulateOnly;
+    protected ?string $no_sertif;
+    protected ?string $valid_date;
 
-    public function __construct(bool $simulateOnly = false)
+    public function __construct(bool $simulateOnly = false, ?string $no_sertif = null, ?string $valid_date = null)
     {
         $this->simulateOnly = $simulateOnly;
+        $this->no_sertif = $no_sertif;
+        $this->valid_date = $valid_date;
     }
-
     public function collection(Collection $rows)
     {
         if ($rows->isEmpty()) {
@@ -37,7 +40,7 @@ class ToeflScoreImport implements ToCollection, WithHeadingRow
 
             if (! $this->simulateOnly) {
                 $kelas = $row['class'] ?? 'Unknown';
-                $noSertif = $this->generateCertificateNumber($kelas);
+                
 
                 ToeflScores::create([
                     'name'                     => $row['name'],
@@ -55,7 +58,8 @@ class ToeflScoreImport implements ToCollection, WithHeadingRow
                     'speaking_score'           => $row['speaking_score'],
                     'writing_score'            => $row['writing_score'],
                     'total_score'              => $total,
-                    'no_sertif'                => $noSertif,
+                    'no_sertif'                => $this->no_sertif,
+                    'valid_date'                => $this->valid_date,
                 ]);
             }
         }

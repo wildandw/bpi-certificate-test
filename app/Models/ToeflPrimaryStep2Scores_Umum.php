@@ -27,6 +27,7 @@ class ToeflPrimaryStep2Scores_Umum extends Model
         'speaking_score',
         'total_score',
         'no_sertif',
+        'valid_date',
         'certificate_path'
     ];
 }

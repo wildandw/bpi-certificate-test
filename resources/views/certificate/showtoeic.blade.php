@@ -288,7 +288,7 @@
     <div class="qrcode-topright">
       Scan here for validation
       <div class="qrcode">{!! $qrCode !!}</div>
-      Valid until: May 2027
+      Valid until: {{ $formattedValidDate}}
     </div>
 
     <div class="certify-section">

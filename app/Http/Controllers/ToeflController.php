@@ -284,7 +284,12 @@ public function uploadFormumum()
         $this->checkDatabaseDuplicates($collection, \App\Models\ToeflScores_Umum::class, ['name']);
 
         // Import data + generate nomor sertifikat per baris
-        Excel::import(new ToeflScoreImport(false), $request->file('score_file'));
+        // Excel::import(new ToeflScoreImport(false), $request->file('score_file'));
+        $no_sertif = $request->input('no_sertif');
+        $validDate = $request->input('valid_date');
+
+        Excel::import(new ToeflScoreImport(false, $no_sertif, $validDate), $request->file('score_file'));
+
 
 
             return redirect()->back()->with('success', $hasConversion
@@ -328,6 +333,7 @@ public function uploadFormumum()
             'speaking_score'                    => 'required|numeric|min:0',
             'writing_score'                     => 'required|numeric|min:0',
             'no_sertif'                         => 'nullable|string|max:100',
+            'valid_date'                         => 'required|date',
         ]);
 
         if ($validator->fails()) {
@@ -344,7 +350,7 @@ public function uploadFormumum()
             'name','class','email','gender',
             'country_region_nationality','country_region_origin',
             'native_language','date_of_birth','school_name',
-            'exam_date','no_sertif'
+            'exam_date','no_sertif','valid_date'
         ]));
 
 

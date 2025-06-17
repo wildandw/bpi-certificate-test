@@ -101,7 +101,7 @@ class CertificateIeltsTestCController extends Controller
 
         // 2. Panggil aPDF.io Create API
         $resp = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('APDF_API_KEY_ielts'),
+                'Authorization' => 'Bearer ' . env('APDF_API_KEY_ieltsumum'),
                 'Accept'        => 'application/json',
                 'Content-Type'  => 'application/json',
             ])

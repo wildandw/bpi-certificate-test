@@ -27,6 +27,7 @@ class ToeicScores_Umum extends Model
         'reading_score',
         'total_score',
         'no_sertif',
+        'valid_date',
         'certificate_path'
     ];
 }

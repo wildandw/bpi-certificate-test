@@ -26,7 +26,8 @@ class ToeflExport implements FromCollection, WithHeadings
             'listening_score',
             'speaking_score',
             'writing_score',
-            'total_score'
+            'total_score',
+            'valid_date'
         ])->get();
     }
 
@@ -47,7 +48,8 @@ class ToeflExport implements FromCollection, WithHeadings
             'Listening Score',
             'Speaking Score',
             'Writing Score',
-            'Total SCore'
+            'Total SCore',
+            'Valid Date'
         ];
     }
 }

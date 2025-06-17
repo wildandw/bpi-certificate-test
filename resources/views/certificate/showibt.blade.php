@@ -317,6 +317,7 @@
        use Carbon\Carbon;
        $formattedExamDate = Carbon::parse($certificate->exam_date)->format('d-m-Y');
        $formattedDateofBirth = Carbon::parse($certificate->date_of_birth)->format('d-m-Y');
+       $formattedValidDate = Carbon::parse($certificate->valid_date)->format('F Y');
   @endphp
 
   <div class="certificate">
@@ -340,7 +341,7 @@
         <div><span class="label">Gender:</span> {{ $certificate->gender }}</div>
         <div><span class="label">Date of Birth:</span> {{ $formattedDateofBirth }}</div>
         <div><span class="label">Country of Birth:</span> {{ $certificate->country_region_origin }}</div>
-        <div><span class="label">No:</span>  012/UPK_Prodiksus/V/2025</div>
+        <div><span class="label">No:</span>  {{ $certificate->no_sertif }}</div>
       </div>
       <div class="right-column">
         <div class="photo"></div>
@@ -349,7 +350,7 @@
             <div class="qrcode">
               {!! $qrCode !!}
             </div>
-          <div>Valid until: May 2027</div>
+          <div>Valid until: {{ $formattedValidDate}}</div>
         </div>
       </div>
     </div>

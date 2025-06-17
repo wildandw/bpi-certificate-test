@@ -25,7 +25,8 @@ class ToeflJuniorExport_Umum implements FromCollection, WithHeadings
             'reading_score',
             'listening_score',
             'language_form_score',
-            'total_score'
+            'total_score',
+            'valid_date'
         ])->get();
     }
 
@@ -45,7 +46,8 @@ class ToeflJuniorExport_Umum implements FromCollection, WithHeadings
             'Reading Score',
             'Listening Score',
             'Language Form Score',
-            'Total Score'
+            'Total Score',
+            'Valid Date'
         ];
     }
 }

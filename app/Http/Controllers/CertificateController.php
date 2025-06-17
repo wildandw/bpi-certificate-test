@@ -90,7 +90,7 @@ class CertificateController extends Controller
         ]);
     }
 
-    public function downloadPdfumum($id) 
+    public function downloadPdftoeflibt($id) 
     {
         $certificate = ToeflScores_Umum::findOrFail($id);
         $qrCode      = QrCode::size(100)->generate(route('certificate.showibtumum', $id));
@@ -100,7 +100,7 @@ class CertificateController extends Controller
 
         // 2. Panggil aPDF.io Create API
         $resp = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('APDF_API_KEY_toeflibt'),
+                'Authorization' => 'Bearer ' . env('APDF_API_KEY_toeflibtumum'),
                 'Accept'        => 'application/json',
                 'Content-Type'  => 'application/json',
             ])

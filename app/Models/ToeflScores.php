@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ToeflScores extends Model
 {
+    protected $table = 'toefl_scores'; 
     use HasFactory;
 
     protected $fillable = [
@@ -26,6 +27,7 @@ class ToeflScores extends Model
         'writing_score',
         'total_score',
         'no_sertif',
+         'valid_date',
         'certificate_path'
     ];
 }

@@ -101,7 +101,7 @@ public function downloadPdf($id)
 
         // 2. Panggil aPDF.io Create API
         $resp = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('APDF_API_KEY_toefljunior'),
+                'Authorization' => 'Bearer ' . env('APDF_API_KEY_toefljuniorumum'),
                 'Accept'        => 'application/json',
                 'Content-Type'  => 'application/json',
             ])

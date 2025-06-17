@@ -103,7 +103,7 @@ class certificateToeicController extends Controller
 
         // 2. Panggil aPDF.io Create API
         $resp = Http::withHeaders([
-                'Authorization' => 'Bearer ' . env('APDF_API_KEY_toeic'),
+                'Authorization' => 'Bearer ' . env('APDF_API_KEY_toeicumum'),
                 'Accept'        => 'application/json',
                 'Content-Type'  => 'application/json',
             ])

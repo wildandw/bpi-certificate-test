@@ -67,6 +67,16 @@
             <label for="score_file" class="form-label fw-semibold">TOEFL Junior Scores</label>
             <input type="file" name="score_file" id="score_file" class="form-control" >
         </div>
+         <!-- no sertif -->
+        <div class="mb-3">
+          <label for="no_sertif" class="form-label">Certificate Number</label>
+          <input type="text" name="no_sertif" id="no_sertif" class="form-control" required>
+        </div>
+        <!-- valid until -->
+        <div class="mb-3">
+          <label for="valid_date" class="form-label">Valid Until</label>
+          <input type="date" name="valid_date" id="valid_date" class="form-control" required>
+        </div>
 
         <button type="submit" class="btn btn-primary">
           {{ $hasConversion ? 'Upload Skor Saja' : 'Upload Semua' }}
