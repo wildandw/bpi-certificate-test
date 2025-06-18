@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Imports\ToeicScoreImport;
 use App\Imports\ScoreConversionToeicImport;
-
+use App\Imports\ToeicScoreImport_Umum;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
@@ -91,7 +91,10 @@ class ToeicController extends Controller
         $this->checkDatabaseDuplicates($collection, \App\Models\ToeicScores::class, ['name']);
 
         // Import data + generate nomor sertifikat per baris
-        Excel::import(new ToeicScoreImport(false), $request->file('score_file'));
+        $no_sertif = $request->input('no_sertif');
+        $validDate = $request->input('valid_date');
+
+        Excel::import(new ToeicScoreImport(false, $no_sertif, $validDate), $request->file('score_file'));
 
 
             return redirect()->back()->with('success', $hasConversion
@@ -253,7 +256,7 @@ class ToeicController extends Controller
             Excel::import(new ScoreConversionToeicImport, $request->file('conversion_file'));
         }
 
-        $collection = Excel::toCollection(new ToeicScoreImport(true), $request->file('score_file'))->first();
+        $collection = Excel::toCollection(new ToeicScoreImport_Umum(true), $request->file('score_file'))->first();
 
         //  Validasi manual isi data per baris
         $errors = [];
@@ -281,7 +284,11 @@ class ToeicController extends Controller
         $this->checkDatabaseDuplicates($collection, \App\Models\ToeicScores_Umum::class, ['name']);
 
         // Import data + generate nomor sertifikat per baris
-        Excel::import(new ToeicScoreImport(false), $request->file('score_file'));
+        // Excel::import(new ToeicScoreImport(false), $request->file('score_file'));
+        $no_sertif = $request->input('no_sertif');
+        $validDate = $request->input('valid_date');
+
+        Excel::import(new ToeicScoreImport_Umum(false, $no_sertif, $validDate), $request->file('score_file'));
 
 
             return redirect()->back()->with('success', $hasConversion

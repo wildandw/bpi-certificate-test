@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 use App\Imports\IeltsScoreImport;
+use App\Imports\IeltsScoreImport_Umum;
 use App\Imports\ScoreConversionIeltsTestCImport;
 
 use Maatwebsite\Excel\Facades\Excel;
@@ -92,7 +93,10 @@ class IeltsTestCController extends Controller
             $this->checkDatabaseDuplicates($collection, \App\Models\IeltsTestCScores::class, ['name']);
 
             // Import data + generate nomor sertifikat per baris
-            Excel::import(new IeltsScoreImport(false), $request->file('score_file'));
+            $no_sertif = $request->input('no_sertif');
+            $validDate = $request->input('valid_date');
+
+            Excel::import(new IeltsScoreImport(false, $no_sertif, $validDate), $request->file('score_file'));
 
             return redirect()->back()->with('success', $hasConversion
                 ? 'Data skor berhasil diupload!'
@@ -253,7 +257,7 @@ class IeltsTestCController extends Controller
                 Excel::import(new ScoreConversionIeltsTestCImport, $request->file('conversion_file'));
             }
 
-            $collection = Excel::toCollection(new IeltsScoreImport(true), $request->file('score_file'))->first();
+            $collection = Excel::toCollection(new IeltsScoreImport_Umum(true), $request->file('score_file'))->first();
 
 
             // Validasi manual isi data per baris
@@ -282,7 +286,11 @@ class IeltsTestCController extends Controller
             $this->checkDatabaseDuplicates($collection, \App\Models\IeltsTestCScores_Umum::class, ['name']);
 
             // Import data + generate nomor sertifikat per baris
-            Excel::import(new IeltsScoreImport(false), $request->file('score_file'));
+            // Excel::import(new IeltsScoreImport(false), $request->file('score_file'));
+            $no_sertif = $request->input('no_sertif');
+            $validDate = $request->input('valid_date');
+
+            Excel::import(new IeltsScoreImport_Umum(false, $no_sertif, $validDate), $request->file('score_file'));
 
             return redirect()->back()->with('success', $hasConversion
                 ? 'Data skor berhasil diupload!'

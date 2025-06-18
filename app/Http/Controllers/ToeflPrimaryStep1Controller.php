@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Imports\ToeflPrimaryStep1ScoreImport;
 use App\Imports\ScoreConversionPrimaryStep1Import;
-
+use App\Imports\ToeflPrimaryStep1ScoreImport_Umum;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
@@ -92,7 +92,10 @@ class ToeflPrimaryStep1Controller extends Controller
             $this->checkDatabaseDuplicates($collection, \App\Models\ToeflPrimaryStep1Scores::class, ['name']);
 
             // Import data + generate nomor sertifikat per baris
-            Excel::import(new ToeflPrimaryStep1ScoreImport(false), $request->file('score_file'));
+            $no_sertif = $request->input('no_sertif');
+            $validDate = $request->input('valid_date');
+
+            Excel::import(new ToeflPrimaryStep1ScoreImport(false, $no_sertif, $validDate), $request->file('score_file'));
 
             return redirect()->back()->with('success', $hasConversion
                 ? 'Data skor berhasil diupload!'
@@ -248,7 +251,7 @@ class ToeflPrimaryStep1Controller extends Controller
                 Excel::import(new ScoreConversionPrimaryStep1Import, $request->file('conversion_file'));
             }
 
-            $collection = Excel::toCollection(new ToeflPrimaryStep1ScoreImport(true), $request->file('score_file'))->first();
+            $collection = Excel::toCollection(new ToeflPrimaryStep1ScoreImport_Umum(true), $request->file('score_file'))->first();
 
             // Validasi manual isi data per baris
             $errors = [];
@@ -276,7 +279,11 @@ class ToeflPrimaryStep1Controller extends Controller
             $this->checkDatabaseDuplicates($collection, \App\Models\ToeflPrimaryStep1Scores_Umum::class, ['name']);
 
             // Import data + generate nomor sertifikat per baris
-            Excel::import(new ToeflPrimaryStep1ScoreImport(false), $request->file('score_file'));
+            // Excel::import(new ToeflPrimaryStep1ScoreImport(false), $request->file('score_file'));
+            $no_sertif = $request->input('no_sertif');
+            $validDate = $request->input('valid_date');
+
+            Excel::import(new ToeflPrimaryStep1ScoreImport_Umum(false, $no_sertif, $validDate), $request->file('score_file'));
 
             return redirect()->back()->with('success', $hasConversion
                 ? 'Data skor berhasil diupload!'

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Imports\ToeflScoreImport;
 use App\Imports\ScoreConversionImport;
+use App\Imports\ToeflScoreImport_Umum;
 use App\Models\ToeflScores_Umum;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
@@ -91,7 +92,11 @@ class ToeflController extends Controller
         $this->checkDatabaseDuplicates($collection, \App\Models\ToeflScores::class, ['name']);
 
         // Import data + generate nomor sertifikat per baris
-        Excel::import(new ToeflScoreImport(false), $request->file('score_file'));
+        $no_sertif = $request->input('no_sertif');
+        $validDate = $request->input('valid_date');
+
+        Excel::import(new ToeflScoreImport(false, $no_sertif, $validDate), $request->file('score_file'));
+
 
 
             return redirect()->back()->with('success', $hasConversion
@@ -256,7 +261,7 @@ public function uploadFormumum()
             Excel::import(new ScoreConversionImport, $request->file('conversion_file'));
         }
 
-        $collection = Excel::toCollection(new ToeflScoreImport(true), $request->file('score_file'))->first();
+        $collection = Excel::toCollection(new ToeflScoreImport_Umum(true), $request->file('score_file'))->first();
 
         // Validasi manual isi data per baris
             $errors = [];
@@ -284,11 +289,11 @@ public function uploadFormumum()
         $this->checkDatabaseDuplicates($collection, \App\Models\ToeflScores_Umum::class, ['name']);
 
         // Import data + generate nomor sertifikat per baris
-        // Excel::import(new ToeflScoreImport(false), $request->file('score_file'));
+        // Excel::import(new ToeflScoreImport_Umum(false), $request->file('score_file'));
         $no_sertif = $request->input('no_sertif');
         $validDate = $request->input('valid_date');
 
-        Excel::import(new ToeflScoreImport(false, $no_sertif, $validDate), $request->file('score_file'));
+        Excel::import(new ToeflScoreImport_Umum(false, $no_sertif, $validDate), $request->file('score_file'));
 
 
 
