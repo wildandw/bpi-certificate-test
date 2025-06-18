@@ -173,6 +173,7 @@ class ToeflJuniorController extends Controller
             'listening_score'                   => 'required|numeric|min:0',
             'language_form_score'               => 'required|numeric|min:0',
             'no_sertif'                         => 'nullable|string|max:100',
+            'valid_date'                        => 'required|date'
         ]);
         
         if ($validator->fails()) {
@@ -189,7 +190,7 @@ class ToeflJuniorController extends Controller
             'name','class','email','gender',
             'country_region_nationality','country_region_origin',
             'native_language','date_of_birth','school_name',
-            'exam_date','no_sertif'
+            'exam_date','no_sertif','valid_date'
         ]));
 
 
@@ -366,6 +367,7 @@ class ToeflJuniorController extends Controller
             'listening_score'                   => 'required|numeric|min:0',
             'language_form_score'               => 'required|numeric|min:0',
             'no_sertif'                         => 'nullable|string|max:100',
+            'valid_date'                        => 'required|date'
         ]);
         
         if ($validator->fails()) {
@@ -382,7 +384,7 @@ class ToeflJuniorController extends Controller
             'name','class','email','gender',
             'country_region_nationality','country_region_origin',
             'native_language','date_of_birth','school_name',
-            'exam_date','no_sertif'
+            'exam_date','no_sertif','valid_date'
         ]));
 
 

@@ -160,7 +160,7 @@
 
 
         <!-- Score Conversion Dropdown -->
-        <div @click.away="uploadOpen = false; toeflOpen = false; smkOpen = false; smpOpen = false; sdOpen = false"
+        <div @click.away="umumOpen = false; uploadOpen = false; toeflOpen = false; smkOpen = false; smpOpen = false; sdOpen = false"
              class="relative hidden sm:flex sm:items-center sm:ms-10">
              <button @click="uploadOpen = !uploadOpen"
                 class="

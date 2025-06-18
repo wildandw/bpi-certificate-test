@@ -146,6 +146,7 @@ class ToeicController extends Controller
             'reading_score'                     => 'required|numeric|min:0',
             'listening_score'                   => 'required|numeric|min:0',
             'no_sertif'                         => 'nullable|string|max:100',
+            'valid_date'                        => 'required|date'
         ]);
 
         if ($validator->fails()) {
@@ -162,7 +163,7 @@ class ToeicController extends Controller
             'name','class','email','gender',
             'country_region_nationality','country_region_origin',
             'native_language','date_of_birth','school_name',
-            'exam_date','no_sertif'
+            'exam_date','no_sertif','valid_date'
         ]));
 
 
@@ -331,6 +332,7 @@ class ToeicController extends Controller
             'reading_score'                     => 'required|numeric|min:0',
             'listening_score'                   => 'required|numeric|min:0',
             'no_sertif'                         => 'nullable|string|max:100',
+            'valid_date'                        => 'required|date'
         ]);
 
         if ($validator->fails()) {
@@ -347,7 +349,7 @@ class ToeicController extends Controller
             'name','class','email','gender',
             'country_region_nationality','country_region_origin',
             'native_language','date_of_birth','school_name',
-            'exam_date','no_sertif'
+            'exam_date','no_sertif','valid_date'
         ]));
 
 

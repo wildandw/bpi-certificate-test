@@ -155,7 +155,8 @@
                           data-listening_score="{{ $student->listening_score }}"
                           data-reading_score="{{ $student->reading_score }}"
                           data-writing_score="{{ $student->writing_score }}"
-                          data-no_sertif="{{ $student->no_sertif }}">
+                          data-no_sertif="{{ $student->no_sertif }}"
+                          data-valid_date="{{ $student->valid_date }}">
                     Edit
                   </button>
                   <!-- hapus -->
@@ -275,8 +276,12 @@
                 <label class="form-label"><b>*jumlah soal benar / skor sebelum di konversi</b></label>
               </div>
               <div class="col-md-6">
-                <label class="form-label"><b>No Sertifikat</b></label>
+                <label class="form-label"><b>Certificate Number</b></label>
                 <input type="text" name="no_sertif" id="edit-no_sertif" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label"><b>Valid Date</b></label>
+                <input type="text" name="valid_date" id="edit-valid_date" class="form-control">
               </div>
             </div>
           </div>
@@ -351,7 +356,7 @@ editModal.addEventListener('show.bs.modal', function (event) {
   ['name','class','email','gender',
    'country_region_nationality','country_region_origin',
    'native_language','date_of_birth','school_name',
-   'exam_date','reading_score','listening_score','writing_score','no_sertif'
+   'exam_date','reading_score','listening_score','writing_score','no_sertif','valid_date'
   ].forEach(function(field) {
     var el = document.getElementById('edit-' + field);
     el.value = btn.getAttribute('data-' + field);
