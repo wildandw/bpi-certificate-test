@@ -41,7 +41,7 @@ class CertificateToeflJuniorController extends Controller
         $certificatetoefljunior = ToeflJuniorScores_Umum::findOrFail($id);
         $qrCode = QrCode::size(100)->generate(route('certificate.showtoefljuniorumum', $id));
 
-        return view('certificate.showtoefljuniorumum', compact('certificatetoefljunior', 'qrCode'));
+        return view('certificate.umum.showtoefljunior_umum', compact('certificatetoefljunior', 'qrCode'));
     }
 
     

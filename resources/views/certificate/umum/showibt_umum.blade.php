@@ -339,12 +339,12 @@
       </div>
       <div class="right-column">
         <div class="photo"></div>
-        <div class="qrcode-section">
+        <div class="qrcode-section">s
           <div>Scan here for validation</div>
             <div class="qrcode">
               {!! $qrCode !!}
             </div>
-          <div>Valid until: {{ formattedValidDate}}</div>
+          <div>Valid until: {{ $formattedValidDate}}</div>
         </div>
       </div>
     </div>

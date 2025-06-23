@@ -41,7 +41,7 @@ class CertificateIeltsTestCController extends Controller
         $certificateieltstestc = IeltsTestCScores_Umum::findOrFail($id);
         $qrCode = QrCode::size(100)->generate(route('certificate.showieltstestcumum', $id));
 
-        return view('certificate.showieltstestcumum', compact('certificateieltstestc', 'qrCode'));
+        return view('certificate.umum.showieltstestc_umum', compact('certificateieltstestc', 'qrCode'));
     }
 
 

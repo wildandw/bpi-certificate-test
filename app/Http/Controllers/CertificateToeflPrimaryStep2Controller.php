@@ -41,7 +41,7 @@ class CertificateToeflPrimaryStep2Controller extends Controller
         $certificatetoeflprimarystep2 = ToeflPrimaryStep2Scores_Umum::findOrFail($id);
         $qrCode = QrCode::size(100)->generate(route('certificate.showtoeflprimarystep2umum', $id));
 
-        return view('certificate.showtoeflprimarystep2umum', compact('certificatetoeflprimarystep2', 'qrCode'));
+        return view('certificate.umum.showtoeflprimarystep2_umum', compact('certificatetoeflprimarystep2', 'qrCode'));
     }
 
 

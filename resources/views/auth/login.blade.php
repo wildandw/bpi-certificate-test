@@ -104,7 +104,7 @@
                     </a>
                     <p class="mt-4 text-sm text-gray-600">
                         Don't have an account? 
-                        <a href="{{ route('register') }}" class="text-blue-500 hover:text-blue-600 hover:underline">
+                        <a href="{{ route('register.teacher') }}" class="text-blue-500 hover:text-blue-600 hover:underline">
                             Register
                         </a>
                     </p>

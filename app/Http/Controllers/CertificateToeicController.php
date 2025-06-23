@@ -43,7 +43,7 @@ class certificateToeicController extends Controller
         $certificatetoeic = ToeicScores_Umum::findOrFail($id);
         $qrCode = QrCode::size(100)->generate(route('certificate.showtoeicumum', $id));
 
-        return view('certificate.showtoeicumum', compact('certificatetoeic', 'qrCode'));
+        return view('certificate.umum.showtoeic_umum', compact('certificatetoeic', 'qrCode'));
     }
 
     

@@ -1,12 +1,11 @@
-@extends('layouts.guest')
 
-@section('content')
-<div class="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center px-4 py-8">
-    <div class="w-full max-w-md bg-white shadow-2xl rounded-xl overflow-hidden">
+<x-app-layout>
+    <div class="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 flex items-start justify-center px-4 py-2">
+    <div class="w-full max-w-md bg-white shadow-2xl rounded-xl overflow-hidden mt-12">
         <div class="p-8">
             <!-- Header -->
             <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold text-blue-600 mb-2">Create Your Account</h2>
+                <h2 class="text-3xl font-bold text-blue-600 mb-2">Create Teacher Account</h2>
                 <p class="text-gray-500 text-sm">
                     <!-- Anda dapat menambahkan deskripsi jika diperlukan -->
                 </p>
@@ -23,7 +22,7 @@
             @endif
 
             <!-- Form Registrasi -->
-            <form method="POST" action="{{ route('register') }}" class="space-y-6">
+            <form method="POST" action="{{ route('register.teacher.store') }}" class="space-y-6">
                 @csrf
                 <!-- Name Input -->
                 <div>
@@ -141,14 +140,14 @@
                 </div>
 
                 <!-- Login Link -->
-                <div class="text-center">
+                <!-- <div class="text-center">
                     <p class="text-sm text-gray-600">
                         Already have an account? 
                         <a href="{{ route('login') }}" class="text-blue-500 hover:text-blue-600 hover:underline">
                             Login
                         </a>
                     </p>
-                </div>
+                </div> -->
             </form>
         </div>
     </div>
@@ -192,4 +191,4 @@
     });
 </script>
 
-@endsection
+</x-app-layout>

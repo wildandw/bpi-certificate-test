@@ -20,10 +20,7 @@ Route::get('/', [AuthenticatedSessionController::class, 'create'])
 
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
@@ -64,4 +61,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+});
+
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('register-teacher', [RegisteredUserController::class, 'create'])->name('register.teacher');
+    Route::get('register-daftar', [RegisteredUserController::class, 'daftardata'])->name('register.daftardata');
+    Route::post('register-teacher', [RegisteredUserController::class, 'store'])->name('register.teacher.store');
+    Route::delete('registerteacher-delete/{id}', [RegisteredUserController::class, 'destroyteacher'])->name('register.teacher.delete');
+    Route::delete('registerteacher-deleteall', [RegisteredUserController::class, 'destroyallteacher'])->name('register.teacher.deleteall');
+    Route::put('registerteacher-update/{id}', [RegisteredUserController::class, 'updateteacher'])->name('register.teacher.updateteacher');
 });

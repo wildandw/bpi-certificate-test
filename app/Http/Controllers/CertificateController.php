@@ -38,7 +38,7 @@ class CertificateController extends Controller
         $certificate = ToeflScores_Umum::findOrFail($id);
         $qrCode = QrCode::size(100)->generate(route('certificate.showibtumum', $id));
 
-        return view('certificate.showibtumum', compact('certificate', 'qrCode'));
+        return view('certificate.umum.showibt_umum', compact('certificate', 'qrCode'));
     }
 
     // Download PDF versi Browsershot
