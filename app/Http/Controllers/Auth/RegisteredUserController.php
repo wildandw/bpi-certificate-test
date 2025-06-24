@@ -57,7 +57,7 @@ class RegisteredUserController extends Controller
             'role'     => 'admin', 
         ]);
 
-        return redirect(route('register.daftardata'));
+        return redirect(route('register.daftardata'))->with('success', 'Guru berhasil terdaftar.');
     }
 
     public function destroyteacher($id)
