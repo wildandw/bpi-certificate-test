@@ -163,8 +163,9 @@ class ToeflPrimaryStep2Controller extends Controller
             'name','class','email','gender',
             'country_region_nationality','country_region_origin',
             'native_language','date_of_birth','school_name',
-            'exam_date','no_sertif','valid_date'
+            'exam_date','no_sertif'
         ]));
+        $student->valid_date = \Carbon\Carbon::parse($request->input('valid_date'))->format('Y-m-d');
 
 
         // Ambil raw dari request
@@ -349,8 +350,9 @@ class ToeflPrimaryStep2Controller extends Controller
             'name','class','email','gender',
             'country_region_nationality','country_region_origin',
             'native_language','date_of_birth','school_name',
-            'exam_date','no_sertif','valid_date'
+            'exam_date','no_sertif'
         ]));
+        $student->valid_date = \Carbon\Carbon::parse($request->input('valid_date'))->format('Y-m-d');
 
 
         // Ambil raw dari request

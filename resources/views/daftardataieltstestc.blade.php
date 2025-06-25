@@ -288,7 +288,7 @@
               </div>
               <div class="col-md-6">
                 <label class="form-label"><b>Valid Date</b></label>
-                <input type="text" name="valid_date" id="edit-valid_date" class="form-control">
+                <input type="date" name="valid_date" id="edit-valid_date" class="form-control">
               </div>
             </div>
           </div>
