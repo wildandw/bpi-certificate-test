@@ -146,6 +146,7 @@ class IeltsTestCController extends Controller
             'speaking_score'                    => 'required|numeric|min:0',
             'writing_score'                     => 'required|numeric|min:0',
             'no_sertif'                         => 'nullable|string|max:100',
+            'valid_date'                        => 'required|date',
         ]);
 
         if ($validator->fails()) {
@@ -164,6 +165,7 @@ class IeltsTestCController extends Controller
             'native_language','date_of_birth','school_name',
             'exam_date','no_sertif'
         ]));
+        $student->valid_date = \Carbon\Carbon::parse($request->input('valid_date'))->format('Y-m-d');
 
 
         // Ambil raw dari request
@@ -333,6 +335,7 @@ class IeltsTestCController extends Controller
             'speaking_score'                    => 'required|numeric|min:0',
             'writing_score'                     => 'required|numeric|min:0',
             'no_sertif'                         => 'nullable|string|max:100',
+            'valid_date'                         => 'required|date',
         ]);
 
         if ($validator->fails()) {
@@ -351,6 +354,7 @@ class IeltsTestCController extends Controller
             'native_language','date_of_birth','school_name',
             'exam_date','no_sertif'
         ]));
+        $student->valid_date = \Carbon\Carbon::parse($request->input('valid_date'))->format('Y-m-d');
 
 
         // Ambil raw dari request
